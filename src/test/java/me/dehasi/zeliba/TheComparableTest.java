@@ -34,6 +34,12 @@ class TheComparableTest {
         assertTrue(the(val).isLessThan(val.multiply(TEN)));
     }
 
+    @MethodSource("bigDecimals")
+    @ParameterizedTest void isLessOrEqualsThan(BigDecimal val) {
+        assertTrue(the(val).isLessOrEqualsThan(val));
+        assertTrue(the(val).isLessOrEqualsThan(val.multiply(TEN)));
+    }
+
     private static Stream<Arguments> bigDecimals() {
         return Stream.generate(() -> Arguments.of(random(43))).limit(40);
 
