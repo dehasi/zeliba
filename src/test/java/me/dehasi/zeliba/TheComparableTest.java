@@ -10,12 +10,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TheComparableTest {
 
-    @Test void isGreater_oneIsGreaterZero_true() {
-        assertTrue(the(ONE).isGreater(ZERO));
+    @Test void isGreaterThan_oneIsGreaterZero_true() {
+        assertTrue(the(ONE).isGreaterThan(ZERO));
     }
 
-    @Test void isGreater_zeroIsGreaterOne_false() {
-        assertFalse(the(ZERO).isGreater(ONE));
+    @Test void isGreaterThan_zeroIsGreaterOne_false() {
+        assertFalse(the(ZERO).isGreaterThan(ONE));
     }
 
+    @Test void isLessThan_oneIsGreaterZero_false() {
+        assertFalse(the(ONE).isLessThan(ZERO));
+    }
+
+    @Test void isLessThan_zeroIsGreaterOne_true() {
+        assertTrue(the(ZERO).isLessThan(ONE));
+    }
 }
