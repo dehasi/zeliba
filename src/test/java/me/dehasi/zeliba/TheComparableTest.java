@@ -41,8 +41,7 @@ class TheComparableTest {
     }
 
     private static Stream<Arguments> bigDecimals() {
-        return Stream.generate(() -> Arguments.of(random(43))).limit(40);
-
+        return Stream.generate(() -> Arguments.of(random(42))).limit(40);
     }
 
     private static BigDecimal random(int range) {
