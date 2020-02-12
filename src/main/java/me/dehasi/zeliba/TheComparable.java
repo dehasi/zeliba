@@ -20,11 +20,23 @@ public class TheComparable<T extends Comparable<T>> {
         return new TheComparable<>(value);
     }
 
+    public boolean isEqualsTo(T that) {
+        return value.compareTo(that) == 0;
+    }
+
     public boolean isGreaterThan(T that) {
         return value.compareTo(that) > 0;
     }
 
+    public boolean isGreaterOrEqualsThan(T that) {
+        return value.compareTo(that) >= 0;
+    }
+
     public boolean isLessThan(T that) {
         return value.compareTo(that) < 0;
+    }
+
+    public boolean isLessOrEqualsThan(T that) {
+        return value.compareTo(that) <= 0;
     }
 }
