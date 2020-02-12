@@ -18,11 +18,11 @@ class TheComparableTest {
         assertFalse(the(ZERO).isGreaterThan(ONE));
     }
 
-    @Test void isLessThan_oneIsGreaterZero_false() {
+    @Test void isLessThan_oneIsLessThanZero_false() {
         assertFalse(the(ONE).isLessThan(ZERO));
     }
 
-    @Test void isLessThan_zeroIsGreaterOne_true() {
+    @Test void isLessThan_zeroIsLessThanOne_true() {
         assertTrue(the(ZERO).isLessThan(ONE));
     }
 }
