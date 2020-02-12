@@ -2,40 +2,30 @@ package me.dehasi.zeliba;
 
 import java.math.BigDecimal;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static java.math.BigDecimal.ONE;
-import static java.math.BigDecimal.ZERO;
+import static java.math.BigDecimal.TEN;
 import static me.dehasi.zeliba.TheComparable.a;
 import static me.dehasi.zeliba.TheComparable.the;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TheComparableTest {
 
-    @Test void isGreaterThan_oneIsGreaterZero_true() {
-        assertTrue(the(ONE).isGreaterThan(ZERO));
+    @MethodSource("bigDecimals")
+    @ParameterizedTest void isEqualsTo(BigDecimal val) {
+        assertTrue(a(val).isEqualsTo(val));
     }
 
-    @Test void isGreaterThan_zeroIsGreaterOne_false() {
-        assertFalse(the(ZERO).isGreaterThan(ONE));
-    }
-
-    @Test void isLessThan_oneIsLessThanZero_false() {
-        assertFalse(the(ONE).isLessThan(ZERO));
+    @MethodSource("bigDecimals")
+    @ParameterizedTest void isGreaterThan(BigDecimal val) {
+        assertTrue(the(val.multiply(TEN)).isGreaterThan(val));
     }
 
     @MethodSource("bigDecimals")
     @ParameterizedTest void isLessThan(BigDecimal val) {
-        assertTrue(the(ZERO).isLessThan(val));
-    }
-
-    @MethodSource("bigDecimals")
-    @ParameterizedTest void withMethodSource(BigDecimal val) {
-        assertTrue(a(val).isEqualsTo(val));
+        assertTrue(the(val).isLessThan(val.multiply(TEN)));
     }
 
     private static Stream<Arguments> bigDecimals() {
