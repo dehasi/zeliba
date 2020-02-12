@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static me.dehasi.zeliba.TheChronoLocalDate.the;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TheChronoLocalDateTest {
@@ -15,11 +16,15 @@ class TheChronoLocalDateTest {
     @MethodSource("dates")
     @ParameterizedTest void isAfterOrEqual(LocalDate date) {
         assertTrue(the(date).isAfterOrEqual(date));
+        assertTrue(the(date).isAfterOrEqual(date.minusDays(1)));
+        assertFalse(the(date.minusDays(1)).isAfterOrEqual(date));
     }
 
     @MethodSource("dates")
     @ParameterizedTest void isBeforeOrEqual(LocalDate date) {
         assertTrue(the(date).isBeforeOrEqual(date));
+        assertTrue(the(date.minusDays(1)).isBeforeOrEqual(date));
+        assertFalse(the(date).isBeforeOrEqual(date.minusDays(1)));
     }
 
     private static Stream<Arguments> dates() {
