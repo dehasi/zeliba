@@ -27,4 +27,8 @@ public class TheObject {
     public boolean isNotNull() {
         return !isNull();
     }
+
+    public boolean isNotEqualTo(Object that) {
+        return !value.equals(that);
+    }
 }
