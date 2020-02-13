@@ -49,3 +49,24 @@ if (the(someDate).isBeforeOrEqual(otherDate)) {
     ...
 }
 ```
+
+### TheObject
+
+Fluent null and not equals checks
+
+```java
+Object someObject = ...
+Object otherObject = ...
+
+if (an(otherObject).isNotEqualTo(someObject)) {
+    ...
+}
+
+if (the(someObject).isNotNull()) {
+    ...
+}
+
+if (a(someObject).isNull()) {
+    ...
+}
+```
