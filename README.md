@@ -38,14 +38,14 @@ Also there are extensions to compare dates
 
 ```java
 LocalDate someDate = ...
-LocalDate anotherDate = ...
+LocalDate otherDate = ...
 
 
-if (an(anotherDate).isAfterOrEqual(someDate)) {
+if (an(otherDate).isAfterOrEqual(someDate)) {
     ...
 }
 
-if (the(someDate).isBeforeOrEqual(anotherDate)) {
+if (the(someDate).isBeforeOrEqual(otherDate)) {
     ...
 }
 ```
