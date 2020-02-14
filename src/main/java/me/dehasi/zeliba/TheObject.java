@@ -1,5 +1,7 @@
 package me.dehasi.zeliba;
 
+import java.util.Objects;
+
 public class TheObject {
 
     private final Object value;
@@ -29,6 +31,6 @@ public class TheObject {
     }
 
     public boolean isNotEqualTo(Object that) {
-        return !value.equals(that);
+        return !Objects.equals(value, that);
     }
 }
