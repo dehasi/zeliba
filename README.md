@@ -70,3 +70,21 @@ if (a(someObject).isNull()) {
     ...
 }
 ```
+
+
+### TheCollection
+
+Check if collection is not empty
+
+```java
+List<?> list = ...
+Set<?>  otherSet = ...
+
+if (the(list).isNotEmpty()) {
+    ...
+}
+
+if (an(otherSet).isNullOrEmpty()) {
+    ...
+}
+```
