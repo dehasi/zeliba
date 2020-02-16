@@ -27,7 +27,7 @@ public class TheCollection<COLLECTION extends Collection<?>> {
     }
 
     public boolean isNullOrEmpty() {
-        return collection == null || collection.isEmpty();
+        return isNull() || collection.isEmpty();
     }
 
     public boolean isNotNull() {
