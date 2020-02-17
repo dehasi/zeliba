@@ -1,5 +1,7 @@
 package me.dehasi.zeliba;
 
+import java.util.function.Predicate;
+
 public class TheComparable<T extends Comparable<T>> {
 
     private final T value;
@@ -47,26 +49,26 @@ public class TheComparable<T extends Comparable<T>> {
     public class IntervalBuilder {
 
         public IntervalFrom fromIncluded(T fromIncluded) {
-            return new IntervalFrom(fromIncluded.compareTo(value) <= 0);
+            return new IntervalFrom(value -> fromIncluded.compareTo(value) <= 0);
         }
 
         public IntervalFrom fromExcluded(T fromExcluded) {
-            return new IntervalFrom(fromExcluded.compareTo(value) < 0);
+            return new IntervalFrom(value -> fromExcluded.compareTo(value) < 0);
         }
 
         public class IntervalFrom {
-            private final boolean isInFromInterval;
+            private Predicate<T> from;
 
-            public IntervalFrom(boolean isInFromInterval) {
-                this.isInFromInterval = isInFromInterval;
+            public IntervalFrom(Predicate<T> from) {
+                this.from = from;
             }
 
             public boolean toIncluded(T toIncluded) {
-                return isInFromInterval && toIncluded.compareTo(value) >= 0;
+                return from.test(value) && toIncluded.compareTo(value) >= 0;
             }
 
             public boolean toExcluded(T toExcluded) {
-                return isInFromInterval && toExcluded.compareTo(value) > 0;
+                return from.test(value) && toExcluded.compareTo(value) > 0;
             }
         }
     }
