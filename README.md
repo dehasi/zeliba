@@ -35,27 +35,27 @@ if (the(val2).isLessThan(val1)) {
 
 Fluent interval checks 
 
-`a <= b <= c`
+`val1 <= value <= val2`
 
 ```java
-if (the(someValue).isInTheInterval().fromIncluded(val1).toIncluded(val2)) {
+if (the(value).isInTheInterval().fromIncluded(val1).toIncluded(val2)) {
     //...
 }
 ```
 
-`a < b < c`
+`val1 < value < val2`
 
 ```java
-if (the(someValue).isInTheInterval().fromExcluded(val1).toExcluded(val2)) {
+if (the(value).isInTheInterval().fromExcluded(val1).toExcluded(val2)) {
     //...
 }
 ```
 
 
-`a < b <= c`
+`val1 < value <= val2`
 
 ```java
-if (the(someValue).isInTheInterval().fromExcluded(val1).toIncluded(val2)) {
+if (the(value).isInTheInterval().fromExcluded(val1).toIncluded(val2)) {
     //...
 }
 ```
