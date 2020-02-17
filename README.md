@@ -33,10 +33,29 @@ if (the(val2).isLessThan(val1)) {
 ```
 
 
-Fluent interval checks `a <= b <= c`
+Fluent interval checks 
+
+`a <= b <= c`
 
 ```java
 if (the(someValue).isInTheInterval().fromIncluded(val1).toIncluded(val2)) {
+    //...
+}
+```
+
+`a < b < c`
+
+```java
+if (the(someValue).isInTheInterval().fromExcluded(val1).toExcluded(val2)) {
+    //...
+}
+```
+
+
+`a < b <= c`
+
+```java
+if (the(someValue).isInTheInterval().fromExcluded(val1).toIncluded(val2)) {
     //...
 }
 ```
