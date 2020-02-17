@@ -48,18 +48,18 @@ public class TheComparable<T extends Comparable<T>> {
 
     public class IntervalBuilder {
 
-        public IntervalFrom fromIncluded(T fromIncluded) {
-            return new IntervalFrom(value -> fromIncluded.compareTo(value) <= 0);
+        public IntervalChecker fromIncluded(T fromIncluded) {
+            return new IntervalChecker(value -> fromIncluded.compareTo(value) <= 0);
         }
 
-        public IntervalFrom fromExcluded(T fromExcluded) {
-            return new IntervalFrom(value -> fromExcluded.compareTo(value) < 0);
+        public IntervalChecker fromExcluded(T fromExcluded) {
+            return new IntervalChecker(value -> fromExcluded.compareTo(value) < 0);
         }
 
-        public class IntervalFrom {
+        public class IntervalChecker {
             private Predicate<T> from;
 
-            public IntervalFrom(Predicate<T> from) {
+            public IntervalChecker(Predicate<T> from) {
                 this.from = from;
             }
 
