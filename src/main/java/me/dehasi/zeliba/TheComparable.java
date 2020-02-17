@@ -39,4 +39,27 @@ public class TheComparable<T extends Comparable<T>> {
     public boolean isLessOrEqualsThan(T that) {
         return value.compareTo(that) <= 0;
     }
+
+    public IntervalBuilder inTheInterval() {
+        return new IntervalBuilder();
+    }
+
+    public class IntervalBuilder {
+
+        public IntervalFrom fromIncluded(T fromIncluded) {
+            return new IntervalFrom(fromIncluded.compareTo(value) <= 0);
+        }
+
+        public class IntervalFrom {
+            private final boolean isInFromInterval;
+
+            public IntervalFrom(boolean interval) {
+                isInFromInterval = interval;
+            }
+
+            public boolean toIncluded(T toIncluded) {
+                return isInFromInterval && toIncluded.compareTo(value) >= 0;
+            }
+        }
+    }
 }
