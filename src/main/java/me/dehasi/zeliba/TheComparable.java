@@ -40,7 +40,7 @@ public class TheComparable<T extends Comparable<T>> {
         return value.compareTo(that) <= 0;
     }
 
-    public IntervalBuilder inTheInterval() {
+    public IntervalBuilder isInTheInterval() {
         return new IntervalBuilder();
     }
 

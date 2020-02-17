@@ -41,9 +41,8 @@ class TheComparableTest {
     }
 
     @MethodSource("bigDecimals")
-    @ParameterizedTest void inInterval(BigDecimal val) {
-        assertTrue(the(val).inTheInterval().fromIncluded(val).toIncluded(val));
-//        assertTrue(the(val).isLessOrEqualsThan(val.multiply(TEN)));
+    @ParameterizedTest void isInTheInterval(BigDecimal val) {
+        assertTrue(the(val).isInTheInterval().fromIncluded(val).toIncluded(val));
     }
 
 
