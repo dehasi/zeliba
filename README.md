@@ -32,6 +32,34 @@ if (the(val2).isLessThan(val1)) {
 }
 ```
 
+
+Fluent interval checks 
+
+`val1 <= value <= val2`
+
+```java
+if (the(value).isInTheInterval().fromIncluded(val1).toIncluded(val2)) {
+    //...
+}
+```
+
+`val1 < value < val2`
+
+```java
+if (the(value).isInTheInterval().fromExcluded(val1).toExcluded(val2)) {
+    //...
+}
+```
+
+
+`val1 < value <= val2`
+
+```java
+if (the(value).isInTheInterval().fromExcluded(val1).toIncluded(val2)) {
+    //...
+}
+```
+
 ### TheChronoLocalDate<T>
 
 Also there are extensions to compare dates
