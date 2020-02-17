@@ -57,8 +57,8 @@ public class TheComparable<T extends Comparable<T>> {
         public class IntervalFrom {
             private final boolean isInFromInterval;
 
-            public IntervalFrom(boolean interval) {
-                isInFromInterval = interval;
+            public IntervalFrom(boolean isInFromInterval) {
+                this.isInFromInterval = isInFromInterval;
             }
 
             public boolean toIncluded(T toIncluded) {
