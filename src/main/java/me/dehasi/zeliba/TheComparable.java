@@ -50,6 +50,10 @@ public class TheComparable<T extends Comparable<T>> {
             return new IntervalFrom(fromIncluded.compareTo(value) <= 0);
         }
 
+        public IntervalFrom fromExcluded(T fromExcluded) {
+            return new IntervalFrom(fromExcluded.compareTo(value) < 0);
+        }
+
         public class IntervalFrom {
             private final boolean isInFromInterval;
 
@@ -59,6 +63,10 @@ public class TheComparable<T extends Comparable<T>> {
 
             public boolean toIncluded(T toIncluded) {
                 return isInFromInterval && toIncluded.compareTo(value) >= 0;
+            }
+
+            public boolean toExcluded(T toExcluded) {
+                return isInFromInterval && toExcluded.compareTo(value) > 0;
             }
         }
     }
