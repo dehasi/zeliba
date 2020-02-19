@@ -2,12 +2,14 @@ package zeliba;
 
 import java.util.function.Predicate;
 
+import static java.util.Objects.requireNonNull;
+
 public class TheComparable<T extends Comparable<T>> {
 
     private final T value;
 
     private TheComparable(T value) {
-        this.value = value;
+        this.value = requireNonNull(value);
     }
 
     public static <T extends Comparable<T>> TheComparable<T> the(T value) {
