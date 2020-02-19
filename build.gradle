@@ -7,7 +7,7 @@ apply plugin: 'signing'
 
 group 'me.dehasi'
 archivesBaseName='zeliba'
-version '1.0-SNAPSHOT'
+version '20.02.19-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
