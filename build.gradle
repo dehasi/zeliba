@@ -6,7 +6,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 group 'me.dehasi'
-archivesBaseName 'zeliba'
+archivesBaseName='zeliba'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -41,4 +41,50 @@ artifacts {
 
 signing {
     sign configurations.archives
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'ZeLiba'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'DSL-ish helper to make the java comparison more readable'
+                url 'https://github.com/dehasi/zeliba'
+
+                scm {
+                    connection 'scm:svn:http://github.com/dehasi/zeliba.git'
+                    developerConnection 'scm:svn:https://github.com/dehasi/zeliba.git'
+                    url 'http://github.com/dehasi/zeliba.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'dehasi'
+                        name 'Ravil'
+                        email 'dehasi@dehasi.me'
+                    }
+                }
+            }
+        }
+    }
 }
