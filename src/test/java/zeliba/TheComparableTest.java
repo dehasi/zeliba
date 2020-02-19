@@ -12,14 +12,13 @@ import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheComparable.a;
 import static zeliba.TheComparable.the;
 
 class TheComparableTest {
 
     @MethodSource("bigDecimals")
     @ParameterizedTest void isEqualsTo(BigDecimal val) {
-        assertTrue(a(val).isEqualsTo(val));
+        assertTrue(the(val).isEqualsTo(val));
     }
 
     @MethodSource("bigDecimals")

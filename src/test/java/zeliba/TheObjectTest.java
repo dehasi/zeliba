@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheObject.a;
-import static zeliba.TheObject.an;
 import static zeliba.TheObject.the;
 
 class TheObjectTest {
@@ -21,7 +19,7 @@ class TheObjectTest {
     }
 
     @Test void isNotEqualTo() {
-        assertTrue(an("11").isNotEqualTo("1"));
-        assertFalse(a("1").isNotEqualTo("1"));
+        assertTrue(the("11").isNotEqualTo("1"));
+        assertFalse(the("1").isNotEqualTo("1"));
     }
 }

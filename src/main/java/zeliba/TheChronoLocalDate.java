@@ -2,20 +2,14 @@ package zeliba;
 
 import java.time.chrono.ChronoLocalDate;
 
+import static java.util.Objects.requireNonNull;
+
 public class TheChronoLocalDate<T extends ChronoLocalDate> {
 
     private final T value;
 
     private TheChronoLocalDate(T value) {
-        this.value = value;
-    }
-
-    public static <T extends ChronoLocalDate> TheChronoLocalDate<T> a(T value) {
-        return the(value);
-    }
-
-    public static <T extends ChronoLocalDate> TheChronoLocalDate<T> an(T value) {
-        return the(value);
+        this.value = requireNonNull(value);
     }
 
     public static <T extends ChronoLocalDate> TheChronoLocalDate<T> the(T value) {
