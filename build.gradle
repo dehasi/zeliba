@@ -2,6 +2,9 @@ plugins {
     id 'java'
 }
 
+apply plugin: 'maven'
+apply plugin: 'signing'
+
 group 'me.dehasi'
 version '1.0-SNAPSHOT'
 
@@ -19,4 +22,22 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.4.2'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
 }
