@@ -10,14 +10,6 @@ public class TheMap<MAP extends Map<?, ?>> {
         this.map = map;
     }
 
-    public static <MAP extends Map<?, ?>> TheMap a(MAP value) {
-        return the(value);
-    }
-
-    public static <MAP extends Map<?, ?>> TheMap an(MAP value) {
-        return the(value);
-    }
-
     public static <MAP extends Map<?, ?>> TheMap the(MAP value) {
         return new TheMap<>(value);
     }

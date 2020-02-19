@@ -10,14 +10,6 @@ public class TheCollection<COLLECTION extends Collection<?>> {
         this.collection = collection;
     }
 
-    public static <COLLECTION extends Collection<?>> TheCollection a(COLLECTION value) {
-        return the(value);
-    }
-
-    public static <COLLECTION extends Collection<?>> TheCollection an(COLLECTION value) {
-        return the(value);
-    }
-
     public static <COLLECTION extends Collection<?>> TheCollection the(COLLECTION value) {
         return new TheCollection<>(value);
     }

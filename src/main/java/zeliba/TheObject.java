@@ -10,14 +10,6 @@ public class TheObject {
         this.value = value;
     }
 
-    public static TheObject a(Object value) {
-        return the(value);
-    }
-
-    public static TheObject an(Object value) {
-        return the(value);
-    }
-
     public static TheObject the(Object value) {
         return new TheObject(value);
     }

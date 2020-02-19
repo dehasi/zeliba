@@ -11,14 +11,6 @@ public class TheChronoLocalDateTime<T extends ChronoLocalDateTime<? extends Chro
         this.value = value;
     }
 
-    public static <T extends ChronoLocalDateTime<? extends ChronoLocalDate>> TheChronoLocalDateTime<T> a(T value) {
-        return the(value);
-    }
-
-    public static <T extends ChronoLocalDateTime<? extends ChronoLocalDate>> TheChronoLocalDateTime<T> an(T value) {
-        return the(value);
-    }
-
     public static <T extends ChronoLocalDateTime<? extends ChronoLocalDate>> TheChronoLocalDateTime<T> the(T value) {
         return new TheChronoLocalDateTime<>(value);
     }
