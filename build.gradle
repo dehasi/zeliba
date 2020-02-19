@@ -6,6 +6,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 group 'me.dehasi'
+archivesBaseName 'zeliba'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
