@@ -65,9 +65,9 @@ uploadArchives {
                 url 'https://github.com/dehasi/zeliba'
 
                 scm {
-                    connection 'scm:svn:http://github.com/dehasi/zeliba.git'
-                    developerConnection 'scm:svn:https://github.com/dehasi/zeliba.git'
-                    url 'http://github.com/dehasi/zeliba.git'
+                    connection 'scm:git:git://github.com/dehasi/zeliba.git'
+                    developerConnection 'scm:git:ssh://github.com:dehasi/zeliba.git'
+                    url 'http://github.com/dehasi/zeliba/tree/master'
                 }
 
                 licenses {
