@@ -1,12 +1,12 @@
-package me.dehasi.zeliba;
+package zeliba;
 
 import org.junit.jupiter.api.Test;
 
-import static me.dehasi.zeliba.TheObject.a;
-import static me.dehasi.zeliba.TheObject.an;
-import static me.dehasi.zeliba.TheObject.the;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static zeliba.TheObject.a;
+import static zeliba.TheObject.an;
+import static zeliba.TheObject.the;
 
 class TheObjectTest {
 

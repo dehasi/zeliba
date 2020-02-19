@@ -1,4 +1,4 @@
-package me.dehasi.zeliba;
+package zeliba;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -8,11 +8,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static me.dehasi.zeliba.TheChronoLocalDateTime.a;
-import static me.dehasi.zeliba.TheChronoLocalDateTime.an;
-import static me.dehasi.zeliba.TheChronoLocalDateTime.the;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static zeliba.TheChronoLocalDateTime.a;
+import static zeliba.TheChronoLocalDateTime.an;
+import static zeliba.TheChronoLocalDateTime.the;
 
 class TheChronoLocalDateTimeTest {
 

@@ -1,4 +1,4 @@
-package me.dehasi.zeliba;
+package zeliba;
 
 import java.util.Collection;
 

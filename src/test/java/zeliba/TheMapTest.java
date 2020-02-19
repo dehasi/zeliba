@@ -1,15 +1,15 @@
-package me.dehasi.zeliba;
+package zeliba;
 
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Collections.emptyMap;
-import static me.dehasi.zeliba.TheMap.a;
-import static me.dehasi.zeliba.TheMap.an;
-import static me.dehasi.zeliba.TheMap.the;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static zeliba.TheMap.a;
+import static zeliba.TheMap.an;
+import static zeliba.TheMap.the;
 
 class TheMapTest {
 

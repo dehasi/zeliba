@@ -1,8 +1,8 @@
-package me.dehasi.zeliba;
+package zeliba;
 
 import java.util.Map;
 
-public class TheMap<MAP extends Map<?,?>> {
+public class TheMap<MAP extends Map<?, ?>> {
 
     private final MAP map;
 
@@ -10,15 +10,15 @@ public class TheMap<MAP extends Map<?,?>> {
         this.map = map;
     }
 
-    public static <MAP extends Map<?,?>> TheMap a(MAP value) {
+    public static <MAP extends Map<?, ?>> TheMap a(MAP value) {
         return the(value);
     }
 
-    public static <MAP extends Map<?,?>> TheMap an(MAP value) {
+    public static <MAP extends Map<?, ?>> TheMap an(MAP value) {
         return the(value);
     }
 
-    public static <MAP extends Map<?,?>> TheMap the(MAP value) {
+    public static <MAP extends Map<?, ?>> TheMap the(MAP value) {
         return new TheMap<>(value);
     }
 

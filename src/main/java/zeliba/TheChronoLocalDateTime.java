@@ -1,4 +1,4 @@
-package me.dehasi.zeliba;
+package zeliba;
 
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
@@ -23,11 +23,11 @@ public class TheChronoLocalDateTime<T extends ChronoLocalDateTime<? extends Chro
         return new TheChronoLocalDateTime<>(value);
     }
 
-    public boolean isAfterOrEqual(T that){
-       return value.isAfter(that) || value.isEqual(that);
+    public boolean isAfterOrEqual(T that) {
+        return value.isAfter(that) || value.isEqual(that);
     }
 
-    public boolean isBeforeOrEqual(T that){
+    public boolean isBeforeOrEqual(T that) {
         return value.isBefore(that) || value.isEqual(that);
     }
 }
