@@ -11,4 +11,4 @@ before_script:
   - sed -i.bak "s/ossrhPassword=/ossrhPassword=${ossrhPassword}/g" gradle.properties && rm gradle.properties.bak
 
 script:
-  gradle test
+  gradle --info test
