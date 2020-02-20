@@ -36,7 +36,7 @@ Usually, util methods start with `is` prefix, but negations are covered via excl
 
 ## Examples
 
-###TheComparable
+### TheComparable
 
 Let's assume we have two comparable objects.
 ```java
