@@ -7,7 +7,7 @@ apply plugin: 'signing'
 
 group 'me.dehasi'
 archivesBaseName = 'zeliba'
-version '2020.02.20-SNAPSHOT'
+version '2020.02.22-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -40,7 +40,7 @@ artifacts {
 }
 
 signing {
-    //sign configurations.archives
+    sign configurations.archives
 }
 
 uploadArchives {

@@ -2,6 +2,18 @@
 
 A handy DSL-ish helper to make the comparison more readable.
 
+[![Build Status](https://www.travis-ci.org/dehasi/zeliba.svg?branch=master)](https://www.travis-ci.org/dehasi/zeliba)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.dehasi/zeliba/badge.svg)](https://maven-badges.herokuapp.com/maven-central/me.dehasi/zeliba)
+
+```xml
+<dependency>
+    <groupId>me.dehasi</groupId>
+    <artifactId>zeliba</artifactId>
+    <version>2020.02.20</version>
+</dependency>
+
+```
+
 ## Examples
 
 ### Comparable<T>
