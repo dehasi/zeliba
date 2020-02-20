@@ -12,3 +12,7 @@ before_script:
 
 script:
   gradle --info test
+
+after_success:
+  - gradle --info jacocoTestReport
+  - bash <(curl -s https://codecov.io/bash)
