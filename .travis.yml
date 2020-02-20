@@ -11,4 +11,7 @@ before_script:
   - sed -i.bak "s/ossrhPassword=/ossrhPassword=${ossrhPassword}/g" gradle.properties && rm gradle.properties.bak
 
 script:
-  gradle --info test
+  - gradle --info test
+  - gradle --info codeCoverageReport
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
