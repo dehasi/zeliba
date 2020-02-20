@@ -5,5 +5,10 @@ jdk:
 
 install: true
 
+before_script:
+  # Configure Sonatype OSSRH credentials (encrypted)
+  - sed -i 's/ossrhUsername=/ossrhUsername='ossrhUsername'/g' gradle.properties
+  - sed -i 's/ossrhUsername=/ossrhPassword='ossrhUsername'/g' gradle.properties
+
 script:
   gradle test
