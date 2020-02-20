@@ -7,8 +7,8 @@ install: true
 
 before_script:
   # Configure Sonatype OSSRH credentials (encrypted)
-  - sed -i 's/ossrhUsername=/ossrhUsername='ossrhUsername'/g' gradle.properties
-  - sed -i 's/ossrhUsername=/ossrhPassword='ossrhUsername'/g' gradle.properties
+  - sed -i.bak "s/ossrhUsername=/ossrhUsername=${ossrhUsername}/g" gradle.properties && rm gradle.properties.bak
+  - sed -i.bak "s/ossrhPassword=/ossrhPassword=${ossrhPassword}/g" gradle.properties && rm gradle.properties.bak
 
 script:
   gradle test
