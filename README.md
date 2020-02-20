@@ -23,7 +23,7 @@ if (val1.compareTo(val2) > 0) {
 But with `TheComparable` it's easier to read
 
 ```java
-if (a(val1).isGreaterThan(val2)) {
+if (the(val1).isGreaterThan(val2)) {
     ...
 }
 
@@ -69,7 +69,7 @@ LocalDate someDate = ...
 LocalDate otherDate = ...
 
 
-if (an(otherDate).isAfterOrEqual(someDate)) {
+if (the(otherDate).isAfterOrEqual(someDate)) {
     ...
 }
 
@@ -86,7 +86,7 @@ Fluent null and not equals checks
 Object someObject = ...
 Object otherObject = ...
 
-if (an(otherObject).isNotEqualTo(someObject)) {
+if (the(otherObject).isNotEqualTo(someObject)) {
     ...
 }
 
@@ -94,7 +94,7 @@ if (the(someObject).isNotNull()) {
     ...
 }
 
-if (a(someObject).isNull()) {
+if (the(someObject).isNull()) {
     ...
 }
 ```
@@ -113,7 +113,7 @@ if (the(list).isNotEmpty()) {
     ...
 }
 
-if (an(otherSet).isNullOrEmpty()) {
+if (the(otherSet).isNullOrEmpty()) {
     ...
 }
 
