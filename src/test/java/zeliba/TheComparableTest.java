@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static java.lang.Math.abs;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
@@ -24,6 +25,7 @@ class TheComparableTest {
     @MethodSource("bigDecimals")
     @ParameterizedTest void isGreaterThan(BigDecimal val) {
         assertTrue(the(val.multiply(TEN)).isGreaterThan(val));
+        assertFalse(the(val).isGreaterThan(val.add(ONE)));
     }
 
     @MethodSource("bigDecimals")
@@ -35,6 +37,7 @@ class TheComparableTest {
     @MethodSource("bigDecimals")
     @ParameterizedTest void isLessThan(BigDecimal val) {
         assertTrue(the(val).isLessThan(val.multiply(TEN)));
+        assertFalse(the(val.add(ONE)).isLessThan(val));
     }
 
     @MethodSource("bigDecimals")
@@ -73,7 +76,7 @@ class TheComparableTest {
 
     private static BigDecimal random(int range) {
         BigDecimal max = new BigDecimal(range);
-        BigDecimal randFromDouble = new BigDecimal(Math.random());
+        BigDecimal randFromDouble = new BigDecimal(abs(Math.random()));
         BigDecimal actualRandomDec = randFromDouble.multiply(max);
         return actualRandomDec.setScale(2, BigDecimal.ROUND_DOWN);
     }
