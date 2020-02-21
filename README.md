@@ -11,27 +11,36 @@ A handy DSL-ish helper to make the comparison more readable.
 
 ```
 
-It provides a fluent API to write comparison (via `Comparable<T>`) and do other checks.
+Zeliba provides a fluent API to write comparison (for `Comparable<T>`) and do other checks.
 
 - [Motivation](#Motivation)
 - [Examples](#Examples)
+  - [TheComparable](#TheComparable)
+  - [TheChronoLocalDate](#TheChronoLocalDate)
+  -  [TheChonoDateTime](#TheChonoDateTime)
+  - [TheObject](#TheObject)
+  - [TheCollection](#TheCollection)
+  - [TheMap](#TheMap)
 - [License](#License)
 - [Installation](#Installation)
-- [License](#License)
+  - [Maven](#Maven)
+  - [Gradle](#Gradle)
 - [Contribution](#Contribution)
 
 ## Motivation
 Zeliba main points are the following:
-* Provide a fluent API to write comparison (via `Comparable<T>`)
+* Provide a fluent API to write comparison (for `Comparable<T>`)
 * Make `if`-checks better align with English grammar
 
-Fluent compatible  
-Java doesn't support operator overloading, you can’t write smth like `a > b` for objects,  as an alternative you can use  `Comparable<T>`. It makes its job, but it’s so convenient to use. Look  `a.compareTo(b) > ??`.
+### Fluent compatible  
+Java doesn't support operator overloading, you can’t write something like `a > b` for objects,
+as an alternative you can use  `Comparable<T>`. It makes its job, but it is not very convenient to use.   
+Look  `a.compareTo(b) > ??`.
 Every time you need to make small calculations in your head. It’s better (from readability POV) 
 to write `a.isGreatherThan(b)`. Zeliba gives you the ability to do it.  
 See examples [TheComparable](#TheComparable), [TheChronoLocalDate](#TheChronoLocalDate), [TheChonoDateTime](#TheChonoDateTime)
 
-Better English  
+### Better English  
 Usually, util methods start with `is` prefix, but negations are covered via exclamation mark `!is`, 
 which looks grammatically incorrect in code. I.e. “if a collection is empty” transforms into 
 `collection.isEmpty()`, but “if a collection is *not* empty” transforms into `!collection.isEmpty()` 
@@ -40,7 +49,7 @@ Util methods like `if(isNotEmpty(collection))` do a great job but still remain g
  We don’t say “if is not an empty collection”. 
  Zeliba provides the same util methods but also gives you a fluent API to write grammatically correct
   code.  
-See examples. [TheObject](#TheObject], [TheCollection](#TheCollection), [TheMap](#TheMap)
+See examples. [TheObject](#TheObject), [TheCollection](#TheCollection), [TheMap](#TheMap)
 
 ## Examples
 
