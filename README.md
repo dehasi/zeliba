@@ -7,20 +7,20 @@ A handy DSL-ish helper to make the comparison more readable.
 [![Test Coverage](https://img.shields.io/codecov/c/github/dehasi/zeliba/master)](https://codecov.io/github/dehasi/zeliba?branch=master)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dehasi/zeliba)
 ```xml
-<dependency>
-    <groupId>me.dehasi</groupId>
-    <artifactId>zeliba</artifactId>
-    <version>2020.02.20</version>
-</dependency>
+
 
 ```
 
-
-
-Zeliba is an open-source library 
-
 It provides a fluent API to write comparison (via `Comparable<T>`) and do other checks.
 
+- [Motivation](#Motivation)
+- [Examples](#Examples)
+- [License](#License)
+- [Installation](#Installation)
+- [License](#License)
+- [Contribution](#Contribution)
+
+## Motivation
 Zeliba main points are the following:
 * Provide a fluent API to write comparison (via `Comparable<T>`)
 * Make `if`-checks better align with English grammar
@@ -184,3 +184,34 @@ if (the(map).isNotEmpty()) {
     ...
 }
 ```
+
+### License
+
+This project is licensed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Installation
+
+Releases are available in [Maven Central](https://repo1.maven.org/maven2/me/dehasi/zeliba/)
+
+#### Maven
+
+Add this snippet to the pom.xml `dependencies` section:
+
+```xml
+<dependency>
+    <groupId>me.dehasi</groupId>
+    <artifactId>zeliba</artifactId>
+    <version>2020.02.20</version>
+</dependency>
+```
+
+#### Gradle 
+
+Add this snippet to the build.gradle `dependencies` section:
+
+```groovy
+implementation 'me.dehasi:zeliba:2020.02.20'
+```
+
+### Contribution
+Feel free to share your ideas via issues and pull-requests.
