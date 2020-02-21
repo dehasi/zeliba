@@ -37,10 +37,10 @@ to write `a.isGreatherThan(b)`. Zeliba gives you the ability to do it.
 See examples [TheComparable](#TheComparable), [TheChronoLocalDate](#TheChronoLocalDate), [TheChonoDateTime](#TheChonoDateTime)
 
 ### Better English  
-Usually, util methods start with `is` prefix, but negations are covered via exclamation mark `!is`, 
+Usually, util methods start with `is` prefix (like `isEmpty`), but negations are covered via exclamation mark `!is`, 
 which looks grammatically incorrect in code. I.e. “if a collection is empty” transforms into 
 `collection.isEmpty()`, but “if a collection is *not* empty” transforms into `!collection.isEmpty()` 
-which is read as “not the collection is empty” which is obviously grammatically incorrect. 
+which is read as “not the collection is empty”. It is obviously grammatically incorrect. 
 Util methods like `if(isNotEmpty(collection))` do a great job but still remain grammatically incorrect.
  We don’t say “if is not an empty collection”. 
  Zeliba provides the same util methods but also gives you a fluent API to write grammatically correct
