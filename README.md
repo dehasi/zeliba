@@ -6,10 +6,6 @@ A handy DSL-ish helper to make the comparison more readable.
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.dehasi/zeliba/badge.svg)](https://maven-badges.herokuapp.com/maven-central/me.dehasi/zeliba)
 [![Test Coverage](https://img.shields.io/codecov/c/github/dehasi/zeliba/master)](https://codecov.io/github/dehasi/zeliba?branch=master)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dehasi/zeliba)
-```xml
-
-
-```
 
 Zeliba provides a fluent API to write comparison (for `Comparable<T>`) and do other checks.
 
