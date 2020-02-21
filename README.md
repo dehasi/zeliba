@@ -52,15 +52,9 @@ BigDecimal val1 = ...
 BigDecimal val2 = ...
 ```
 
-Usually we check `val1 > val2` like
+Usually we check `val1 > val2` like `if (val1.compareTo(val2) > 0)`
 
-```java
-if (val1.compareTo(val2) > 0) {
-    ...
-}
-```
-
-But with `TheComparable` it's easier to read
+But with `TheComparable` it's much easier to read
 
 ```java
 if (the(val1).isGreaterThan(val2)) {
@@ -102,30 +96,28 @@ if (the(value).isInTheInterval().fromExcluded(val1).toIncluded(val2)) {
 
 ### TheChronoLocalDate
    
-   Also there are extensions to compare dates
+Also there are extensions to compare dates
    
    ```java
-   LocalDate someDate = ...
-   LocalDate otherDate = ...
+LocalDate someDate = ...
+LocalDate otherDate = ...
+
+if (the(otherDate).isAfterOrEqual(someDate)) {
+    ...
+}
    
-   
-   if (the(otherDate).isAfterOrEqual(someDate)) {
-       ...
-   }
-   
-   if (the(someDate).isBeforeOrEqual(otherDate)) {
-       ...
-   }
+if (the(someDate).isBeforeOrEqual(otherDate)) {
+    ...
+}
    ```
    
 ### TheChronoLocalDateTime
 
-Also there are extensions to compare dates
+The same for `DateTime`
 
 ```java
 LocalDateTime someDateTime = ...
 LocalDateTime otherDateTime = ...
-
 
 if (the(otherDate).isAfterOrEqual(someDateTime)) {
     ...
