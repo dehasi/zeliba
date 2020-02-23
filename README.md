@@ -180,8 +180,21 @@ if (the(otherSet).isNullOrEmpty()) {
 
 ```java
 Map<?,?>  map = ...
+Pair<?,?> pair = ... // Apache Commons Pair<> or any Map.Entry<>
 
 if (the(map).isNotEmpty()) {
+    ...
+}
+
+if (the(map).contains(pair)) {
+    ...
+}
+
+if (the(map).contains(key, value)) {
+    ...
+}
+
+if (the(map).contains(entry(key, value))) {
     ...
 }
 ```
