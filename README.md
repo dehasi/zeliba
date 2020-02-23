@@ -7,7 +7,7 @@ A handy DSL-ish helper to make the comparison more readable.
 [![Test Coverage](https://img.shields.io/codecov/c/github/dehasi/zeliba/master)](https://codecov.io/github/dehasi/zeliba?branch=master)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dehasi/zeliba)
 
-Zeliba provides a fluent API to write comparison (for `Comparable<T>`) and does other checks.
+Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and does other checks.
 
 - [Motivation](#Motivation)
 - [Examples](#Examples)
@@ -40,7 +40,7 @@ See examples [TheComparable](#TheComparable), [TheChronoLocalDate](#TheChronoLoc
 
 ### Better English  
 Usually, util methods start with `is` prefix (like `isEmpty`), but negations are covered via exclamation mark `!is`, 
-which looks grammatically incorrect in code. I.e. “if a collection is empty” transforms into 
+which also makes you to do calculations. I.e. “if a collection is empty” transforms into 
 `collection.isEmpty()`, but “if a collection is *not* empty” transforms into `!collection.isEmpty()` 
 which is read as “not the collection is empty”. It is obviously grammatically incorrect. 
 Util methods like `if(isNotEmpty(collection))` do a great job but still remain grammatically incorrect.
