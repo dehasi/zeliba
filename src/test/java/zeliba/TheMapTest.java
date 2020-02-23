@@ -28,6 +28,7 @@ class TheMapTest {
     @Test void isNullOrEmpty() {
         assertTrue(the(emptyMap()).isNullOrEmpty());
         assertTrue(the(null).isNullOrEmpty());
+        assertFalse(the(map).isNullOrEmpty());
     }
 
     @Test void isNotNull() {
