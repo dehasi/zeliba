@@ -12,8 +12,8 @@ public class TheMap<MAP extends Map<?, ?>> {
         this.map = map;
     }
 
-    public static <MAP extends Map<?, ?>> TheMap the(MAP value) {
-        return new TheMap<>(value);
+    public static <MAP extends Map<?, ?>> TheMap the(MAP map) {
+        return new TheMap<>(map);
     }
 
     public boolean isNull() {
