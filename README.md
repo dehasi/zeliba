@@ -7,7 +7,7 @@ A handy DSL-ish helper to make the comparison more readable.
 [![Test Coverage](https://img.shields.io/codecov/c/github/dehasi/zeliba/master)](https://codecov.io/github/dehasi/zeliba?branch=master)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dehasi/zeliba)
 
-Zeliba provides a fluent API to write comparison (for `Comparable<T>`) and do other checks.
+Zeliba provides a fluent API to write comparison (for `Comparable<T>`) and does other checks.
 
 - [Motivation](#Motivation)
 - [Examples](#Examples)
@@ -25,8 +25,10 @@ Zeliba provides a fluent API to write comparison (for `Comparable<T>`) and do ot
 
 ## Motivation
 Zeliba main points are the following:
-* Provide a fluent API to write comparison (for `Comparable<T>`)
+* Provide a fluent API to write a comparison (for `Comparable<T>`)
 * Make `if`-checks better align with English grammar
+
+Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/)
 
 ### Fluent compatible  
 Java doesn't support operator overloading, you can’t write something like `a > b` for objects,
@@ -48,6 +50,8 @@ Util methods like `if(isNotEmpty(collection))` do a great job but still remain g
 See examples. [TheObject](#TheObject), [TheCollection](#TheCollection), [TheMap](#TheMap)
 
 ## Examples
+
+The examples reflect the master branch.
 
 ### TheComparable
 
@@ -101,7 +105,7 @@ if (the(value).isInTheInterval().fromExcluded(val1).toIncluded(val2)) {
 
 ### TheChronoLocalDate
    
-Also there are extensions to compare dates
+Also, there are extensions to compare dates
    
    ```java
 LocalDate someDate = ...
@@ -157,7 +161,7 @@ if (the(someObject).isNull()) {
 
 ### TheCollection
 
-Grammatically correct fluent checks if collection is null or is not empty
+Grammatically correct fluent checks if a collection is null or is not empty
 
 ```java
 List<?> list = ...
