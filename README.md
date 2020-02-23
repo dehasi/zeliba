@@ -202,7 +202,7 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
     <groupId>me.dehasi</groupId>
     <artifactId>zeliba</artifactId>
-    <version>2020.02.20</version>
+    <version>2020.02.21</version>
 </dependency>
 ```
 
@@ -211,7 +211,7 @@ Add this snippet to the pom.xml `dependencies` section:
 Add this snippet to the build.gradle `dependencies` section:
 
 ```groovy
-implementation 'me.dehasi:zeliba:2020.02.20'
+implementation 'me.dehasi:zeliba:2020.02.21'
 ```
 
 ### Contribution
