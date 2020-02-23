@@ -18,6 +18,7 @@ class TheCollectionTest {
     @Test void isNullOrEmpty() {
         assertTrue(the(emptyList()).isNullOrEmpty());
         assertTrue(the(null).isNullOrEmpty());
+        assertFalse(the(singletonList(1)).isNullOrEmpty());
     }
 
     @Test void isNotNull() {
