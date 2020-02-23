@@ -20,6 +20,7 @@ class TheComparableTest {
     @MethodSource("bigDecimals")
     @ParameterizedTest void isEqualsTo(BigDecimal val) {
         assertTrue(the(val).isEqualsTo(val));
+        assertFalse(the(val).isEqualsTo(val.add(ONE)));
     }
 
     @MethodSource("bigDecimals")
