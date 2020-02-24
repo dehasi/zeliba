@@ -33,7 +33,7 @@ public class TheMap<KEY, VALUE> {
         return !map.isEmpty();
     }
 
-    public boolean contains(Object key, Object value) {
+    public boolean contains(KEY key, VALUE value) {
         return Objects.equals(map.get(key), value);
     }
 
