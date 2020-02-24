@@ -41,7 +41,7 @@ public class TheMap<KEY, VALUE> {
         return contains(entry.getKey(), entry.getValue());
     }
 
-    public Optional<? super VALUE> get(KEY key) {
+    public Optional<VALUE> get(KEY key) {
         return Optional.ofNullable(map.get(key));
     }
 
