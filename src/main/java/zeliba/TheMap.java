@@ -4,15 +4,15 @@ import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class TheMap<MAP extends Map<?, ?>> {
+public class TheMap<KEY, VALUE> {
 
-    private final MAP map;
+    private final Map<KEY, VALUE> map;
 
-    private TheMap(MAP map) {
+    private TheMap(Map<KEY, VALUE> map) {
         this.map = map;
     }
 
-    public static <MAP extends Map<?, ?>> TheMap the(MAP map) {
+    public static <KEY, VALUE> TheMap<KEY, VALUE> the(Map<KEY, VALUE> map) {
         return new TheMap<>(map);
     }
 
@@ -32,12 +32,11 @@ public class TheMap<MAP extends Map<?, ?>> {
         return !map.isEmpty();
     }
 
-
     public boolean contains(Object key, Object value) {
         return Objects.equals(map.get(key), value);
     }
 
-    public <KEY, VALUE> boolean contains(Map.Entry<KEY, VALUE> entry) {
+    public boolean contains(Map.Entry<KEY, VALUE> entry) {
         return contains(entry.getKey(), entry.getValue());
     }
 
