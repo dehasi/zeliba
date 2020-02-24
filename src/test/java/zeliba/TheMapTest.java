@@ -1,8 +1,7 @@
 package zeliba;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Collections.emptyMap;
@@ -13,12 +12,7 @@ import static zeliba.TheMap.the;
 
 class TheMapTest {
 
-    private Map<String, String> map;
-
-    @BeforeEach void fillMap() {
-        map = new HashMap<>();
-        map.put("1", "2");
-    }
+    private final Map<String, String> map = Collections.singletonMap("1", "2");
 
     @Test void isNull() {
         assertFalse(the(emptyMap()).isNull());
