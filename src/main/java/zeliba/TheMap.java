@@ -1,7 +1,8 @@
 package zeliba;
 
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,11 +34,11 @@ public class TheMap<KEY, VALUE> {
         return !map.isEmpty();
     }
 
-    public boolean contains(KEY key, VALUE value) {
+    public boolean contains(KEY key, Object value) {
         return Objects.equals(map.get(key), value);
     }
 
-    public boolean contains(Map.Entry<KEY, VALUE> entry) {
+    public boolean contains(Entry<KEY, VALUE> entry) {
         return contains(entry.getKey(), entry.getValue());
     }
 
@@ -45,7 +46,7 @@ public class TheMap<KEY, VALUE> {
         return Optional.ofNullable(map.get(key));
     }
 
-    public static <KEY, VALUE> Map.Entry<KEY, VALUE> entry(KEY key, VALUE value) {
-        return new AbstractMap.SimpleEntry<>(key, value);
+    public static <KEY, VALUE> Entry<KEY, VALUE> entry(KEY key, VALUE value) {
+        return new SimpleEntry<>(key, value);
     }
 }
