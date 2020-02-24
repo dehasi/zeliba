@@ -25,7 +25,7 @@ class TheComparableTest {
 
     @MethodSource("bigDecimals")
     @ParameterizedTest void isGreaterThan(BigDecimal val) {
-        assertTrue(the(val.multiply(TEN)).isGreaterThan(val));
+        assertTrue(the(val.add(TEN)).isGreaterThan(val));
         assertFalse(the(val).isGreaterThan(val.add(ONE)));
     }
 
@@ -38,15 +38,15 @@ class TheComparableTest {
 
     @MethodSource("bigDecimals")
     @ParameterizedTest void isLessThan(BigDecimal val) {
-        assertTrue(the(val).isLessThan(val.multiply(TEN)));
+        assertTrue(the(val).isLessThan(val.add(TEN)));
         assertFalse(the(val.add(ONE)).isLessThan(val));
     }
 
     @MethodSource("bigDecimals")
     @ParameterizedTest void isLessOrEqualsThan(BigDecimal val) {
         assertTrue(the(val).isLessOrEqualsThan(val));
-        assertTrue(the(val).isLessOrEqualsThan(val.multiply(TEN)));
-        assertFalse(the(val.multiply(TEN)).isLessOrEqualsThan(val));
+        assertTrue(the(val).isLessOrEqualsThan(val.add(TEN)));
+        assertFalse(the(val.add(TEN)).isLessOrEqualsThan(val));
     }
 
     @Test void isInTheInterval_included_included() {
