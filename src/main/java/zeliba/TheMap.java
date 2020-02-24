@@ -3,6 +3,7 @@ package zeliba;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public class TheMap<KEY, VALUE> {
 
@@ -38,6 +39,10 @@ public class TheMap<KEY, VALUE> {
 
     public boolean contains(Map.Entry<KEY, VALUE> entry) {
         return contains(entry.getKey(), entry.getValue());
+    }
+
+    public Optional<? super VALUE> get(KEY key) {
+        return Optional.ofNullable(map.get(key));
     }
 
     public static <KEY, VALUE> Map.Entry<KEY, VALUE> entry(KEY key, VALUE value) {
