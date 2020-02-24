@@ -1,6 +1,5 @@
 package zeliba;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import static zeliba.TheMap.the;
 
 class TheMapTest {
 
-    private final Map<String, String> map = Collections.singletonMap("1", "2");
+    private final Map<String, String> map = singletonMap("1", "2");
 
     @Test void isNull() {
         assertFalse(the(emptyMap()).isNull());
@@ -51,18 +50,21 @@ class TheMapTest {
 
     @Test void get_valuePresents_returnsOptionalOfValue() {
         Optional<String> optionalValue = the(map).get("1");
+
         assertTrue(optionalValue.isPresent());
         assertEquals("2", optionalValue.get());
     }
 
     @Test void get_noValue_returnsEmptyOptional() {
         Optional<String> optionalValue = the(map).get("2");
+
         assertFalse(optionalValue.isPresent());
     }
 
     @Test void get_nullValue_returnsEmptyOptional() {
         String value = null;
         Optional<String> optionalValue = the(singletonMap("2", value)).get("2");
+
         assertFalse(optionalValue.isPresent());
     }
 }
