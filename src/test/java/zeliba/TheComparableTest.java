@@ -32,8 +32,8 @@ class TheComparableTest {
     @MethodSource("bigDecimals")
     @ParameterizedTest void isGreaterOrEqualsThan(BigDecimal val) {
         assertTrue(the(val).isGreaterOrEqualsThan(val));
-        assertTrue(the(val.multiply(TEN)).isGreaterOrEqualsThan(val));
-        assertFalse(the(val).isGreaterOrEqualsThan(val.multiply(TEN)));
+        assertTrue(the(val.add(TEN)).isGreaterOrEqualsThan(val));
+        assertFalse(the(val).isGreaterOrEqualsThan(val.add(TEN)));
     }
 
     @MethodSource("bigDecimals")
