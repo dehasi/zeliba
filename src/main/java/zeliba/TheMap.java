@@ -1,18 +1,20 @@
 package zeliba;
 
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 
-public class TheMap<MAP extends Map<?, ?>> {
+public class TheMap<KEY, VALUE> {
 
-    private final MAP map;
+    private final Map<KEY, VALUE> map;
 
-    private TheMap(MAP map) {
+    private TheMap(Map<KEY, VALUE> map) {
         this.map = map;
     }
 
-    public static <MAP extends Map<?, ?>> TheMap the(MAP map) {
+    public static <KEY, VALUE> TheMap<KEY, VALUE> the(Map<KEY, VALUE> map) {
         return new TheMap<>(map);
     }
 
@@ -32,16 +34,19 @@ public class TheMap<MAP extends Map<?, ?>> {
         return !map.isEmpty();
     }
 
-
-    public boolean contains(Object key, Object value) {
+    public boolean contains(KEY key, Object value) {
         return Objects.equals(map.get(key), value);
     }
 
-    public <KEY, VALUE> boolean contains(Map.Entry<KEY, VALUE> entry) {
+    public boolean contains(Entry<KEY, VALUE> entry) {
         return contains(entry.getKey(), entry.getValue());
     }
 
-    public static <KEY, VALUE> Map.Entry<KEY, VALUE> entry(KEY key, VALUE value) {
-        return new AbstractMap.SimpleEntry<>(key, value);
+    public Optional<VALUE> get(KEY key) {
+        return Optional.ofNullable(map.get(key));
+    }
+
+    public static <KEY, VALUE> Entry<KEY, VALUE> entry(KEY key, VALUE value) {
+        return new SimpleEntry<>(key, value);
     }
 }

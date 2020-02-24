@@ -185,7 +185,9 @@ Pair<?,?> pair = ... // Apache Commons Pair<> or any Map.Entry<>
 if (the(map).isNotEmpty()) {
     ...
 }
-
+```
+Fluent `contains` checks
+```java
 if (the(map).contains(pair)) {
     ...
 }
@@ -197,6 +199,10 @@ if (the(map).contains(key, value)) {
 if (the(map).contains(entry(key, value))) {
     ...
 }
+```
+Optional `get`
+```java
+Optional<?> value = the(map).get(key)
 ```
 
 ### License
