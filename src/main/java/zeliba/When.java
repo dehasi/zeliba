@@ -131,7 +131,7 @@ public class When<ARGUMENT> {
         }
 
         public Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
-            pairs.add(new Pair<RESULT>(predicate, result));
+            pairs.add(new Pair<>(predicate, result));
             return new Then<RESULT>(pairs);
         }
     }
