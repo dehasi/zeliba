@@ -66,11 +66,11 @@ public class When<ARGUMENT> {
     public class Then<RESULT> {
         private List<Pair<RESULT>> pairs = new ArrayList<>();
 
-        public Then(Pair<RESULT> result) {
+        private Then(Pair<RESULT> result) {
             pairs.add(result);
         }
 
-        public Then(List<Pair<RESULT>> pairs) {
+        private Then(List<Pair<RESULT>> pairs) {
             this.pairs = pairs;
         }
 
@@ -91,7 +91,7 @@ public class When<ARGUMENT> {
             return orElse(x -> other.get());
         }
 
-        public RESULT orElse(Function<? super ARGUMENT, RESULT> other) {
+        public RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
             requireNonNull(other);
 
             for (Pair<RESULT> pair : pairs) {
