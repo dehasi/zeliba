@@ -35,51 +35,51 @@ public class When<ARGUMENT> {
         return other.apply(argument);
     }
 
-    public Is is(ARGUMENT argument) {
+    public RawIs is(ARGUMENT argument) {
         return is(arg -> Objects.equals(arg, argument));
     }
 
-    public Is is(Predicate<ARGUMENT> predicate) {
-        return new Is(requireNonNull(predicate));
+    public RawIs is(Predicate<ARGUMENT> predicate) {
+        return new RawIs(requireNonNull(predicate));
     }
 
-    public class Is {
+    public class RawIs {
         private final Predicate<ARGUMENT> predicate;
 
-        private Is(Predicate<ARGUMENT> predicate) {
+        private RawIs(Predicate<ARGUMENT> predicate) {
             this.predicate = predicate;
         }
 
-        public <RESULT> ParametrisedIs<RESULT> then(RESULT result) {
+        public <RESULT> Then<RESULT> then(RESULT result) {
             return then(() -> result);
         }
 
-        public <RESULT> ParametrisedIs<RESULT> then(Supplier<? extends RESULT> result) {
+        public <RESULT> Then<RESULT> then(Supplier<? extends RESULT> result) {
             return then(x -> result.get());
         }
 
-        public <RESULT> ParametrisedIs<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
-            return new ParametrisedIs<>(new Pair<>(predicate, result));
+        public <RESULT> Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
+            return new Then<>(new Pair<>(predicate, result));
         }
     }
 
-    public class ParametrisedIs<RESULT> {
+    public class Then<RESULT> {
         private List<Pair<RESULT>> pairs = new ArrayList<>();
 
-        public ParametrisedIs(Pair<RESULT> result) {
+        public Then(Pair<RESULT> result) {
             pairs.add(result);
         }
 
-        public ParametrisedIs(List<Pair<RESULT>> pairs) {
+        public Then(List<Pair<RESULT>> pairs) {
             this.pairs = pairs;
         }
 
-        public ParametrisedThen<RESULT> is(ARGUMENT argument) {
+        public Is<RESULT> is(ARGUMENT argument) {
             return is(arg -> Objects.equals(arg, argument));
         }
 
-        public ParametrisedThen<RESULT> is(Predicate<ARGUMENT> predicate) {
-            return new ParametrisedThen<RESULT>(pairs, predicate);
+        public Is<RESULT> is(Predicate<ARGUMENT> predicate) {
+            return new Is<RESULT>(pairs, predicate);
         }
 
         public RESULT orElse(RESULT other) {
@@ -102,26 +102,26 @@ public class When<ARGUMENT> {
         }
     }
 
-    public class ParametrisedThen<RESULT> {
+    public class Is<RESULT> {
         private final List<Pair<RESULT>> pairs;
         private final Predicate<ARGUMENT> predicate;
 
-        private ParametrisedThen(List<Pair<RESULT>> pairs, Predicate<ARGUMENT> predicate) {
+        private Is(List<Pair<RESULT>> pairs, Predicate<ARGUMENT> predicate) {
             this.pairs = pairs;
             this.predicate = predicate;
         }
 
-        public ParametrisedIs<RESULT> then(RESULT result) {
+        public Then<RESULT> then(RESULT result) {
             return then(() -> result);
         }
 
-        public ParametrisedIs<RESULT> then(Supplier<? extends RESULT> result) {
+        public Then<RESULT> then(Supplier<? extends RESULT> result) {
             return then(x -> result.get());
         }
 
-        public ParametrisedIs<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
+        public Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
             pairs.add(new Pair<>(predicate, result));
-            return new ParametrisedIs<RESULT>(pairs);
+            return new Then<RESULT>(pairs);
         }
     }
 
