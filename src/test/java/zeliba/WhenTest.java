@@ -76,11 +76,11 @@ class WhenTest {
     @Test void then_function_returnsCovariantResult() {
         int value = 1;
         String string = when(value)
-            .is(1).then(x -> x + x)
-            .is(2).then(x -> x + x + x)
+            .is(1).then(x -> String.valueOf(x + x))
+            .is(2).then(x -> String.valueOf(x + x + x))
             .orElse("?");
 
-        assertEquals("1", string);
+        assertEquals("2", string);
     }
 
     @Test void orElse_constant_returnsCovariantResult() {
