@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 public class When<ARGUMENT> {
@@ -60,15 +59,15 @@ public class When<ARGUMENT> {
         }
 
         public <RESULT> ParametrisedIs<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
-            return new ParametrisedIs<>(predicate, result);
+            return new ParametrisedIs<>(new Pair<>(predicate, result));
         }
     }
 
     public class ParametrisedIs<RESULT> {
-       private List<Pair<RESULT>> pairs = new ArrayList<>();
+        private List<Pair<RESULT>> pairs = new ArrayList<>();
 
-        public ParametrisedIs(Predicate<ARGUMENT> predicate, Function<? super ARGUMENT, ? extends RESULT> result) {
-            pairs.add(new Pair<>(predicate, result));
+        public ParametrisedIs(Pair<RESULT> result) {
+            pairs.add(result);
         }
 
         public ParametrisedIs(List<Pair<RESULT>> pairs) {
