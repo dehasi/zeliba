@@ -1,16 +1,17 @@
 package zeliba;
 
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class When<ARGUMENT> {
 
     private final ARGUMENT argument;
-    private final When<ARGUMENT> thiz;
+    private final When<ARGUMENT> self = this;
 
     private When(ARGUMENT argument) {
         this.argument = argument;
-        thiz = this;
     }
 
     public static <ARGUMENT> When<ARGUMENT> when(ARGUMENT argument) {
@@ -32,13 +33,18 @@ public class When<ARGUMENT> {
     }
 
     public IsCondition is(ARGUMENT argument) {
+        return is(arg -> Objects.equals(arg, argument));
+    }
+
+
+    public IsCondition is(Predicate<ARGUMENT> predicate) {
         return new IsCondition();
     }
 
     public class IsCondition {
 
         public <RESULT>  When<ARGUMENT> then(RESULT result){
-            return thiz;
+            return self;
         }
 
         public <RESULT> RESULT orElse(RESULT other) {
