@@ -26,14 +26,14 @@ public class When<ARGUMENT> {
         return is(arg -> Objects.equals(arg, argument));
     }
 
-    public RawIs is(Predicate<ARGUMENT> predicate) {
+    public RawIs is(Predicate<? super ARGUMENT> predicate) {
         return new RawIs(requireNonNull(predicate));
     }
 
     public class RawIs {
-        private final Predicate<ARGUMENT> predicate;
+        private final Predicate<? super ARGUMENT> predicate;
 
-        private RawIs(Predicate<ARGUMENT> predicate) {
+        private RawIs(Predicate<? super ARGUMENT> predicate) {
             this.predicate = predicate;
         }
 
@@ -65,7 +65,7 @@ public class When<ARGUMENT> {
             return is(arg -> Objects.equals(arg, argument));
         }
 
-        public Is<RESULT> is(Predicate<ARGUMENT> predicate) {
+        public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {
             return new Is<RESULT>(pairs, predicate);
         }
 
@@ -101,9 +101,9 @@ public class When<ARGUMENT> {
 
     public class Is<RESULT> {
         private final List<Pair<RESULT>> pairs;
-        private final Predicate<ARGUMENT> predicate;
+        private final Predicate<? super ARGUMENT> predicate;
 
-        private Is(List<Pair<RESULT>> pairs, Predicate<ARGUMENT> predicate) {
+        private Is(List<Pair<RESULT>> pairs, Predicate<? super ARGUMENT> predicate) {
             this.pairs = pairs;
             this.predicate = predicate;
         }
@@ -117,17 +117,16 @@ public class When<ARGUMENT> {
         }
 
         public Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
-            pairs.add(new Pair<>(predicate, result));
+            pairs.add(new Pair<RESULT>(predicate, result));
             return new Then<RESULT>(pairs);
         }
     }
 
     private class Pair<RESULT> {
-        final Predicate<ARGUMENT> predicate;
+        final Predicate<? super ARGUMENT> predicate;
         final Function<? super ARGUMENT, ? extends RESULT> result;
 
-        Pair(Predicate<ARGUMENT> predicate,
-            Function<? super ARGUMENT, ? extends RESULT> result) {
+        private Pair(Predicate<? super ARGUMENT> predicate, Function<? super ARGUMENT, ? extends RESULT> result) {
             this.predicate = predicate;
             this.result = result;
         }
