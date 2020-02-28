@@ -28,14 +28,14 @@ public class When<ARGUMENT> {
         return orElse(() -> other);
     }
 
-    public <RESULT> RESULT orElse(Supplier<RESULT> other) {
-
+    public <RESULT> RESULT orElse(Supplier<? extends RESULT> other) {
         return orElse(x -> other.get());
     }
 
     public <RESULT> RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
-        Optional<Integer> index = predicateIndex();
-        return (RESULT)index.map(i -> results.get(i)).orElse(other.apply(argument));
+        return (RESULT)predicateIndex()
+            .map(i -> results.get(i))
+            .orElse(other.apply(argument));
     }
 
     public Is is(ARGUMENT argument) {
