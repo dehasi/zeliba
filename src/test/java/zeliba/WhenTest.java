@@ -1,6 +1,7 @@
 package zeliba;
 
 import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 
 import static java.math.BigDecimal.ONE;
@@ -81,6 +82,34 @@ class WhenTest {
             .orElse("?");
 
         assertEquals("2", string);
+    }
+
+    @Test void orElse_noMatch_functionsNotCalled() {
+        AtomicInteger mock = new AtomicInteger(0);
+        int value = 10;
+        String string = when(value)
+            .is(++value).then(x -> {
+                mock.incrementAndGet();
+                return "2";
+            })
+            .orElse("?");
+
+        assertEquals("?", string);
+        assertEquals(0, mock.intValue());
+    }
+
+    @Test void orElse_noMatch_suppliersNotCalled() {
+        AtomicInteger mock = new AtomicInteger(0);
+        int value = 10;
+        String string = when(value)
+            .is(++value).then(() -> {
+                mock.incrementAndGet();
+                return "2";
+            })
+            .orElse("?");
+
+        assertEquals("?", string);
+        assertEquals(0, mock.intValue());
     }
 
     @Test void orElse_constant_returnsCovariantResult() {
