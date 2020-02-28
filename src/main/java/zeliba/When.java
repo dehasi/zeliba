@@ -21,6 +21,14 @@ public class When<ARGUMENT> {
         return new When<>(argument);
     }
 
+    public RawIs is(ARGUMENT argument) {
+        return is(arg -> Objects.equals(arg, argument));
+    }
+
+    public RawIs is(Predicate<ARGUMENT> predicate) {
+        return new RawIs(requireNonNull(predicate));
+    }
+
     public <RESULT> RESULT orElse(RESULT other) {
         return orElse(() -> other);
     }
@@ -33,14 +41,6 @@ public class When<ARGUMENT> {
     public <RESULT> RESULT orElse(Function<? super ARGUMENT, RESULT> other) {
         requireNonNull(other);
         return other.apply(argument);
-    }
-
-    public RawIs is(ARGUMENT argument) {
-        return is(arg -> Objects.equals(arg, argument));
-    }
-
-    public RawIs is(Predicate<ARGUMENT> predicate) {
-        return new RawIs(requireNonNull(predicate));
     }
 
     public class RawIs {
