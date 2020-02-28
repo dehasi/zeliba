@@ -31,6 +31,7 @@ public class When<ARGUMENT> {
     }
 
     public class RawIs {
+
         private final Predicate<? super ARGUMENT> predicate;
 
         private RawIs(Predicate<? super ARGUMENT> predicate) {
@@ -51,8 +52,9 @@ public class When<ARGUMENT> {
     }
 
     public class Then<RESULT> {
-        private List<Pair<RESULT>> pairs = new ArrayList<>();
-        private Is<RESULT> is;
+
+        private Is<RESULT> is = new Is<>();
+        private final List<Pair<RESULT>> pairs = new ArrayList<>();
 
         private Then(Pair<RESULT> result) {
             pairs.add(result);
@@ -68,13 +70,6 @@ public class When<ARGUMENT> {
         }
 
         public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {
-            return is2(predicate);
-        }
-
-        private Is<RESULT> is2(Predicate<? super ARGUMENT> predicate) {
-            if (is == null) {
-                is = new Is<>(predicate);
-            }
             return is.with(this, predicate);
         }
 
@@ -113,9 +108,7 @@ public class When<ARGUMENT> {
         private Then<RESULT> then;
         private Predicate<? super ARGUMENT> predicate;
 
-        private Is(Predicate<? super ARGUMENT> predicate) {
-            this.predicate = predicate;
-        }
+        private Is() { }
 
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super ARGUMENT> predicate) {
             this.then = then;
@@ -137,6 +130,7 @@ public class When<ARGUMENT> {
     }
 
     private class Pair<RESULT> {
+
         final Predicate<? super ARGUMENT> predicate;
         final Function<? super ARGUMENT, ? extends RESULT> result;
 
