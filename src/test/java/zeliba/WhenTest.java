@@ -5,6 +5,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 
 import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static zeliba.When.when;
 
@@ -112,37 +114,13 @@ class WhenTest {
         assertEquals(0, mock.intValue());
     }
 
-    @Test void orElse_constant_returnsCovariantResult() {
-        String string = when(ONE)
-            .orElse("1");
-
-        int integer = when(ONE)
-            .orElse(1);
-
-        assertEquals("1", string);
-        assertEquals(1, integer);
-    }
-
-    @Test void orElse_supplier_returnsCovariantResult() {
-        String string = when(ONE)
-            .orElse(() -> "1");
-
-        int integer = when(ONE)
-            .orElse(() -> 1);
-
-        assertEquals("1", string);
-        assertEquals(1, integer);
-    }
-
-    @Test void orElse_function_returnsCovariantResult() {
+    @Test void orElseThrow_noMatch_throwsException() {
         BigDecimal two = when(ONE)
-            .orElse(x -> x.add(x));
+            .is(TEN).then(ZERO)
+            .orElseThrow(RuntimeException::new);
 
-        int length = when("123456")
-            .orElse(String::length);
 
         assertEquals(new BigDecimal("2"), two);
-        assertEquals(6, length);
     }
 
     @Test void complexExample() {

@@ -3,6 +3,7 @@ package zeliba;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -27,20 +28,6 @@ public class When<ARGUMENT> {
 
     public RawIs is(Predicate<ARGUMENT> predicate) {
         return new RawIs(requireNonNull(predicate));
-    }
-
-    public <RESULT> RESULT orElse(RESULT other) {
-        return orElse(() -> other);
-    }
-
-    public <RESULT> RESULT orElse(Supplier<? extends RESULT> other) {
-        requireNonNull(other);
-        return orElse(x -> other.get());
-    }
-
-    public <RESULT> RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
-        requireNonNull(other);
-        return other.apply(argument);
     }
 
     public class RawIs {
@@ -94,11 +81,21 @@ public class When<ARGUMENT> {
         public RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
             requireNonNull(other);
 
+            return result().orElse(other.apply(argument));
+        }
+
+        public <EXCEPTION extends Throwable> RESULT orElseThrow(
+            Supplier<? extends EXCEPTION> exceptionSupplier) throws EXCEPTION {
+
+            return result().orElseThrow(exceptionSupplier);
+        }
+
+        private Optional<RESULT> result() {
             for (Pair<RESULT> pair : pairs) {
                 if (pair.predicate.test(argument))
-                    return pair.result.apply(argument);
+                    return Optional.of(pair.result.apply(argument));
             }
-            return other.apply(argument);
+            return Optional.empty();
         }
     }
 
