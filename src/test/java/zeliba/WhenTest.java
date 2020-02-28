@@ -8,6 +8,7 @@ import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static zeliba.When.when;
 
 class WhenTest {
@@ -115,12 +116,12 @@ class WhenTest {
     }
 
     @Test void orElseThrow_noMatch_throwsException() {
-        BigDecimal two = when(ONE)
-            .is(TEN).then(ZERO)
-            .orElseThrow(RuntimeException::new);
 
-
-        assertEquals(new BigDecimal("2"), two);
+        assertThrows(RuntimeException.class, () -> {
+            BigDecimal two = when(ONE)
+                .is(TEN).then(ZERO)
+                .orElseThrow(RuntimeException::new);
+        });
     }
 
     @Test void complexExample() {
