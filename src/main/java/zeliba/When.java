@@ -29,20 +29,13 @@ public class When<ARGUMENT> {
     }
 
     public <RESULT> RESULT orElse(Supplier<RESULT> other) {
-        Optional<Integer> index = doPredicate();
-        return (RESULT)index.map(i -> results.get(i)).orElse(other.get());
-    }
 
-    private Optional<Integer> doPredicate() {
-        for (int i = 0; i < predicates.size(); i++) {
-            if (predicates.get(i).test(argument))
-                return Optional.of(i);
-        }
-        return Optional.empty();
+        return orElse(x -> other.get());
     }
 
     public <RESULT> RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
-        return other.apply(argument);
+        Optional<Integer> index = predicateIndex();
+        return (RESULT)index.map(i -> results.get(i)).orElse(other.apply(argument));
     }
 
     public Is is(ARGUMENT argument) {
@@ -52,6 +45,14 @@ public class When<ARGUMENT> {
     public Is is(Predicate<ARGUMENT> predicate) {
         predicates.add(predicate);
         return is;
+    }
+
+    private Optional<Integer> predicateIndex() {
+        for (int i = 0; i < predicates.size(); i++) {
+            if (predicates.get(i).test(argument))
+                return Optional.of(i);
+        }
+        return Optional.empty();
     }
 
     public class Is {
