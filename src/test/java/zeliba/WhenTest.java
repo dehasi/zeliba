@@ -62,6 +62,17 @@ class WhenTest {
         assertEquals("+", string);
     }
 
+    @Test void then_supplier_returnsCovariantResult() {
+        int value = 1;
+        String string = when(value)
+            .is(1).then(() -> "1")
+            .is(2).then("2")
+            .is(3).then(() -> "3")
+            .orElse("?");
+
+        assertEquals("1", string);
+    }
+
     @Test void orElse_constant_returnsCovariantResult() {
         String string = when(ONE)
             .orElse("1");

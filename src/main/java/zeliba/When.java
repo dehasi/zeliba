@@ -16,7 +16,7 @@ public class When<ARGUMENT> {
     private final When<ARGUMENT> when = this;
     private final Is is = new Is();
     private final List<Predicate<ARGUMENT>> predicates = new ArrayList<>();
-    private final List results = new ArrayList();
+    private final List<Function<? super ARGUMENT, ?>> results = new ArrayList<>();
 
     private When(ARGUMENT argument) {
         this.argument = argument;
@@ -35,11 +35,14 @@ public class When<ARGUMENT> {
         return orElse(x -> other.get());
     }
 
-    public <RESULT> RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
+    public <RESULT> RESULT orElse(Function<? super ARGUMENT, RESULT> other) {
         requireNonNull(other);
-        return (RESULT)predicateIndex()
-            .map(i -> results.get(i))
-            .orElse(other.apply(argument));
+
+        Optional<Integer> index = predicateIndex();
+        if (index.isPresent()) {
+            return (RESULT)results.get(index.get()).apply(argument);
+        }
+        return other.apply(argument);
     }
 
     public Is is(ARGUMENT argument) {
@@ -62,6 +65,14 @@ public class When<ARGUMENT> {
     public class Is {
 
         public <RESULT> When<ARGUMENT> then(RESULT result) {
+            return then(() -> result);
+        }
+
+        public <RESULT> When<ARGUMENT> then(Supplier<? extends RESULT> result) {
+            return then(x -> result.get());
+        }
+
+        public <RESULT> When<ARGUMENT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
             results.add(result);
             return when;
         }
