@@ -18,7 +18,7 @@ class WhenTest {
         assertEquals("1", string);
     }
 
-    @Test void is_fewConstant_returnsCorrectResult() {
+    @Test void is_fewConstants_returnsCorrectResult() {
         int value = 1;
         String string = when(value)
             .is(1).then("1")
@@ -38,6 +38,17 @@ class WhenTest {
             .orElse("?");
 
         assertEquals("?", string);
+    }
+
+    @Test void is_fewMatches_returnsFirstMatch() {
+        int value = 42;
+        String string = when(value)
+            .is(1).then("1")
+            .is(42).then("42-first")
+            .is(42).then("42-second")
+            .orElse("?");
+
+        assertEquals("42-first", string);
     }
 
     @Test void orElse_constant_returnsCovariantResult() {
