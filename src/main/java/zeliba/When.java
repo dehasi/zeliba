@@ -38,7 +38,7 @@ public class When<ARGUMENT> {
         return orElse(x -> other.get());
     }
 
-    public <RESULT> RESULT orElse(Function<? super ARGUMENT, RESULT> other) {
+    public <RESULT> RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
         requireNonNull(other);
         return other.apply(argument);
     }
