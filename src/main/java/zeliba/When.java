@@ -74,7 +74,7 @@ public class When<ARGUMENT> {
             if (is == null) {
                 is = new Is<RESULT>(pairs, predicate);
             }
-            return is.with(pairs, predicate);
+            return is.with(this, pairs, predicate);
         }
 
         public RESULT orElse(RESULT other) {
@@ -105,18 +105,25 @@ public class When<ARGUMENT> {
             }
             return Optional.empty();
         }
+
+        public Then<RESULT> with(Pair<RESULT> pair) {
+            pairs.add(pair);
+            return this;
+        }
     }
 
     public class Is<RESULT> {
         private List<Pair<RESULT>> pairs;
         private Predicate<? super ARGUMENT> predicate;
+        private Then<RESULT> then;
 
         private Is(List<Pair<RESULT>> pairs, Predicate<? super ARGUMENT> predicate) {
             this.pairs = pairs;
             this.predicate = predicate;
         }
 
-        private Is<RESULT> with(List<Pair<RESULT>> pairs, Predicate<? super ARGUMENT> predicate) {
+        private Is<RESULT> with(Then<RESULT> then, List<Pair<RESULT>> pairs, Predicate<? super ARGUMENT> predicate) {
+            this.then = then;
             this.pairs = pairs;
             this.predicate = predicate;
             return this;
@@ -131,8 +138,7 @@ public class When<ARGUMENT> {
         }
 
         public Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
-            pairs.add(new Pair<>(predicate, result));
-            return new Then<RESULT>(pairs);
+            return then.with(new Pair<>(predicate, result));
         }
     }
 
