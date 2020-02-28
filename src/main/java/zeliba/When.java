@@ -3,19 +3,16 @@ package zeliba;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 public class When<ARGUMENT> {
 
     private final ARGUMENT argument;
-    private final When<ARGUMENT> when = this;
-    private final List<Predicate<ARGUMENT>> predicates = new ArrayList<>();
-    private final List<Function<? super ARGUMENT, ?>> results = new ArrayList<>();
 
     private When(ARGUMENT argument) {
         this.argument = argument;
@@ -36,11 +33,6 @@ public class When<ARGUMENT> {
 
     public <RESULT> RESULT orElse(Function<? super ARGUMENT, RESULT> other) {
         requireNonNull(other);
-
-        Optional<Integer> index = predicateIndex();
-        if (index.isPresent()) {
-            return (RESULT)results.get(index.get()).apply(argument);
-        }
         return other.apply(argument);
     }
 
@@ -49,16 +41,7 @@ public class When<ARGUMENT> {
     }
 
     public Is is(Predicate<ARGUMENT> predicate) {
-        predicates.add(requireNonNull(predicate));
         return new Is(requireNonNull(predicate));
-    }
-
-    private Optional<Integer> predicateIndex() {
-        for (int i = 0; i < predicates.size(); i++) {
-            if (predicates.get(i).test(argument))
-                return Optional.of(i);
-        }
-        return Optional.empty();
     }
 
     public class Is {
@@ -79,16 +62,10 @@ public class When<ARGUMENT> {
         public <RESULT> ParametrisedIs<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
             return new ParametrisedIs<>(predicate, result);
         }
-
-        private <RESULT> ParametrisedIs<RESULT> then(Predicate<ARGUMENT> predicate,
-            Function<? super ARGUMENT, ? extends RESULT> result) {
-            return new ParametrisedIs<>(predicate, result);
-        }
-
     }
 
     public class ParametrisedIs<RESULT> {
-        List<Pair<RESULT>> pairs = new ArrayList<>();
+       private List<Pair<RESULT>> pairs = new ArrayList<>();
 
         public ParametrisedIs(Predicate<ARGUMENT> predicate, Function<? super ARGUMENT, ? extends RESULT> result) {
             pairs.add(new Pair<>(predicate, result));
