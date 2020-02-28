@@ -51,6 +51,17 @@ class WhenTest {
         assertEquals("42-first", string);
     }
 
+    @Test void is_predicate_returnsCovariantResult() {
+        int value = 1;
+        String string = when(value)
+            .is(i -> i < 0).then("-")
+            .is(0).then("0")
+            .is(i -> i > 0).then("+")
+            .orElse("?");
+
+        assertEquals("+", string);
+    }
+
     @Test void orElse_constant_returnsCovariantResult() {
         String string = when(ONE)
             .orElse("1");

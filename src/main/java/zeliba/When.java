@@ -8,6 +8,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static java.util.Objects.requireNonNull;
+
 public class When<ARGUMENT> {
 
     private final ARGUMENT argument;
@@ -29,10 +31,12 @@ public class When<ARGUMENT> {
     }
 
     public <RESULT> RESULT orElse(Supplier<? extends RESULT> other) {
+        requireNonNull(other);
         return orElse(x -> other.get());
     }
 
     public <RESULT> RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
+        requireNonNull(other);
         return (RESULT)predicateIndex()
             .map(i -> results.get(i))
             .orElse(other.apply(argument));
@@ -43,7 +47,7 @@ public class When<ARGUMENT> {
     }
 
     public Is is(Predicate<ARGUMENT> predicate) {
-        predicates.add(predicate);
+        predicates.add(requireNonNull(predicate));
         return is;
     }
 
