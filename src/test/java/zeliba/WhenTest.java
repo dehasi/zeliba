@@ -29,7 +29,7 @@ class WhenTest {
         assertEquals("1", string);
     }
 
-    @Test void is_noMatcg_returnsElse() {
+    @Test void is_noMatch_returnsElse() {
         int value = 0;
         String string = when(value)
             .is(1).then("1")
