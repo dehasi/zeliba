@@ -12,8 +12,9 @@ public class When<ARGUMENT> {
 
     private final ARGUMENT argument;
     private final When<ARGUMENT> when = this;
+    private final Is is = new Is();
     private final List<Predicate<ARGUMENT>> predicates = new ArrayList<>();
-    private final IsCondition is = new IsCondition();
+    private final List results = new ArrayList();
 
     private When(ARGUMENT argument) {
         this.argument = argument;
@@ -23,14 +24,13 @@ public class When<ARGUMENT> {
         return new When<>(argument);
     }
 
-
     public <RESULT> RESULT orElse(RESULT other) {
         return orElse(() -> other);
     }
 
     public <RESULT> RESULT orElse(Supplier<RESULT> other) {
         Optional<Integer> index = doPredicate();
-        return (RESULT)index.map(i -> is.results.get(i)).orElse(other.get());
+        return (RESULT)index.map(i -> results.get(i)).orElse(other.get());
     }
 
     private Optional<Integer> doPredicate() {
@@ -45,22 +45,20 @@ public class When<ARGUMENT> {
         return other.apply(argument);
     }
 
-    public IsCondition is(ARGUMENT argument) {
+    public Is is(ARGUMENT argument) {
         return is(arg -> Objects.equals(arg, argument));
     }
 
-    public IsCondition is(Predicate<ARGUMENT> predicate) {
+    public Is is(Predicate<ARGUMENT> predicate) {
         predicates.add(predicate);
         return is;
     }
 
-    public class IsCondition {
-        List results = new ArrayList();
+    public class Is {
 
         public <RESULT> When<ARGUMENT> then(RESULT result) {
             results.add(result);
             return when;
         }
-
     }
 }
