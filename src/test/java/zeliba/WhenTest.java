@@ -29,6 +29,17 @@ class WhenTest {
         assertEquals("1", string);
     }
 
+    @Test void is_noMatcg_returnsElse() {
+        int value = 0;
+        String string = when(value)
+            .is(1).then("1")
+            .is(2).then("2")
+            .is(3).then("3")
+            .orElse("?");
+
+        assertEquals("?", string);
+    }
+
     @Test void orElse_constant_returnsCovariantResult() {
         String string = when(ONE)
             .orElse("1");
