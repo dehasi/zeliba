@@ -131,10 +131,11 @@ class WhenTest {
     }
 
     private String testWhen(int value) {
-        return when(value)
+        String result = when(value)
             .is(i -> i < 0).then(i -> String.format("negative %s", -i))
             .is(0).then("zero")
             .is(1).then(() -> "positive supplier")
             .orElse("?");
+        return result;
     }
 }
