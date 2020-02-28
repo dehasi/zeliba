@@ -124,6 +124,16 @@ class WhenTest {
         });
     }
 
+    @Test void orElseThrow_match_returnsResult() {
+
+        int two = when(1)
+            .is(2).then(0)
+            .is(1).then(x -> x + x)
+            .orElseThrow(RuntimeException::new);
+
+        assertEquals(2, two);
+    }
+
     @Test void complexExample() {
         assertEquals("negative 1", testWhen(-1));
         assertEquals("zero", testWhen(0));
