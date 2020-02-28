@@ -14,7 +14,7 @@ public class When<ARGUMENT> {
     private final ARGUMENT argument;
 
     private When(ARGUMENT argument) {
-        this.argument = argument;
+        this.argument = requireNonNull(argument);
     }
 
     public static <ARGUMENT> When<ARGUMENT> when(ARGUMENT argument) {
