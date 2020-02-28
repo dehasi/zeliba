@@ -52,6 +52,7 @@ public class When<ARGUMENT> {
 
     public class Then<RESULT> {
         private List<Pair<RESULT>> pairs = new ArrayList<>();
+        private Is<RESULT> is;
 
         private Then(Pair<RESULT> result) {
             pairs.add(result);
@@ -66,7 +67,14 @@ public class When<ARGUMENT> {
         }
 
         public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {
-            return new Is<RESULT>(pairs, predicate);
+            return is2(predicate);
+        }
+
+        private Is<RESULT> is2(Predicate<? super ARGUMENT> predicate) {
+            if (is == null){
+                return new Is<RESULT>(pairs, predicate);
+            }
+            return is.with(pairs, predicate);
         }
 
         public RESULT orElse(RESULT other) {
@@ -100,12 +108,18 @@ public class When<ARGUMENT> {
     }
 
     public class Is<RESULT> {
-        private final List<Pair<RESULT>> pairs;
-        private final Predicate<? super ARGUMENT> predicate;
+        private List<Pair<RESULT>> pairs;
+        private Predicate<? super ARGUMENT> predicate;
 
         private Is(List<Pair<RESULT>> pairs, Predicate<? super ARGUMENT> predicate) {
             this.pairs = pairs;
             this.predicate = predicate;
+        }
+
+        private Is<RESULT> with(List<Pair<RESULT>> pairs, Predicate<? super ARGUMENT> predicate) {
+            this.pairs = pairs;
+            this.predicate = predicate;
+            return this;
         }
 
         public Then<RESULT> then(RESULT result) {
