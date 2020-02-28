@@ -71,8 +71,8 @@ public class When<ARGUMENT> {
         }
 
         private Is<RESULT> is2(Predicate<? super ARGUMENT> predicate) {
-            if (is == null){
-                return new Is<RESULT>(pairs, predicate);
+            if (is == null) {
+                is = new Is<RESULT>(pairs, predicate);
             }
             return is.with(pairs, predicate);
         }
