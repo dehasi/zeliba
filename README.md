@@ -226,15 +226,24 @@ Optional<?> value = the(map).get(key)
 
 Pattern-ish matching in pure `Java 8`
 
-The `when` returns value from the first true predicate.
-
 ```java
 int value = ...
 
 String result = when(value)
     .is(1).then("+")
     .is(0).then("zero")
-    .is(-1).then("+")
+    .is(-1).then("-")
+    .orElse("?"); 
+```
+
+The `when` returns value from the first true predicate.
+
+```java
+int value = 42
+
+String result = when(value)
+    .is(42).then("first_42") //result=first_42
+    .is(42).then("second_42")
     .orElse("?"); 
 ```
 
