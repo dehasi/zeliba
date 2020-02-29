@@ -18,6 +18,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
   - [When](#When)
+    - [is](#is)
 - [License](#License)
 - [Installation](#Installation)
   - [Maven](#Maven)
@@ -247,6 +248,7 @@ String result = when(value)
     .orElse("?"); 
 ```
 
+#### is
 The `is` part accepts `Predicate` or a value which be compared as `Objects.equals`
 
 ```java
@@ -256,7 +258,7 @@ String result = when(value)
     .is(v -> v < 0).then("-")
     .orElse("?"); 
 ```
-
+#### isNot
 There is an opposise predicate `isNot`
 ```java
 String result = when(value)
@@ -264,7 +266,8 @@ String result = when(value)
     .orElse("42 for sure"); 
 ```
 
-The `then` or`orElse` parts accept a value, `Supplier` or `Function`.
+#### then
+`then` part accepts a value, `Supplier` or `Function`.
 The function accepts the initial value.
 
 ```java
@@ -290,7 +293,14 @@ String result = when(value)
     .orElse("?"); 
 ```
 
-`orElse` examples
+#### orElse
+`orElse` accepts the same parameters as `then`
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElse("not 1");
+```
+
 ```java
 String result = when(value)
     .is(1).then("1")
@@ -303,6 +313,7 @@ String result = when(value)
     .orElse(val -> String.valueOf(Math.abs(val))); 
 ```
 
+#### orElseThrow
 By default `orElseThrow` throws `IllegalStateException` with default message.
 `orElseThrow` accepts a `String` to set an exception message, or `Supplier` to throw a custom one.
 
@@ -324,7 +335,7 @@ String result = when(value)
     .orElseThrow(RuntimeException::new); 
 ```
 
-A complex example
+#### Complex example
 ```java
 String result = when(value)
     .is(i -> i < 0).then(i -> String.format("negative %s", -i))
