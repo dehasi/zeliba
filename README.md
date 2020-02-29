@@ -33,6 +33,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
 Zeliba main points are the following:
 * Provide a fluent API to write a comparison (for `Comparable<T>`)
 * Make `if`-checks better align with English grammar
+* Provide pattern matching for `Java 8`
 
 Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/)
 
@@ -51,9 +52,16 @@ which also makes you to do calculations. I.e. “if a collection is empty” tra
 which is read as “not the collection is empty”. It is obviously grammatically incorrect. 
 Util methods like `if(isNotEmpty(collection))` do a great job but still remain grammatically incorrect.
  We don’t say “if is not an empty collection”. 
- Zeliba provides the same util methods but also gives you a fluent API to write grammatically correct
+ Zeliba provides the same methods but also gives you a fluent API to write grammatically correct
   code.  
 See examples. [TheObject](#TheObject), [TheCollection](#TheCollection), [TheMap](#TheMap)
+
+### Pattern matching
+Inspired by [when](https://kotlinlang.org/docs/reference/control-flow.html#when-expression) from `Kotlin`.  
+Since [Java 12](https://openjdk.java.net/jeps/325) `case`-expressions were extended. But `Java 8` is stil
+widely used and it's nice to have some fluent API which is more useful than `case` for pattern matching.
+Zeliba provides some pattern-matching features.  
+See [When](#When)
 
 ## Examples
 
