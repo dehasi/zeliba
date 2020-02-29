@@ -26,6 +26,10 @@ public class When<ARGUMENT> {
         return is(isEqual(argument));
     }
 
+    public RawIs isNot(ARGUMENT argument) {
+        return is(isEqual(argument).negate());
+    }
+
     public RawIs is(Predicate<? super ARGUMENT> predicate) {
         return new RawIs(requireNonNull(predicate));
     }
@@ -67,6 +71,10 @@ public class When<ARGUMENT> {
 
         public Is<RESULT> is(ARGUMENT argument) {
             return is(isEqual(argument));
+        }
+
+        public Is<RESULT> isNot(ARGUMENT argument) {
+            return is(isEqual(argument).negate());
         }
 
         public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {

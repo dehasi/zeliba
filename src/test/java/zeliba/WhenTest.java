@@ -70,6 +70,17 @@ class WhenTest {
         assertEquals("+", string);
     }
 
+    @Test void isNot_returnsCorrectResult() {
+        int value = 1;
+
+        String string = when(value)
+            .isNot(0).then("not 0")
+            .isNot(2).then("not 2")
+            .orElse("?");
+
+        assertEquals("not 0", string);
+    }
+
     @Test void then_supplier_returnsCovariantResult() {
         int value = 1;
 
