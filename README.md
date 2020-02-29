@@ -47,7 +47,7 @@ See examples [TheComparable](#TheComparable), [TheChronoLocalDate](#TheChronoLoc
 
 ### Better English  
 Usually, util methods start with `is` prefix (like `isEmpty`), but negations are covered via exclamation mark `!is`, 
-which also makes you to do calculations. I.e. “if a collection is empty” transforms into 
+which also makes you do calculations. I.e. “if a collection is empty” transforms into 
 `collection.isEmpty()`, but “if a collection is *not* empty” transforms into `!collection.isEmpty()` 
 which is read as “not the collection is empty”. It is obviously grammatically incorrect. 
 Util methods like `if(isNotEmpty(collection))` do a great job but still remain grammatically incorrect.
@@ -133,7 +133,7 @@ if (the(someDate).isNotAfter(otherDate)) {
     ...
 }
 
-if (the(otherDate).isAfterOrEqual(someDate)) {
+if (the(otherDate).isBeforeOrEqual(someDate)) {
     ...
 }
    
@@ -158,7 +158,7 @@ if (the(someDate).isNotAfter(otherDateTime)) {
     ...
 }
 
-if (the(otherDate).isAfterOrEqual(someDateTime)) {
+if (the(otherDate).isBeforeOrEqual(someDateTime)) {
     ...
 }
 
