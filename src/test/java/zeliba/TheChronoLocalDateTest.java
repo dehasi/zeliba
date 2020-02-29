@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static zeliba.TheChronoLocalDate.the;
@@ -21,10 +22,22 @@ class TheChronoLocalDateTest {
     }
 
     @MethodSource("dates")
+    @ParameterizedTest void isNotAfter_theSameAs_isBeforeOrEqual(LocalDate date) {
+        assertEquals(the(date).isBeforeOrEqual(date), the(date).isNotAfter(date));
+        assertEquals(the(date).isBeforeOrEqual(date.minusDays(1)), the(date).isNotAfter(date.minusDays(1)));
+    }
+
+    @MethodSource("dates")
     @ParameterizedTest void isBeforeOrEqual(LocalDate date) {
         assertTrue(the(date).isBeforeOrEqual(date));
         assertTrue(the(date.minusDays(1)).isBeforeOrEqual(date));
         assertFalse(the(date).isBeforeOrEqual(date.minusDays(1)));
+    }
+
+    @MethodSource("dates")
+    @ParameterizedTest void isNotBefore_theSameAs_isAfterOrEqual(LocalDate date) {
+        assertEquals(the(date).isAfterOrEqual(date), the(date).isNotBefore(date));
+        assertEquals(the(date).isAfterOrEqual(date.minusDays(1)), the(date).isNotBefore(date.minusDays(1)));
     }
 
     private static Stream<Arguments> dates() {

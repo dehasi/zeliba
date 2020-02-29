@@ -20,7 +20,15 @@ public class TheChronoLocalDate<DATE extends ChronoLocalDate> {
         return value.isAfter(that) || value.isEqual(that);
     }
 
+    public boolean isNotAfter(DATE that) {
+        return isBeforeOrEqual(that);
+    }
+
     public boolean isBeforeOrEqual(DATE that) {
         return value.isBefore(that) || value.isEqual(that);
+    }
+
+    public boolean isNotBefore(DATE that) {
+        return isAfterOrEqual(that);
     }
 }
