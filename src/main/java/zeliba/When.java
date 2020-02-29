@@ -116,7 +116,7 @@ public class When<ARGUMENT> {
         private Then<RESULT> then;
         private Predicate<? super ARGUMENT> predicate;
 
-        private Is() { }
+        private Is() {}
 
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super ARGUMENT> predicate) {
             this.then = then;
