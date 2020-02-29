@@ -236,7 +236,7 @@ String result = when(value)
     .orElse("?"); 
 ```
 
-The `when` returns value from the first true predicate.
+The `when` returns value from the first matched predicate.
 
 ```java
 int value = 42
