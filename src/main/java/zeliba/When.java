@@ -89,7 +89,7 @@ public class When<ARGUMENT> {
         }
 
         public RESULT orElseThrow() {
-            return orElseThrow(String.format("No matches for argument = [%s]", argument));
+            return orElseThrow(String.format("No matches for argument [%s]", argument));
         }
 
         public RESULT orElseThrow(String message) {

@@ -124,10 +124,12 @@ class WhenTest {
     }
 
     @Test void orElseThrow_noMatch_throwsException() {
-        assertThrows(IllegalStateException.class, () ->
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () ->
             when(ONE)
                 .is(TEN).then(ZERO)
-                .orElseThrow());
+                .orElseThrow()
+        );
+        assertEquals("No matches for argument [1]", exception.getMessage());
     }
 
     @Test void orElseThrow_match_returnsResult() {
