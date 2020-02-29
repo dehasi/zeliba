@@ -238,7 +238,7 @@ String result = when(value)
     .orElse("?"); 
 ```
 
-The `is` part accepts `Preducate` or a value which be compared as `Objects.equals`
+The `is` part accepts `Predicate` or a value which be compared as `Objects.equals`
 
 ```java
 String result = when(value)
@@ -256,7 +256,7 @@ String result = when(value)
 ```
 
 The `then` or`orElse` parts accept a value, `Supplier` or `Function`.
-`Function`takes as an argument the initial value.
+The function takes as an argument the initial value.
 
 ```java
 int value = ...
@@ -294,9 +294,26 @@ String result = when(value)
     .orElse(val -> String.valueOf(Math.abs(val))); 
 ```
 
-The `orElseThrow` by default throws `IllegalStateException`. An expcetion message can be set.
-Or a custom exception also can be thrown.
+By default `orElseThrow` throws `IllegalStateException` with default message.
+`orElseThrow` accepts a `String` to set an exception message, or `Supplier` to throw a custom one.
 
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElseThrow(); // IllegalStateException with default message
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElseThrow("Some valuable message");
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElseThrow(RuntimeException::new); 
+```
 
 A complex example
 ```java
