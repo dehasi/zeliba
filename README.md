@@ -229,13 +229,58 @@ Pattern-ish matching in pure `Java 8`
 The `when` returns value from the first true predicate.
 
 ```java
+int value = ...
+
 String result = when(value)
-    .is(i -> i > 0).then(i -> String.format("positive %s", i))
+    .is(1).then("+")
     .is(0).then("zero")
-    .is(-1).then(() -> "supplier also works")
-    .orElse("?"); // .orElseThrow(RuntimeException::new);
+    .is(-1).then("+")
+    .orElse("?"); 
 ```
 
+The `is` part accepts `Preducate` or a value which be compared as `Objects.equals`
+
+```java
+String result = when(value)
+    .is(v -> v > 0).then("+")
+    .is(0).then("zero") // Objects.equals(0, value)
+    .is(v -> v > 0).then("+")
+    .orElseThrow(); // throws IllegalStateException
+```
+
+There is an opposise predicate `isNot`
+```java
+String result = when(value)
+    .isNot(42).then("not 42")
+    .orElse("42 for sure"); 
+```
+
+The `then` or`orElse` parts accept a value, `Supplier` or `Function`.
+`Function`takes as an argument the initial value.
+
+```java
+int value = ...
+
+String result = when(value)
+    .is(1).then("+")
+    .is(0).then(() -> "zero")
+    .is(-1).then(val -> String.valueOf(abs(val)))
+    .orElse("?"); 
+```
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElse(() -> String.valueOf(abs(val))); 
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElse(val -> String.valueOf(abs(val))); 
+```
+
+The `orElseThrow` by default throws `IllegalStateException`. An expcetion message can be set.
+Or a custom exception also can be thrown.
 A complex example
 ```java
 String result = when(value)
@@ -246,7 +291,7 @@ String result = when(value)
             throw new RuntimeException();
     })
     .isNot(42).then("not 42")
-    .orElse("??");
+    .orElseThrow("Custom exception message");
 ```
 ## License
 
