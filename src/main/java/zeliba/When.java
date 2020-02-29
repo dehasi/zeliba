@@ -88,6 +88,15 @@ public class When<ARGUMENT> {
             return result().orElse(other.apply(argument));
         }
 
+        public RESULT orElseThrow() {
+            String message = null;
+            return orElseThrow(message);
+        }
+
+        public RESULT orElseThrow(String message) {
+            return orElseThrow(() -> new IllegalStateException(message));
+        }
+
         public <EXCEPTION extends Throwable> RESULT orElseThrow(
             Supplier<? extends EXCEPTION> exceptionSupplier) throws EXCEPTION {
 

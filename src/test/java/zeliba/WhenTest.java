@@ -124,17 +124,17 @@ class WhenTest {
     }
 
     @Test void orElseThrow_noMatch_throwsException() {
-        assertThrows(RuntimeException.class, () ->
+        assertThrows(IllegalStateException.class, () ->
             when(ONE)
                 .is(TEN).then(ZERO)
-                .orElseThrow(RuntimeException::new));
+                .orElseThrow());
     }
 
     @Test void orElseThrow_match_returnsResult() {
         int two = when(1)
             .is(2).then(0)
             .is(1).then(x -> x + x)
-            .orElseThrow(RuntimeException::new);
+            .orElseThrow();
 
         assertEquals(2, two);
     }
