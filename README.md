@@ -116,7 +116,15 @@ if (the(otherDate).isAfterOrEqual(someDate)) {
     ...
 }
    
-if (the(someDate).isBeforeOrEqual(otherDate)) {
+if (the(someDate).isNotAfter(otherDate)) {
+    ...
+}
+
+if (the(otherDate).isAfterOrEqual(someDate)) {
+    ...
+}
+   
+if (the(someDate).isNotBefore(otherDate)) {
     ...
 }
    ```
@@ -133,7 +141,15 @@ if (the(otherDate).isAfterOrEqual(someDateTime)) {
     ...
 }
 
-if (the(someDate).isBeforeOrEqual(otherDateTime)) {
+if (the(someDate).isNotAfter(otherDateTime)) {
+    ...
+}
+
+if (the(otherDate).isAfterOrEqual(someDateTime)) {
+    ...
+}
+
+if (the(someDate).isNotBefore(otherDateTime)) {
     ...
 }
 ```
