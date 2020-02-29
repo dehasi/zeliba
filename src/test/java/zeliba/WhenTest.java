@@ -1,6 +1,5 @@
 package zeliba;
 
-import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 
@@ -112,6 +111,7 @@ class WhenTest {
     @Test void orElse_noMatch_suppliersNotCalled() {
         AtomicInteger mock = new AtomicInteger(0);
         int value = 10;
+
         String string = when(value)
             .is(++value).then(() -> {
                 mock.incrementAndGet();
@@ -125,7 +125,7 @@ class WhenTest {
 
     @Test void orElseThrow_noMatch_throwsException() {
         assertThrows(RuntimeException.class, () -> {
-            BigDecimal two = when(ONE)
+            when(ONE)
                 .is(TEN).then(ZERO)
                 .orElseThrow(RuntimeException::new);
         });
