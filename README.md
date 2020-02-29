@@ -298,7 +298,7 @@ String result = when(value)
 ```
 
 #### orElse
-`orElse` accepts the same parameters as `then`
+`orElse` accepts the same parameters as [then](#then)
 ```java
 String result = when(value)
     .is(1).then("1")
