@@ -17,6 +17,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [TheObject](#TheObject)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
+  - [When](#When)
 - [License](#License)
 - [Installation](#Installation)
   - [Maven](#Maven)
@@ -205,15 +206,28 @@ Optional `get`
 Optional<?> value = the(map).get(key)
 ```
 
-### License
+### When
+
+Pattern-ish matching in pure `Java 8`
+
+The `when` returns value from the first true predicate.
+
+```java
+String result = when(value)
+    .is(i -> i > 0).then(i -> String.format("positive %s", i))
+    .is(0).then("zero")
+    .is(-1).then(() -> "supplier also works")
+    .orElse("?"); // .orElseThrow(RuntimeException::new);
+```
+## License
 
 This project is licensed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
-### Installation
+## Installation
 
 Releases are available in [Maven Central](https://repo1.maven.org/maven2/me/dehasi/zeliba/)
 
-#### Maven
+### Maven
 
 Add this snippet to the pom.xml `dependencies` section:
 
@@ -225,7 +239,7 @@ Add this snippet to the pom.xml `dependencies` section:
 </dependency>
 ```
 
-#### Gradle 
+### Gradle 
 
 Add this snippet to the build.gradle `dependencies` section:
 
@@ -233,5 +247,5 @@ Add this snippet to the build.gradle `dependencies` section:
 implementation 'me.dehasi:zeliba:2020.02.25'
 ```
 
-### Contribution
+## Contribution
 Feel free to share your ideas via issues and pull-requests.
