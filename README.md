@@ -265,7 +265,7 @@ String result = when(value)
 ```
 
 The `then` or`orElse` parts accept a value, `Supplier` or `Function`.
-The function takes as an argument the initial value.
+The function accepts the initial value.
 
 ```java
 int value = ...
