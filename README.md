@@ -18,7 +18,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
     - [contains](#contains)
-    - [optional get](#Optional-get)
+    - [Optional get](#Optional-get)
   - [When](#When)
     - [is](#is)
     - [isNot](#isNot)
