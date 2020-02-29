@@ -143,7 +143,7 @@ class WhenTest {
     @Test void complexExample() {
         assertEquals("negative 1", testWhen(-1));
         assertEquals("zero", testWhen(0));
-        assertEquals("positive supplier", testWhen(1));
+        assertEquals("positive 1", testWhen(1));
         assertEquals("?", testWhen(100_500));
     }
 
@@ -151,7 +151,7 @@ class WhenTest {
         return when(value)
             .is(i -> i < 0).then(i -> String.format("negative %s", -i))
             .is(0).then("zero")
-            .is(1).then(() -> "positive supplier")
+            .is(1).then(() -> String.format("positive %s", value))
             .orElse("?");
     }
 }
