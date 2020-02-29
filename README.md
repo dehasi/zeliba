@@ -254,7 +254,7 @@ String result = when(value)
     .is(v -> v > 0).then("+")
     .is(0).then("zero") // Objects.equals(0, value)
     .is(v -> v < 0).then("-")
-    .orElseThrow(); // throws IllegalStateException
+    .orElse("?"); 
 ```
 
 There is an opposise predicate `isNot`
