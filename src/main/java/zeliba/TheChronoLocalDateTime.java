@@ -21,7 +21,15 @@ public class TheChronoLocalDateTime<DATETIME extends ChronoLocalDateTime<? exten
         return value.isAfter(that) || value.isEqual(that);
     }
 
+    public boolean isNotAfter(DATETIME that) {
+        return isBeforeOrEqual(that);
+    }
+
     public boolean isBeforeOrEqual(DATETIME that) {
         return value.isBefore(that) || value.isEqual(that);
+    }
+
+    public boolean isNotBefore(DATETIME that) {
+        return isAfterOrEqual(that);
     }
 }

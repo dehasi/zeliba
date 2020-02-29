@@ -25,6 +25,7 @@ class TheChronoLocalDateTest {
     @ParameterizedTest void isNotAfter_theSameAs_isBeforeOrEqual(LocalDate date) {
         assertEquals(the(date).isBeforeOrEqual(date), the(date).isNotAfter(date));
         assertEquals(the(date).isBeforeOrEqual(date.minusDays(1)), the(date).isNotAfter(date.minusDays(1)));
+        assertEquals(the(date.minusDays(1)).isBeforeOrEqual(date), the(date.minusDays(1)).isNotAfter(date));
     }
 
     @MethodSource("dates")
@@ -38,10 +39,11 @@ class TheChronoLocalDateTest {
     @ParameterizedTest void isNotBefore_theSameAs_isAfterOrEqual(LocalDate date) {
         assertEquals(the(date).isAfterOrEqual(date), the(date).isNotBefore(date));
         assertEquals(the(date).isAfterOrEqual(date.minusDays(1)), the(date).isNotBefore(date.minusDays(1)));
+        assertEquals(the(date.minusDays(1)).isAfterOrEqual(date.minusDays(1)), the(date).isNotBefore(date));
     }
 
     private static Stream<Arguments> dates() {
-        return Stream.generate(() -> Arguments.of(randomDate())).limit(40);
+        return Stream.generate(() -> Arguments.of(randomDate())).limit(10);
     }
 
     private static LocalDate randomDate() {
