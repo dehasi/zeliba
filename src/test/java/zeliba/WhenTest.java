@@ -145,7 +145,9 @@ class WhenTest {
         assertEquals("negative 1", testWhen(-1));
         assertEquals("zero", testWhen(0));
         assertEquals("positive 1", testWhen(1));
-        assertEquals("?", testWhen(100_500));
+        assertEquals("?", testWhen(42));
+        assertThrows(RuntimeException.class, () -> testWhen(100_500));
+
     }
 
     private String testWhen(int value) {
@@ -153,6 +155,9 @@ class WhenTest {
             .is(i -> i < 0).then(i -> String.format("negative %s", -i))
             .is(0).then("zero")
             .is(1).then(() -> String.format("positive %s", value))
+            .is(100_500).then(() -> {
+                throw new RuntimeException();
+            })
             .orElse("?");
     }
 }
