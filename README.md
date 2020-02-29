@@ -219,7 +219,8 @@ if (the(map).isNotEmpty()) {
 }
 ```
 #### contains
-Fluent `contains` checks
+Fluent `contains` checks to check if a map contains the particular entry. 
+Or if the particular key has the particular value.
 ```java
 if (the(map).contains(pair)) {
     ...
@@ -234,6 +235,7 @@ if (the(map).contains(entry(key, value))) {
 }
 ```
 #### Optional `get`
+`Map.get(key)` returns `null` if there is no value. TheMap allows to map return an `Optional<>`.
 ```java
 Optional<?> value = the(map).get(key)
 ```
