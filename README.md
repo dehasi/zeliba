@@ -60,7 +60,7 @@ See examples. [TheObject](#TheObject), [TheCollection](#TheCollection), [TheMap]
 
 ### Pattern matching
 Inspired by [when](https://kotlinlang.org/docs/reference/control-flow.html#when-expression) from `Kotlin`.  
-Since [Java 12](https://openjdk.java.net/jeps/325) `case`-expressions were extended. But `Java 8` is stil
+Since [Java 12](https://openjdk.java.net/jeps/325) `case`-expressions were extended. But `Java 8` is still
 widely used and it's nice to have some fluent API which is more useful than `case` for pattern matching.
 Zeliba provides some pattern-matching features.  
 See [When](#When)
