@@ -104,11 +104,10 @@ public class When<ARGUMENT> {
         }
 
         private Optional<RESULT> result() {
-            for (Pair<RESULT> pair : pairs) {
-                if (pair.predicate.test(argument))
-                    return Optional.of(pair.result.apply(argument));
-            }
-            return Optional.empty();
+            return pairs.stream()
+                .filter(pair1 -> pair1.predicate.test(argument))
+                .<RESULT>map(pair1 -> pair1.result.apply(argument))
+                .findFirst();
         }
     }
 
