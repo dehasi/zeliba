@@ -124,11 +124,10 @@ class WhenTest {
     }
 
     @Test void orElseThrow_noMatch_throwsException() {
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(RuntimeException.class, () ->
             when(ONE)
                 .is(TEN).then(ZERO)
-                .orElseThrow(RuntimeException::new);
-        });
+                .orElseThrow(RuntimeException::new));
     }
 
     @Test void orElseThrow_match_returnsResult() {
