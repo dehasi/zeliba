@@ -156,7 +156,8 @@ class WhenTest {
         assertEquals("negative 1", testWhen(-1));
         assertEquals("zero", testWhen(0));
         assertEquals("positive 1", testWhen(1));
-        assertEquals("?", testWhen(42));
+        assertEquals("not 42", testWhen(12));
+        assertEquals("??", testWhen(42));
         assertThrows(RuntimeException.class, () -> testWhen(100_500));
 
     }
@@ -169,6 +170,7 @@ class WhenTest {
             .is(100_500).then(() -> {
                 throw new RuntimeException();
             })
-            .orElse("?");
+            .isNot(42).then("not 42")
+            .orElse("??");
     }
 }

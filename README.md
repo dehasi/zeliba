@@ -235,6 +235,19 @@ String result = when(value)
     .is(-1).then(() -> "supplier also works")
     .orElse("?"); // .orElseThrow(RuntimeException::new);
 ```
+
+A complex example
+```java
+String result = when(value)
+    .is(i -> i < 0).then(i -> String.format("negative %s", -i))
+    .is(0).then("zero")
+    .is(1).then(() -> String.format("positive %s", value))
+    .is(100_500).then(() -> {
+            throw new RuntimeException();
+    })
+    .isNot(42).then("not 42")
+    .orElse("??");
+```
 ## License
 
 This project is licensed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
