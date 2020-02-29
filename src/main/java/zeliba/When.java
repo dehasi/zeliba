@@ -2,13 +2,13 @@ package zeliba;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.function.Predicate.isEqual;
 
 public class When<ARGUMENT> {
 
@@ -23,7 +23,7 @@ public class When<ARGUMENT> {
     }
 
     public RawIs is(ARGUMENT argument) {
-        return is(arg -> Objects.equals(arg, argument));
+        return is(isEqual(argument));
     }
 
     public RawIs is(Predicate<? super ARGUMENT> predicate) {
@@ -66,7 +66,7 @@ public class When<ARGUMENT> {
         }
 
         public Is<RESULT> is(ARGUMENT argument) {
-            return is(arg -> Objects.equals(arg, argument));
+            return is(isEqual(argument));
         }
 
         public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {
