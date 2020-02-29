@@ -17,6 +17,8 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [TheObject](#TheObject)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
+    - [contains](#contains)
+    - [optional get](#Optional get)
   - [When](#When)
     - [is](#is)
     - [isNot](#isNot)
@@ -216,6 +218,7 @@ if (the(map).isNotEmpty()) {
     ...
 }
 ```
+#### contains
 Fluent `contains` checks
 ```java
 if (the(map).contains(pair)) {
@@ -230,7 +233,7 @@ if (the(map).contains(entry(key, value))) {
     ...
 }
 ```
-Optional `get`
+#### Optional `get`
 ```java
 Optional<?> value = the(map).get(key)
 ```
