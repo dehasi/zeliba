@@ -2,16 +2,16 @@ package zeliba;
 
 import java.util.Collection;
 
-public class TheCollection<COLLECTION extends Collection<?>> {
+public class TheCollection {
 
-    private final COLLECTION collection;
+    private final Collection<?> collection;
 
-    private TheCollection(COLLECTION collection) {
+    private TheCollection(Collection<?> collection) {
         this.collection = collection;
     }
 
-    public static <COLLECTION extends Collection<?>> TheCollection the(COLLECTION value) {
-        return new TheCollection<>(value);
+    public static TheCollection the(Collection<?> value) {
+        return new TheCollection(value);
     }
 
     public boolean isNull() {
