@@ -15,6 +15,7 @@ class WhenTest {
 
     @Test void is_constant_returnsCovariantResult() {
         int value = 1;
+
         String string = when(value)
             .is(1).then("1")
             .orElse("?");
@@ -24,6 +25,7 @@ class WhenTest {
 
     @Test void is_fewConstants_returnsCorrectResult() {
         int value = 1;
+
         String string = when(value)
             .is(1).then("1")
             .is(2).then("2")
@@ -35,6 +37,7 @@ class WhenTest {
 
     @Test void is_noMatch_returnsElse() {
         int value = 0;
+
         String string = when(value)
             .is(1).then("1")
             .is(2).then("2")
@@ -46,6 +49,7 @@ class WhenTest {
 
     @Test void is_fewMatches_returnsFirstMatch() {
         int value = 42;
+
         String string = when(value)
             .is(1).then("1")
             .is(42).then("42-first")
@@ -57,6 +61,7 @@ class WhenTest {
 
     @Test void is_predicate_returnsCovariantResult() {
         int value = 1;
+
         String string = when(value)
             .is(i -> i < 0).then("-")
             .is(0).then("0")
@@ -68,6 +73,7 @@ class WhenTest {
 
     @Test void then_supplier_returnsCovariantResult() {
         int value = 1;
+
         String string = when(value)
             .is(1).then(() -> "1")
             .is(2).then("2")
@@ -79,6 +85,7 @@ class WhenTest {
 
     @Test void then_function_returnsCovariantResult() {
         int value = 1;
+
         String string = when(value)
             .is(1).then(x -> String.valueOf(x + x))
             .is(2).then(x -> String.valueOf(x + x + x))
@@ -90,6 +97,7 @@ class WhenTest {
     @Test void orElse_noMatch_functionsNotCalled() {
         AtomicInteger mock = new AtomicInteger(0);
         int value = 10;
+
         String string = when(value)
             .is(++value).then(x -> {
                 mock.incrementAndGet();
@@ -116,7 +124,6 @@ class WhenTest {
     }
 
     @Test void orElseThrow_noMatch_throwsException() {
-
         assertThrows(RuntimeException.class, () -> {
             BigDecimal two = when(ONE)
                 .is(TEN).then(ZERO)
@@ -125,7 +132,6 @@ class WhenTest {
     }
 
     @Test void orElseThrow_match_returnsResult() {
-
         int two = when(1)
             .is(2).then(0)
             .is(1).then(x -> x + x)
