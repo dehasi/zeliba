@@ -253,7 +253,7 @@ The `is` part accepts `Predicate` or a value which be compared as `Objects.equal
 String result = when(value)
     .is(v -> v > 0).then("+")
     .is(0).then("zero") // Objects.equals(0, value)
-    .is(v -> v > 0).then("+")
+    .is(v -> v < 0).then("-")
     .orElseThrow(); // throws IllegalStateException
 ```
 
@@ -273,7 +273,7 @@ int value = ...
 String result = when(value)
     .is(1).then("+")
     .is(0).then(() -> "zero")
-    .is(-1).then(val -> String.valueOf(Math.abs(val)))
+    .is(v -> v < 0).then(val -> String.valueOf(Math.abs(val))) // string of abs(value)
     .orElse("?"); 
 ```
 
