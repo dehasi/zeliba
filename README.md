@@ -264,23 +264,40 @@ int value = ...
 String result = when(value)
     .is(1).then("+")
     .is(0).then(() -> "zero")
-    .is(-1).then(val -> String.valueOf(abs(val)))
+    .is(-1).then(val -> String.valueOf(Math.abs(val)))
     .orElse("?"); 
 ```
+
+It is also possible to throw an exception from `then` part
+
+```java
+int value = ...
+
+String result = when(value)
+    .is(1).then("+")
+    .is(0).then(() -> {
+        throw new RuntimeException();
+    })
+    .orElse("?"); 
+```
+
+`orElse` examples
 ```java
 String result = when(value)
     .is(1).then("1")
-    .orElse(() -> String.valueOf(abs(val))); 
+    .orElse(this::method); // method will be called only if value is not 1
 ```
 
 ```java
 String result = when(value)
     .is(1).then("1")
-    .orElse(val -> String.valueOf(abs(val))); 
+    .orElse(val -> String.valueOf(Math.abs(val))); 
 ```
 
 The `orElseThrow` by default throws `IllegalStateException`. An expcetion message can be set.
 Or a custom exception also can be thrown.
+
+
 A complex example
 ```java
 String result = when(value)
