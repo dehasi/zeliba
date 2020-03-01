@@ -4,11 +4,11 @@ import java.time.chrono.ChronoLocalDate;
 
 import static java.util.Objects.requireNonNull;
 
-public class TheChronoLocalDate<T extends ChronoLocalDate> {
+public class TheChronoLocalDate<DATE extends ChronoLocalDate> {
 
-    private final T value;
+    private final DATE value;
 
-    private TheChronoLocalDate(T value) {
+    private TheChronoLocalDate(DATE value) {
         this.value = requireNonNull(value);
     }
 
@@ -16,11 +16,19 @@ public class TheChronoLocalDate<T extends ChronoLocalDate> {
         return new TheChronoLocalDate<>(value);
     }
 
-    public boolean isAfterOrEqual(T that) {
+    public boolean isAfterOrEqual(DATE that) {
         return value.isAfter(that) || value.isEqual(that);
     }
 
-    public boolean isBeforeOrEqual(T that) {
+    public boolean isNotAfter(DATE that) {
+        return isBeforeOrEqual(that);
+    }
+
+    public boolean isBeforeOrEqual(DATE that) {
         return value.isBefore(that) || value.isEqual(that);
+    }
+
+    public boolean isNotBefore(DATE that) {
+        return isAfterOrEqual(that);
     }
 }

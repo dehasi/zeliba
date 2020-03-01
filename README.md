@@ -17,7 +17,14 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [TheObject](#TheObject)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
+    - [contains](#contains)
+    - [Optional get](#Optional-get)
   - [When](#When)
+    - [is](#is)
+    - [isNot](#isNot)
+    - [then](#then)
+    - [orElse](#orElse)
+    - [orElseThrow](#orElseThrow)
 - [License](#License)
 - [Installation](#Installation)
   - [Maven](#Maven)
@@ -28,6 +35,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
 Zeliba main points are the following:
 * Provide a fluent API to write a comparison (for `Comparable<T>`)
 * Make `if`-checks better align with English grammar
+* Provide pattern matching for `Java 8`
 
 Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/)
 
@@ -41,14 +49,21 @@ See examples [TheComparable](#TheComparable), [TheChronoLocalDate](#TheChronoLoc
 
 ### Better English  
 Usually, util methods start with `is` prefix (like `isEmpty`), but negations are covered via exclamation mark `!is`, 
-which also makes you to do calculations. I.e. “if a collection is empty” transforms into 
+which also makes you do calculations. I.e. “if a collection is empty” transforms into 
 `collection.isEmpty()`, but “if a collection is *not* empty” transforms into `!collection.isEmpty()` 
 which is read as “not the collection is empty”. It is obviously grammatically incorrect. 
 Util methods like `if(isNotEmpty(collection))` do a great job but still remain grammatically incorrect.
  We don’t say “if is not an empty collection”. 
- Zeliba provides the same util methods but also gives you a fluent API to write grammatically correct
+ Zeliba provides the same methods but also gives you a fluent API to write grammatically correct
   code.  
 See examples. [TheObject](#TheObject), [TheCollection](#TheCollection), [TheMap](#TheMap)
+
+### Pattern matching
+Inspired by [when](https://kotlinlang.org/docs/reference/control-flow.html#when-expression) from `Kotlin`.  
+Since [Java 12](https://openjdk.java.net/jeps/325) `case`-expressions were extended. But `Java 8` is still
+widely used and it's nice to have some fluent API which is more useful than `case` for pattern matching.
+Zeliba provides some pattern-matching features.  
+See [When](#When)
 
 ## Examples
 
@@ -116,7 +131,15 @@ if (the(otherDate).isAfterOrEqual(someDate)) {
     ...
 }
    
-if (the(someDate).isBeforeOrEqual(otherDate)) {
+if (the(someDate).isNotAfter(otherDate)) {
+    ...
+}
+
+if (the(otherDate).isBeforeOrEqual(someDate)) {
+    ...
+}
+   
+if (the(someDate).isNotBefore(otherDate)) {
     ...
 }
    ```
@@ -133,7 +156,15 @@ if (the(otherDate).isAfterOrEqual(someDateTime)) {
     ...
 }
 
-if (the(someDate).isBeforeOrEqual(otherDateTime)) {
+if (the(someDate).isNotAfter(otherDateTime)) {
+    ...
+}
+
+if (the(otherDate).isBeforeOrEqual(someDateTime)) {
+    ...
+}
+
+if (the(someDate).isNotBefore(otherDateTime)) {
     ...
 }
 ```
@@ -187,7 +218,9 @@ if (the(map).isNotEmpty()) {
     ...
 }
 ```
-Fluent `contains` checks
+#### contains
+Fluent `contains` checks to check if a map contains the particular entry. 
+Or if the particular key has the particular value.
 ```java
 if (the(map).contains(pair)) {
     ...
@@ -201,7 +234,8 @@ if (the(map).contains(entry(key, value))) {
     ...
 }
 ```
-Optional `get`
+#### Optional `get`
+`Map.get(key)` returns `null` if there is no value. TheMap allows to a map return an `Optional<>`.
 ```java
 Optional<?> value = the(map).get(key)
 ```
@@ -210,14 +244,125 @@ Optional<?> value = the(map).get(key)
 
 Pattern-ish matching in pure `Java 8`
 
-The `when` returns value from the first true predicate.
+```java
+int value = ...
+
+String result = when(value)
+    .is(1).then("+")
+    .is(0).then("zero")
+    .is(-1).then("-")
+    .orElse("?"); 
+```
+
+The `when` returns value from the first matched predicate.
+
+```java
+int value = 42
+
+String result = when(value)
+    .is(42).then("first_42") //result=first_42
+    .is(42).then("second_42")
+    .orElse("?"); 
+```
+
+#### is
+The `is` part accepts `Predicate` or a value which be compared as `Objects.equals`
 
 ```java
 String result = when(value)
-    .is(i -> i > 0).then(i -> String.format("positive %s", i))
+    .is(v -> v > 0).then("+")
+    .is(0).then("zero") // Objects.equals(0, value)
+    .is(v -> v < 0).then("-")
+    .orElse("?"); 
+```
+#### isNot
+There is an opposise predicate `isNot`
+```java
+String result = when(value)
+    .isNot(42).then("not 42")
+    .orElse("42 for sure"); 
+```
+
+#### then
+`then` part accepts a value, `Supplier` or `Function`.
+The function accepts the initial value.
+
+```java
+int value = ...
+
+String result = when(value)
+    .is(1).then("+")
+    .is(0).then(() -> "zero")
+    .is(v -> v < 0).then(val -> String.valueOf(Math.abs(val))) // string of abs(value)
+    .orElse("?"); 
+```
+
+It is also possible to throw an exception from `then` part
+
+```java
+int value = ...
+
+String result = when(value)
+    .is(1).then("+")
+    .is(0).then(() -> {
+        throw new RuntimeException();
+    })
+    .orElse("?"); 
+```
+
+#### orElse
+`orElse` accepts the same parameters as [then](#then)
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElse("not 1");
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElse(this::method); // method will be called only if value is not 1
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElse(val -> String.valueOf(Math.abs(val))); 
+```
+
+#### orElseThrow
+By default `orElseThrow` throws `IllegalStateException` with default message.
+`orElseThrow` accepts a `String` to set an exception message, or `Supplier` to throw a custom one.
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElseThrow(); // IllegalStateException with default message
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElseThrow("Some valuable message");
+```
+
+```java
+String result = when(value)
+    .is(1).then("1")
+    .orElseThrow(RuntimeException::new); 
+```
+
+#### Complex example
+```java
+String result = when(value)
+    .is(i -> i < 0).then(i -> String.format("negative %s", -i))
     .is(0).then("zero")
-    .is(-1).then(() -> "supplier also works")
-    .orElse("?"); // .orElseThrow(RuntimeException::new);
+    .is(1).then(() -> String.format("positive %s", value))
+    .is(100_500).then(() -> {
+            throw new RuntimeException();
+    })
+    .isNot(42).then("not 42")
+    .orElseThrow("Custom exception message");
 ```
 ## License
 

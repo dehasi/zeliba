@@ -26,6 +26,10 @@ public class When<ARGUMENT> {
         return is(isEqual(argument));
     }
 
+    public RawIs isNot(ARGUMENT argument) {
+        return is(isEqual(argument).negate());
+    }
+
     public RawIs is(Predicate<? super ARGUMENT> predicate) {
         return new RawIs(requireNonNull(predicate));
     }
@@ -69,6 +73,10 @@ public class When<ARGUMENT> {
             return is(isEqual(argument));
         }
 
+        public Is<RESULT> isNot(ARGUMENT argument) {
+            return is(isEqual(argument).negate());
+        }
+
         public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {
             return is.with(this, predicate);
         }
@@ -89,8 +97,7 @@ public class When<ARGUMENT> {
         }
 
         public RESULT orElseThrow() {
-            String message = null;
-            return orElseThrow(message);
+            return orElseThrow(String.format("No matches for argument [%s]", argument));
         }
 
         public RESULT orElseThrow(String message) {
@@ -104,11 +111,10 @@ public class When<ARGUMENT> {
         }
 
         private Optional<RESULT> result() {
-            for (Pair<RESULT> pair : pairs) {
-                if (pair.predicate.test(argument))
-                    return Optional.of(pair.result.apply(argument));
-            }
-            return Optional.empty();
+            return pairs.stream()
+                .filter(pair1 -> pair1.predicate.test(argument))
+                .<RESULT>map(pair1 -> pair1.result.apply(argument))
+                .findFirst();
         }
     }
 
@@ -117,7 +123,7 @@ public class When<ARGUMENT> {
         private Then<RESULT> then;
         private Predicate<? super ARGUMENT> predicate;
 
-        private Is() { }
+        private Is() {}
 
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super ARGUMENT> predicate) {
             this.then = then;

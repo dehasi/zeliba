@@ -70,6 +70,17 @@ class WhenTest {
         assertEquals("+", string);
     }
 
+    @Test void isNot_returnsCorrectResult() {
+        int value = 1;
+
+        String string = when(value)
+            .isNot(0).then("not 0")
+            .isNot(2).then("not 2")
+            .orElse("?");
+
+        assertEquals("not 0", string);
+    }
+
     @Test void then_supplier_returnsCovariantResult() {
         int value = 1;
 
@@ -124,10 +135,12 @@ class WhenTest {
     }
 
     @Test void orElseThrow_noMatch_throwsException() {
-        assertThrows(IllegalStateException.class, () ->
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () ->
             when(ONE)
                 .is(TEN).then(ZERO)
-                .orElseThrow());
+                .orElseThrow()
+        );
+        assertEquals("No matches for argument [1]", exception.getMessage());
     }
 
     @Test void orElseThrow_match_returnsResult() {
@@ -143,7 +156,10 @@ class WhenTest {
         assertEquals("negative 1", testWhen(-1));
         assertEquals("zero", testWhen(0));
         assertEquals("positive 1", testWhen(1));
-        assertEquals("?", testWhen(100_500));
+        assertEquals("not 42", testWhen(12));
+        assertEquals("??", testWhen(42));
+        assertThrows(RuntimeException.class, () -> testWhen(100_500));
+
     }
 
     private String testWhen(int value) {
@@ -151,6 +167,10 @@ class WhenTest {
             .is(i -> i < 0).then(i -> String.format("negative %s", -i))
             .is(0).then("zero")
             .is(1).then(() -> String.format("positive %s", value))
-            .orElse("?");
+            .is(100_500).then(() -> {
+                throw new RuntimeException();
+            })
+            .isNot(42).then("not 42")
+            .orElse("??");
     }
 }
