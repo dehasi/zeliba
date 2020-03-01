@@ -235,7 +235,7 @@ if (the(map).contains(entry(key, value))) {
 }
 ```
 #### Optional `get`
-`Map.get(key)` returns `null` if there is no value. TheMap allows to map return an `Optional<>`.
+`Map.get(key)` returns `null` if there is no value. TheMap allows to a map return an `Optional<>`.
 ```java
 Optional<?> value = the(map).get(key)
 ```
