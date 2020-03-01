@@ -36,10 +36,16 @@ public class When<ARGUMENT> {
 
     public class RawIs {
 
-        private final Predicate<? super ARGUMENT> predicate;
+        private Predicate<? super ARGUMENT> predicate;
 
         private RawIs(Predicate<? super ARGUMENT> predicate) {
             this.predicate = predicate;
+        }
+
+        public RawIs and(Predicate<? super ARGUMENT> predicate) {
+            requireNonNull(predicate);
+            this.predicate = this.predicate.and(predicate);
+            return this;
         }
 
         public <RESULT> Then<RESULT> then(RESULT result) {
@@ -128,6 +134,11 @@ public class When<ARGUMENT> {
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super ARGUMENT> predicate) {
             this.then = then;
             this.predicate = predicate;
+            return this;
+        }
+
+        public Is<RESULT> and(Predicate<? super ARGUMENT> predicate) {
+            this.predicate = this.predicate.and(predicate);
             return this;
         }
 

@@ -70,6 +70,17 @@ class WhenTest {
         assertEquals("+", string);
     }
 
+    @Test void and_predicate_returnsResult() {
+        int value = 5;
+
+        String string = when(value)
+            .is(v -> v > 0).and(v-> v < 3).then("1..3")
+            .is(v -> v > 0).and(v-> v < 10).then("1..9")
+            .orElse("?");
+
+        assertEquals("1..9", string);
+    }
+
     @Test void isNot_returnsCorrectResult() {
         int value = 1;
 
