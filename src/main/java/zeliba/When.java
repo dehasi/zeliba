@@ -110,7 +110,7 @@ public class When<VALUE> {
             return optional().orElseThrow(exceptionSupplier);
         }
 
-        private Optional<RESULT> optional() {
+        public Optional<RESULT> optional() {
             return pairs.stream()
                 .filter(pair1 -> pair1.predicate.test(value))
                 .<RESULT>map(pair1 -> pair1.result.apply(value))
