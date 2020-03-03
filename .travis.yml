@@ -24,6 +24,6 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  - rm gradle.properties
-  - rm publish_key.gpg
-  - rm secret.gpg
+  - rm gradle.properties || true
+  - rm publish_key.gpg || true
+  - rm secret.gpg || true
