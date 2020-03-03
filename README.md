@@ -26,6 +26,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
     - [orElse](#orElse)
     - [orElseThrow](#orElseThrow)
     - [optional](#optional)
+    - [Complex example](#Complex-example)
 - [License](#License)
 - [Installation](#Installation)
   - [Maven](#Maven)
