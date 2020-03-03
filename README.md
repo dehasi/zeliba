@@ -25,6 +25,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
     - [then](#then)
     - [orElse](#orElse)
     - [orElseThrow](#orElseThrow)
+    - [optional](#optional)
 - [License](#License)
 - [Installation](#Installation)
   - [Maven](#Maven)
@@ -351,6 +352,27 @@ String result = when(value)
     .is(1).then("1")
     .orElseThrow(RuntimeException::new); 
 ```
+
+#### optional
+
+If the absence of the result is normal flow. `optional` can be used as a return value.
+
+```java
+int value = 1;
+
+Optional<String> string = when(value)
+    .is(0).then("0")
+    .is(1).then("1")
+    .optional(); // Optional.of("1")
+
+Optional<String> string = when(value)
+    .is(0).then("0")
+    .is(2).then("2")
+    .optional(); // Optional.empty()
+    
+    
+```
+
 
 #### Complex example
 ```java
