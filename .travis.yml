@@ -14,7 +14,7 @@ before_script:
     --output secret.gpg publish_key.gpg
   - echo signing.keyId=${SIGNING_KEY_ID} >> gradle.properties
   - echo signing.password=${SIGNING_PASSWORD} >> gradle.properties
-  - echo signing.secretKeyRingFile=publish_key.gpg >> gradle.properties
+  - echo signing.secretKeyRingFile=secret.gpg >> gradle.properties
 
 script:
   gradle --info test
@@ -22,3 +22,6 @@ script:
 after_success:
   - gradle --info jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
+  - rm gradle.properties
+  - rm publish_key.gpg
+  - rm secret.gpg
