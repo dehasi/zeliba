@@ -93,7 +93,7 @@ public class When<VALUE> {
         public RESULT orElse(Function<? super VALUE, ? extends RESULT> other) {
             requireNonNull(other);
 
-            return result().orElse(other.apply(value));
+            return optional().orElse(other.apply(value));
         }
 
         public RESULT orElseThrow() {
@@ -107,14 +107,10 @@ public class When<VALUE> {
         public <EXCEPTION extends Throwable> RESULT orElseThrow(
             Supplier<? extends EXCEPTION> exceptionSupplier) throws EXCEPTION {
 
-            return result().orElseThrow(exceptionSupplier);
+            return optional().orElseThrow(exceptionSupplier);
         }
 
-        public Optional<RESULT> optional() {
-            return result();
-        }
-
-        private Optional<RESULT> result() {
+        private Optional<RESULT> optional() {
             return pairs.stream()
                 .filter(pair1 -> pair1.predicate.test(value))
                 .<RESULT>map(pair1 -> pair1.result.apply(value))
