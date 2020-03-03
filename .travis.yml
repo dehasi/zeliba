@@ -9,12 +9,11 @@ before_script:
   # Configure Sonatype OSSRH credentials (encrypted)
   - sed -i.bak "s/ossrhUsername=/ossrhUsername=${ossrhUsername}/g" gradle.properties && rm gradle.properties.bak
   - sed -i.bak "s/ossrhPassword=/ossrhPassword=${ossrhPassword}/g" gradle.properties && rm gradle.properties.bak
-  - echo ${{ secrets.SECRET }}
-  - echo ${{secrets.GPG_KEY}} | base64 -d > publish_key.gpg
-  - gpg --quiet --batch --yes --decrypt --passphrase="${{secrets.SIGNING_PASSWORD}}" \
+  - echo ${GPG_KEY} | base64 -d > publish_key.gpg
+  - gpg --quiet --batch --yes --decrypt --passphrase="${SIGNING_PASSWORD}" \
     --output secret.gpg publish_key.gpg
-  - echo signing.keyId=${{secrets.SIGNING_KEY_ID}}
-  - echo signing.password=${{secrets.SIGNING_PASSWORD}}
+  - echo signing.keyId=${SIGNING_KEY_ID}
+  - echo signing.password=${SIGNING_PASSWORD}
   - echo signing.secretKeyRingFile=publish_key.gpg
 
 script:
