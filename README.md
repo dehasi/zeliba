@@ -369,8 +369,6 @@ Optional<String> string = when(value)
     .is(0).then("0")
     .is(2).then("2")
     .optional(); // Optional.empty()
-    
-    
 ```
 
 
