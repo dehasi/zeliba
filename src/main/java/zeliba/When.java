@@ -110,6 +110,10 @@ public class When<ARGUMENT> {
             return result().orElseThrow(exceptionSupplier);
         }
 
+        public Optional<RESULT> optional() {
+            return result();
+        }
+
         private Optional<RESULT> result() {
             return pairs.stream()
                 .filter(pair1 -> pair1.predicate.test(argument))

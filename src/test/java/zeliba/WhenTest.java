@@ -1,5 +1,6 @@
 package zeliba;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +8,7 @@ import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static zeliba.When.when;
 
@@ -79,6 +81,28 @@ class WhenTest {
             .orElse("?");
 
         assertEquals("not 0", string);
+    }
+
+    @Test void is_match_noElse_returnsEmptyOptional() {
+        int value = 1;
+
+        Optional<String> string = when(value)
+            .is(0).then("0")
+            .is(1).then("1")
+            .optional();
+
+        assertEquals("1", string.get());
+    }
+
+    @Test void is_noMatch_noElse_returnsEmptyOptional() {
+        int value = 1;
+
+        Optional<String> string = when(value)
+            .is(0).then("0")
+            .is(2).then("2")
+            .optional();
+
+        assertFalse(string.isPresent());
     }
 
     @Test void then_supplier_returnsCovariantResult() {
