@@ -164,7 +164,7 @@ class WhenTest {
                 .is(TEN).then(ZERO)
                 .orElseThrow()
         );
-        assertEquals("No matches for argument [1]", exception.getMessage());
+        assertEquals("No matches for value [1]", exception.getMessage());
     }
 
     @Test void orElseThrow_match_returnsResult() {
