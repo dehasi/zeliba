@@ -43,9 +43,16 @@ public class When<VALUE> {
         }
 
         public RawIs and(Predicate<? super VALUE> predicate) {
-            requireNonNull(predicate);
-//            Predicate<VALUE> predicate1 = v -> this.predicate.test(v) && predicate.test(v);
             this.predicate = this.predicate.and(predicate);
+            return this;
+        }
+
+        public RawIs or(VALUE value) {
+            return or(isEqual(value));
+        }
+
+        public RawIs or(Predicate<? super VALUE> predicate) {
+            this.predicate = this.predicate.or(predicate);
             return this;
         }
 
@@ -140,6 +147,15 @@ public class When<VALUE> {
 
         public Is<RESULT> and(Predicate<? super VALUE> predicate) {
             this.predicate = this.predicate.and(predicate);
+            return this;
+        }
+
+        public Is<RESULT> or(VALUE value) {
+            return or(isEqual(value));
+        }
+
+        public Is<RESULT> or(Predicate<? super VALUE> predicate) {
+            this.predicate = this.predicate.or(predicate);
             return this;
         }
 
