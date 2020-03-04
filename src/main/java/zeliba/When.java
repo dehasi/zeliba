@@ -44,7 +44,7 @@ public class When<ARGUMENT> {
 
         public RawIs and(Predicate<? super ARGUMENT> predicate) {
             requireNonNull(predicate);
-            this.predicate = this.predicate.and(predicate);
+            this.predicate = v -> this.predicate.test(v) && predicate.test(v);
             return this;
         }
 
@@ -138,7 +138,7 @@ public class When<ARGUMENT> {
         }
 
         public Is<RESULT> and(Predicate<? super ARGUMENT> predicate) {
-            this.predicate = this.predicate.and(predicate);
+            this.predicate = v -> this.predicate.test(v) && predicate.test(v);
             return this;
         }
 
