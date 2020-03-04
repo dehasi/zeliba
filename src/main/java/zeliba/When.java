@@ -36,15 +36,16 @@ public class When<VALUE> {
 
     public class RawIs {
 
-        private Predicate<? super VALUE> predicate;
+        private Predicate<VALUE> predicate = p -> true;
 
         private RawIs(Predicate<? super VALUE> predicate) {
-            this.predicate = predicate;
+            this.predicate = this.predicate.and(predicate);
         }
 
         public RawIs and(Predicate<? super VALUE> predicate) {
             requireNonNull(predicate);
-            this.predicate = v -> this.predicate.test(v) && predicate.test(v);
+//            Predicate<VALUE> predicate1 = v -> this.predicate.test(v) && predicate.test(v);
+            this.predicate = this.predicate.and(predicate);
             return this;
         }
 
@@ -127,18 +128,18 @@ public class When<VALUE> {
     public class Is<RESULT> {
 
         private Then<RESULT> then;
-        private Predicate<? super VALUE> predicate;
+        private Predicate<VALUE> predicate = p -> true;
 
         private Is() {}
 
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super VALUE> predicate) {
             this.then = then;
-            this.predicate = predicate;
+            this.predicate = this.predicate.and(predicate);
             return this;
         }
 
         public Is<RESULT> and(Predicate<? super VALUE> predicate) {
-            this.predicate = v -> this.predicate.test(v) && predicate.test(v);
+            this.predicate = this.predicate.and(predicate);
             return this;
         }
 
