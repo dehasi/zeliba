@@ -36,23 +36,14 @@ public class When<VALUE> {
 
     public class RawIs {
 
-        private Predicate<VALUE> predicate = p -> true;
+        private Predicate<? super VALUE> predicate;
 
         private RawIs(Predicate<? super VALUE> predicate) {
-            this.predicate = this.predicate.and(predicate);
+            this.predicate = predicate;
         }
 
         public RawIs and(Predicate<? super VALUE> predicate) {
-            this.predicate = this.predicate.and(predicate);
-            return this;
-        }
-
-        public RawIs or(VALUE value) {
-            return or(isEqual(value));
-        }
-
-        public RawIs or(Predicate<? super VALUE> predicate) {
-            this.predicate = this.predicate.or(predicate);
+            this.predicate = p -> this.predicate.test(p) && predicate.test(p);
             return this;
         }
 
@@ -135,27 +126,18 @@ public class When<VALUE> {
     public class Is<RESULT> {
 
         private Then<RESULT> then;
-        private Predicate<VALUE> predicate = p -> true;
+        private Predicate<? super VALUE> predicate;
 
         private Is() {}
 
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super VALUE> predicate) {
             this.then = then;
-            this.predicate = this.predicate.and(predicate);
+            this.predicate = predicate;
             return this;
         }
 
         public Is<RESULT> and(Predicate<? super VALUE> predicate) {
-            this.predicate = this.predicate.and(predicate);
-            return this;
-        }
-
-        public Is<RESULT> or(VALUE value) {
-            return or(isEqual(value));
-        }
-
-        public Is<RESULT> or(Predicate<? super VALUE> predicate) {
-            this.predicate = this.predicate.or(predicate);
+//            this.predicate = this.predicate.and(predicate);
             return this;
         }
 
