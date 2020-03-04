@@ -36,13 +36,13 @@ public class When<VALUE> {
 
     public class RawIs {
 
-        private final Predicate<? super VALUE> predicate;
+        private Predicate<? super VALUE> predicate;
 
         private RawIs(Predicate<? super VALUE> predicate) {
             this.predicate = predicate;
         }
 
-        public RawIs and(Predicate<? super ARGUMENT> predicate) {
+        public RawIs and(Predicate<? super VALUE> predicate) {
             requireNonNull(predicate);
             this.predicate = v -> this.predicate.test(v) && predicate.test(v);
             return this;
