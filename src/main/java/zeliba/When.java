@@ -10,35 +10,35 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 import static java.util.function.Predicate.isEqual;
 
-public class When<ARGUMENT> {
+public class When<VALUE> {
 
-    private final ARGUMENT argument;
+    private final VALUE value;
 
-    private When(ARGUMENT argument) {
-        this.argument = requireNonNull(argument);
+    private When(VALUE value) {
+        this.value = requireNonNull(value);
     }
 
-    public static <ARGUMENT> When<ARGUMENT> when(ARGUMENT argument) {
-        return new When<>(argument);
+    public static <VALUE> When<VALUE> when(VALUE value) {
+        return new When<>(value);
     }
 
-    public RawIs is(ARGUMENT argument) {
-        return is(isEqual(argument));
+    public RawIs is(VALUE value) {
+        return is(isEqual(value));
     }
 
-    public RawIs isNot(ARGUMENT argument) {
-        return is(isEqual(argument).negate());
+    public RawIs isNot(VALUE value) {
+        return is(isEqual(value).negate());
     }
 
-    public RawIs is(Predicate<? super ARGUMENT> predicate) {
+    public RawIs is(Predicate<? super VALUE> predicate) {
         return new RawIs(requireNonNull(predicate));
     }
 
     public class RawIs {
 
-        private Predicate<? super ARGUMENT> predicate;
+        private final Predicate<? super VALUE> predicate;
 
-        private RawIs(Predicate<? super ARGUMENT> predicate) {
+        private RawIs(Predicate<? super VALUE> predicate) {
             this.predicate = predicate;
         }
 
@@ -56,7 +56,7 @@ public class When<ARGUMENT> {
             return then(x -> result.get());
         }
 
-        public <RESULT> Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
+        public <RESULT> Then<RESULT> then(Function<? super VALUE, ? extends RESULT> result) {
             return new Then<>(new Pair<>(predicate, result));
         }
     }
@@ -75,15 +75,15 @@ public class When<ARGUMENT> {
             return this;
         }
 
-        public Is<RESULT> is(ARGUMENT argument) {
-            return is(isEqual(argument));
+        public Is<RESULT> is(VALUE value) {
+            return is(isEqual(value));
         }
 
-        public Is<RESULT> isNot(ARGUMENT argument) {
-            return is(isEqual(argument).negate());
+        public Is<RESULT> isNot(VALUE value) {
+            return is(isEqual(value).negate());
         }
 
-        public Is<RESULT> is(Predicate<? super ARGUMENT> predicate) {
+        public Is<RESULT> is(Predicate<? super VALUE> predicate) {
             return is.with(this, predicate);
         }
 
@@ -96,14 +96,14 @@ public class When<ARGUMENT> {
             return orElse(x -> other.get());
         }
 
-        public RESULT orElse(Function<? super ARGUMENT, ? extends RESULT> other) {
+        public RESULT orElse(Function<? super VALUE, ? extends RESULT> other) {
             requireNonNull(other);
 
-            return result().orElse(other.apply(argument));
+            return optional().orElse(other.apply(value));
         }
 
         public RESULT orElseThrow() {
-            return orElseThrow(String.format("No matches for argument [%s]", argument));
+            return orElseThrow(String.format("No matches for value [%s]", value));
         }
 
         public RESULT orElseThrow(String message) {
@@ -113,13 +113,13 @@ public class When<ARGUMENT> {
         public <EXCEPTION extends Throwable> RESULT orElseThrow(
             Supplier<? extends EXCEPTION> exceptionSupplier) throws EXCEPTION {
 
-            return result().orElseThrow(exceptionSupplier);
+            return optional().orElseThrow(exceptionSupplier);
         }
 
-        private Optional<RESULT> result() {
+        public Optional<RESULT> optional() {
             return pairs.stream()
-                .filter(pair1 -> pair1.predicate.test(argument))
-                .<RESULT>map(pair1 -> pair1.result.apply(argument))
+                .filter(pair1 -> pair1.predicate.test(value))
+                .<RESULT>map(pair1 -> pair1.result.apply(value))
                 .findFirst();
         }
     }
@@ -127,17 +127,17 @@ public class When<ARGUMENT> {
     public class Is<RESULT> {
 
         private Then<RESULT> then;
-        private Predicate<? super ARGUMENT> predicate;
+        private Predicate<? super VALUE> predicate;
 
         private Is() {}
 
-        private Is<RESULT> with(Then<RESULT> then, Predicate<? super ARGUMENT> predicate) {
+        private Is<RESULT> with(Then<RESULT> then, Predicate<? super VALUE> predicate) {
             this.then = then;
             this.predicate = predicate;
             return this;
         }
 
-        public Is<RESULT> and(Predicate<? super ARGUMENT> predicate) {
+        public Is<RESULT> and(Predicate<? super VALUE> predicate) {
             this.predicate = v -> this.predicate.test(v) && predicate.test(v);
             return this;
         }
@@ -150,17 +150,17 @@ public class When<ARGUMENT> {
             return then(x -> result.get());
         }
 
-        public Then<RESULT> then(Function<? super ARGUMENT, ? extends RESULT> result) {
+        public Then<RESULT> then(Function<? super VALUE, ? extends RESULT> result) {
             return then.with(new Pair<>(predicate, result));
         }
     }
 
     private class Pair<RESULT> {
 
-        final Predicate<? super ARGUMENT> predicate;
-        final Function<? super ARGUMENT, ? extends RESULT> result;
+        final Predicate<? super VALUE> predicate;
+        final Function<? super VALUE, ? extends RESULT> result;
 
-        private Pair(Predicate<? super ARGUMENT> predicate, Function<? super ARGUMENT, ? extends RESULT> result) {
+        private Pair(Predicate<? super VALUE> predicate, Function<? super VALUE, ? extends RESULT> result) {
             this.predicate = predicate;
             this.result = result;
         }
