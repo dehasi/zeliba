@@ -23,6 +23,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
     - [is](#is)
     - [isNot](#isNot)
     - [and](#and)
+    - [or](#or)
     - [then](#then)
     - [orElse](#orElse)
     - [orElseThrow](#orElseThrow)
@@ -295,6 +296,17 @@ int value = 5;
 String string = when(value)
     .is(v -> v > 0).and(v-> v < 3).then("(0..3)")
     .is(v -> v > 3).and(v-> v < 7).then("(3..7)")
+    .orElse("?");
+```
+#### or
+
+To make a disjunction of few `is`-predicates, `or` can be used.
+```java
+int value = 5;
+
+String string = when(value)
+    .is(0).or(2).or(4).then("0 or 2 or 4")
+    .is(1).or(3).or(5).then("1 or 3 or 5")
     .orElse("?");
 ```
 
