@@ -95,6 +95,7 @@ class WhenTest {
             .is(TRUE).and(sTrue).and(FALSE).then("1..3")
             .is(TRUE).and(sTrue).and(FALSE).then("1..9")
             .is(TRUE).and(sTrue).and(TRUE).then("expected")
+            .is(TRUE).and(sTrue).and(TRUE).then("too late")
             .orElse("?");
 
         assertEquals("expected", string);
@@ -109,6 +110,18 @@ class WhenTest {
             .orElse("?");
 
         assertEquals("1 or 3 or 5", string);
+    }
+
+    @Test void and_or_complexExample_returnsResult() {
+        int value = 5;
+
+        String string = when(value)
+            .is(FALSE).or(FALSE).then("incorrect")
+            .is(TRUE).and(FALSE).or(TRUE).then("expected")
+            .is(TRUE).and(FALSE).or(FALSE).and(TRUE).then("expected")
+            .orElse("?");
+
+        assertEquals("expected", string);
     }
 
     @Test void isNot_returnsCorrectResult() {
