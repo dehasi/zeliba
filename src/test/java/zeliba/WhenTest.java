@@ -77,11 +77,11 @@ class WhenTest {
         int value = 5;
 
         String string = when(value)
-            .is(v -> v > 0).and(v-> v < 3).then("1..3")
-            .is(v -> v > 0).and(v-> v < 10).then("1..9")
+            .is(v -> v > 0).and(v-> v < 3).then("(0..3)")
+            .is(v -> v > 3).and(v-> v < 7).then("(3..7)")
             .orElse("?");
 
-        assertEquals("1..9", string);
+        assertEquals("(3..7)", string);
     }
 
     @Test void and_covariantPredicate_returnsResult() {

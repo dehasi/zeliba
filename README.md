@@ -22,6 +22,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [When](#When)
     - [is](#is)
     - [isNot](#isNot)
+    - [and](#and)
     - [then](#then)
     - [orElse](#orElse)
     - [orElseThrow](#orElseThrow)
@@ -283,6 +284,18 @@ There is an opposise predicate `isNot`
 String result = when(value)
     .isNot(42).then("not 42")
     .orElse("42 for sure"); 
+```
+
+#### and
+
+To make a conjunction of few `is`-predicates, `and` can be used.
+```java
+int value = 5;
+
+String string = when(value)
+    .is(v -> v > 0).and(v-> v < 3).then("(0..3)")
+    .is(v -> v > 3).and(v-> v < 7).then("(3..7)")
+    .orElse("?");
 ```
 
 #### then
