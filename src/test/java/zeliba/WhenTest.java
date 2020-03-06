@@ -1,6 +1,5 @@
 package zeliba;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -90,7 +89,6 @@ class WhenTest {
         Predicate<Object> oTrue = p -> true;
         Predicate<Object> sTrue = p -> true;
         String value = "one";
-        int hash = value.hashCode();
 
         String string = when(value)
             .is(oTrue).and(sTrue).and(oFalse).then("1..3")
@@ -118,7 +116,7 @@ class WhenTest {
         Optional<String> string = when(value)
             .is(0).then("0")
             .is(1).then("1")
-            .optional();
+            .asOptional();
 
         assertEquals("1", string.get());
     }
@@ -129,7 +127,7 @@ class WhenTest {
         Optional<String> string = when(value)
             .is(0).then("0")
             .is(2).then("2")
-            .optional();
+            .asOptional();
 
         assertFalse(string.isPresent());
     }

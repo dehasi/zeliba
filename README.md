@@ -25,7 +25,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
     - [then](#then)
     - [orElse](#orElse)
     - [orElseThrow](#orElseThrow)
-    - [optional](#optional)
+    - [asOptional](#asOptional)
     - [Complex example](#Complex-example)
 - [License](#License)
 - [Installation](#Installation)
@@ -354,7 +354,7 @@ String result = when(value)
     .orElseThrow(RuntimeException::new); 
 ```
 
-#### optional
+#### asOptional
 
 If the absence of the result is normal flow. `optional` can be used as a return value.
 
@@ -364,12 +364,12 @@ int value = 1;
 Optional<String> string = when(value)
     .is(0).then("0")
     .is(1).then("1")
-    .optional(); // Optional.of("1")
+    .asOptional(); // Optional.of("1")
 
 Optional<String> string = when(value)
     .is(0).then("0")
     .is(2).then("2")
-    .optional(); // Optional.empty()
+    .asOptional(); // Optional.empty()
 ```
 
 
