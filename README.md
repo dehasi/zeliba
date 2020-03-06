@@ -356,7 +356,7 @@ String result = when(value)
 
 #### asOptional
 
-If the absence of the result is normal flow. `optional` can be used as a return value.
+If the absence of the result is normal flow. `Optional<>` can be used as a return value.
 
 ```java
 int value = 1;
