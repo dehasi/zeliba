@@ -118,7 +118,7 @@ class WhenTest {
         String string = when(value)
             .is(FALSE).or(FALSE).then("incorrect")
             .is(TRUE).and(FALSE).or(TRUE).then("expected")
-            .is(TRUE).and(FALSE).or(FALSE).and(TRUE).then("expected")
+            .is(TRUE).and(FALSE).or(FALSE).and(TRUE).then("incorrect")
             .orElse("?");
 
         assertEquals("expected", string);
