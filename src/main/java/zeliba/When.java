@@ -43,7 +43,7 @@ public class When<VALUE> {
         }
 
         public RawIs and(Predicate<? super VALUE> predicate) {
-            this.predicate = p -> this.predicate.test(p) && predicate.test(p);
+            this.predicate = ((Predicate<VALUE>)this.predicate).and(predicate);
             return this;
         }
 
