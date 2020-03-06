@@ -15,6 +15,9 @@ import static zeliba.When.when;
 
 class WhenTest {
 
+    private static final Predicate<Object> TRUE = p -> true;
+    private static final Predicate<Object> FALSE = p -> false;
+
     @Test void is_constant_returnsCovariantResult() {
         int value = 1;
 
@@ -77,23 +80,21 @@ class WhenTest {
         int value = 5;
 
         String string = when(value)
-            .is(v -> v > 0).and(v-> v < 3).then("(0..3)")
-            .is(v -> v > 3).and(v-> v < 7).then("(3..7)")
+            .is(v -> v > 0).and(v -> v < 3).then("(0..3)")
+            .is(v -> v > 3).and(v -> v < 7).then("(3..7)")
             .orElse("?");
 
         assertEquals("(3..7)", string);
     }
 
     @Test void and_covariantPredicate_returnsResult() {
-        Predicate<Object> oFalse = p -> false;
-        Predicate<Object> oTrue = p -> true;
         Predicate<Object> sTrue = p -> true;
         String value = "one";
 
         String string = when(value)
-            .is(oTrue).and(sTrue).and(oFalse).then("1..3")
-            .is(oTrue).and(sTrue).and(oFalse).then("1..9")
-            .is(oTrue).and(sTrue).and(oTrue).then("expected")
+            .is(TRUE).and(sTrue).and(FALSE).then("1..3")
+            .is(TRUE).and(sTrue).and(FALSE).then("1..9")
+            .is(TRUE).and(sTrue).and(TRUE).then("expected")
             .orElse("?");
 
         assertEquals("expected", string);
