@@ -47,6 +47,15 @@ public class When<VALUE> {
             return this;
         }
 
+        public RawIs or(VALUE predicate) {
+            return or(isEqual(value));
+        }
+
+        public RawIs or(Predicate<? super VALUE> predicate) {
+            this.predicate = ((Predicate<VALUE>)this.predicate).and(predicate);
+            return this;
+        }
+
         public <RESULT> Then<RESULT> then(RESULT result) {
             return then(() -> result);
         }
