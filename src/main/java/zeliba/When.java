@@ -36,10 +36,24 @@ public class When<VALUE> {
 
     public class RawIs {
 
-        private final Predicate<? super VALUE> predicate;
+        private Predicate<? super VALUE> predicate;
 
         private RawIs(Predicate<? super VALUE> predicate) {
             this.predicate = predicate;
+        }
+
+        public RawIs and(Predicate<? super VALUE> predicate) {
+            this.predicate = ((Predicate<VALUE>)this.predicate).and(predicate);
+            return this;
+        }
+
+        public RawIs or(VALUE predicate) {
+            return or(isEqual(value));
+        }
+
+        public RawIs or(Predicate<? super VALUE> predicate) {
+            this.predicate = ((Predicate<VALUE>)this.predicate).and(predicate);
+            return this;
         }
 
         public <RESULT> Then<RESULT> then(RESULT result) {
@@ -93,7 +107,7 @@ public class When<VALUE> {
         public RESULT orElse(Function<? super VALUE, ? extends RESULT> other) {
             requireNonNull(other);
 
-            return optional().orElse(other.apply(value));
+            return asOptional().orElse(other.apply(value));
         }
 
         public RESULT orElseThrow() {
@@ -107,10 +121,10 @@ public class When<VALUE> {
         public <EXCEPTION extends Throwable> RESULT orElseThrow(
             Supplier<? extends EXCEPTION> exceptionSupplier) throws EXCEPTION {
 
-            return optional().orElseThrow(exceptionSupplier);
+            return asOptional().orElseThrow(exceptionSupplier);
         }
 
-        public Optional<RESULT> optional() {
+        public Optional<RESULT> asOptional() {
             return pairs.stream()
                 .filter(pair1 -> pair1.predicate.test(value))
                 .<RESULT>map(pair1 -> pair1.result.apply(value))
@@ -128,6 +142,20 @@ public class When<VALUE> {
         private Is<RESULT> with(Then<RESULT> then, Predicate<? super VALUE> predicate) {
             this.then = then;
             this.predicate = predicate;
+            return this;
+        }
+
+        public Is<RESULT> and(Predicate<? super VALUE> predicate) {
+            this.predicate = ((Predicate<VALUE>)this.predicate).and(predicate);
+            return this;
+        }
+
+        public Is<RESULT> or(VALUE value) {
+            return or(isEqual(value));
+        }
+
+        public Is<RESULT> or(Predicate<? super VALUE> predicate) {
+            this.predicate = ((Predicate<VALUE>)this.predicate).or(predicate);
             return this;
         }
 

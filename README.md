@@ -22,10 +22,12 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   - [When](#When)
     - [is](#is)
     - [isNot](#isNot)
+    - [and](#and)
+    - [or](#or)
     - [then](#then)
     - [orElse](#orElse)
     - [orElseThrow](#orElseThrow)
-    - [optional](#optional)
+    - [asOptional](#asOptional)
     - [Complex example](#Complex-example)
 - [License](#License)
 - [Installation](#Installation)
@@ -285,6 +287,42 @@ String result = when(value)
     .orElse("42 for sure"); 
 ```
 
+#### and
+
+To make a conjunction of few `is`-predicates, `and` can be used.
+```java
+int value = 5;
+
+String string = when(value)
+    .is(v -> v > 0).and(v-> v < 3).then("(0..3)")
+    .is(v -> v > 3).and(v-> v < 7).then("(3..7)")
+    .orElse("?");
+```
+#### or
+
+To make a disjunction of few `is`-predicates, `or` can be used.
+```java
+int value = 5;
+
+String string = when(value)
+    .is(0).or(2).or(4).then("0 or 2 or 4")
+    .is(1).or(3).or(5).then("1 or 3 or 5")
+    .orElse("?");
+```
+
+`or` and `and` can be used together
+
+```java
+int value = 5;
+
+String string = when(value)
+    .is(1).or(2).then("< 3")
+    .is(v -> v > 6).and(v -> v < 10).or(5).then("(6;10) or 5")
+    .is(v -> v > 0).and(v -> v < 5)
+        .or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
+    .orElse("?");
+```
+
 #### then
 `then` part accepts a value, `Supplier` or `Function`.
 The function accepts the initial value.
@@ -354,9 +392,9 @@ String result = when(value)
     .orElseThrow(RuntimeException::new); 
 ```
 
-#### optional
+#### asOptional
 
-If the absence of the result is normal flow. `optional` can be used as a return value.
+If the absence of the result is normal flow. `Optional<>` can be used as a return value.
 
 ```java
 int value = 1;
@@ -364,12 +402,12 @@ int value = 1;
 Optional<String> string = when(value)
     .is(0).then("0")
     .is(1).then("1")
-    .optional(); // Optional.of("1")
+    .asOptional(); // Optional.of("1")
 
 Optional<String> string = when(value)
     .is(0).then("0")
     .is(2).then("2")
-    .optional(); // Optional.empty()
+    .asOptional(); // Optional.empty()
 ```
 
 

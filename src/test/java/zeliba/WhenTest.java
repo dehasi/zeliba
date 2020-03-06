@@ -2,6 +2,7 @@ package zeliba;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import static java.math.BigDecimal.ONE;
@@ -13,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static zeliba.When.when;
 
 class WhenTest {
+
+    private static final Predicate<Object> TRUE = p -> true;
+    private static final Predicate<Object> FALSE = p -> false;
 
     @Test void is_constant_returnsCovariantResult() {
         int value = 1;
@@ -72,6 +76,68 @@ class WhenTest {
         assertEquals("+", string);
     }
 
+    @Test void and_predicate_returnsResult() {
+        int value = 5;
+
+        String string = when(value)
+            .is(v -> v > 0).and(v -> v < 3).then("(0..3)")
+            .is(v -> v > 3).and(v -> v < 7).then("(3..7)")
+            .orElse("?");
+
+        assertEquals("(3..7)", string);
+    }
+
+    @Test void and_covariantPredicate_returnsResult() {
+        Predicate<String> sTrue = p -> true;
+        String value = "one";
+
+        String string = when(value)
+            .is(TRUE).and(sTrue).and(FALSE).then("1..3")
+            .is(TRUE).and(sTrue).and(FALSE).then("1..9")
+            .is(TRUE).and(sTrue).and(TRUE).then("expected")
+            .is(TRUE).and(sTrue).and(TRUE).then("too late")
+            .orElse("?");
+
+        assertEquals("expected", string);
+    }
+
+    @Test void or_values_returnsResult() {
+        int value = 5;
+
+        String string = when(value)
+            .is(0).or(2).or(4).then("0 or 2 or 4")
+            .is(1).or(3).or(5).then("1 or 3 or 5")
+            .orElse("?");
+
+        assertEquals("1 or 3 or 5", string);
+    }
+
+    @Test void and_or_complexExample_returnsResult() {
+        int value = 5;
+
+        String string = when(value)
+            .is(FALSE).or(FALSE).then("incorrect")
+            .is(TRUE).and(FALSE).or(TRUE).then("expected")
+            .is(TRUE).and(FALSE).or(FALSE).and(TRUE).then("incorrect")
+            .orElse("?");
+
+        assertEquals("expected", string);
+    }
+
+    @Test void complexExample_forDocumentation() {
+        int value = 5;
+
+        String string = when(value)
+            .is(1).or(2).then("< 3")
+            .is(v -> v < 10).and(v -> v > 6)
+                .or(5).then("5 or (6;10)")
+            .is(v -> v > 0).and(v -> v < 5)
+                .or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
+            .orElse("?");
+
+        assertEquals("5 or (6;10)", string);
+    }
+
     @Test void isNot_returnsCorrectResult() {
         int value = 1;
 
@@ -83,24 +149,24 @@ class WhenTest {
         assertEquals("not 0", string);
     }
 
-    @Test void is_match_noElse_returnsEmptyOptional() {
+    @Test void asOptional_match_noElse_returnsEmptyOptional() {
         int value = 1;
 
         Optional<String> string = when(value)
             .is(0).then("0")
             .is(1).then("1")
-            .optional();
+            .asOptional();
 
         assertEquals("1", string.get());
     }
 
-    @Test void is_noMatch_noElse_returnsEmptyOptional() {
+    @Test void asOptional_noMatch_noElse_returnsEmptyOptional() {
         int value = 1;
 
         Optional<String> string = when(value)
             .is(0).then("0")
             .is(2).then("2")
-            .optional();
+            .asOptional();
 
         assertFalse(string.isPresent());
     }

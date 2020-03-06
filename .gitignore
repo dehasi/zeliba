@@ -1,14 +1,14 @@
 .idea/
 .idea_modules/
-.gradle
-out/
-build/
-
 **/build/
 *.iws
 *.iml
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+.gradle
+gradle.properties
+gradle/wrapper
+out/
+build/
+
 # Cache of project
 .gradletasknamecache
