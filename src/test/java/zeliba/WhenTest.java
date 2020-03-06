@@ -99,6 +99,17 @@ class WhenTest {
         assertEquals("expected", string);
     }
 
+    @Test void or_values_returnsResult() {
+        int value = 5;
+
+        String string = when(value)
+            .is(0).or(2).or(4).then("0 or 2 or 4")
+            .is(1).or(3).or(5).then("1 or 3 or 5")
+            .orElse("?");
+
+        assertEquals("1 or 3 or 5", string);
+    }
+
     @Test void isNot_returnsCorrectResult() {
         int value = 1;
 
