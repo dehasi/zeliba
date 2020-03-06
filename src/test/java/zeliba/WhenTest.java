@@ -88,7 +88,7 @@ class WhenTest {
     }
 
     @Test void and_covariantPredicate_returnsResult() {
-        Predicate<Object> sTrue = p -> true;
+        Predicate<String> sTrue = p -> true;
         String value = "one";
 
         String string = when(value)
