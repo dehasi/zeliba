@@ -310,6 +310,19 @@ String string = when(value)
     .orElse("?");
 ```
 
+`or` and `and` can be used together
+
+```java
+int value = 5;
+
+String string = when(value)
+    .is(1).or(2).then("< 3")
+    .is(v -> v > 6).and(v -> v < 10).or(5).then("(6;10) or 5")
+    .is(v -> v > 0).and(v -> v < 5)
+        .or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
+    .orElse("?");
+```
+
 #### then
 `then` part accepts a value, `Supplier` or `Function`.
 The function accepts the initial value.

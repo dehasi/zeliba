@@ -129,8 +129,10 @@ class WhenTest {
 
         String string = when(value)
             .is(1).or(2).then("< 3")
-            .is(v -> v < 10).and(v -> v > 6).or(5).then("5 or (6;10)")
-            .is(v -> v > 0).and(v -> v < 5).or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
+            .is(v -> v < 10).and(v -> v > 6)
+                .or(5).then("5 or (6;10)")
+            .is(v -> v > 0).and(v -> v < 5)
+                .or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
             .orElse("?");
 
         assertEquals("5 or (6;10)", string);
