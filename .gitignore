@@ -1,6 +1,7 @@
 .idea/
 .idea_modules/
 .gradle
+gradle/wrapper
 out/
 build/
 
