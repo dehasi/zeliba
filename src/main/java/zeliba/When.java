@@ -141,6 +141,15 @@ public class When<VALUE> {
             return this;
         }
 
+        public Is<RESULT> or(VALUE value) {
+            return or(isEqual(value));
+        }
+
+        public Is<RESULT> or(Predicate<? super VALUE> predicate) {
+            this.predicate = ((Predicate<VALUE>)this.predicate).or(predicate);
+            return this;
+        }
+
         public Then<RESULT> then(RESULT result) {
             return then(() -> result);
         }

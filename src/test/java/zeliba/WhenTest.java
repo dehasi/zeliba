@@ -110,7 +110,7 @@ class WhenTest {
         assertEquals("not 0", string);
     }
 
-    @Test void is_match_noElse_returnsEmptyOptional() {
+    @Test void asOptional_match_noElse_returnsEmptyOptional() {
         int value = 1;
 
         Optional<String> string = when(value)
@@ -121,7 +121,7 @@ class WhenTest {
         assertEquals("1", string.get());
     }
 
-    @Test void is_noMatch_noElse_returnsEmptyOptional() {
+    @Test void asOptional_noMatch_noElse_returnsEmptyOptional() {
         int value = 1;
 
         Optional<String> string = when(value)
