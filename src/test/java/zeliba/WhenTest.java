@@ -1,7 +1,9 @@
 package zeliba;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import static java.math.BigDecimal.ONE;
@@ -81,6 +83,22 @@ class WhenTest {
             .orElse("?");
 
         assertEquals("1..9", string);
+    }
+
+    @Test void and_covariantPredicate_returnsResult() {
+        Predicate<Object> oFalse = p -> false;
+        Predicate<Object> oTrue = p -> true;
+        Predicate<Object> sTrue = p -> true;
+        String value = "one";
+        int hash = value.hashCode();
+
+        String string = when(value)
+            .is(oTrue).and(sTrue).and(oFalse).then("1..3")
+            .is(oTrue).and(sTrue).and(oFalse).then("1..9")
+            .is(oTrue).and(sTrue).and(oTrue).then("expected")
+            .orElse("?");
+
+        assertEquals("expected", string);
     }
 
     @Test void isNot_returnsCorrectResult() {

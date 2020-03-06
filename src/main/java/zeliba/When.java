@@ -137,7 +137,7 @@ public class When<VALUE> {
         }
 
         public Is<RESULT> and(Predicate<? super VALUE> predicate) {
-//            this.predicate = this.predicate.and(predicate);
+            this.predicate = ((Predicate<VALUE>)this.predicate).and(predicate);
             return this;
         }
 
