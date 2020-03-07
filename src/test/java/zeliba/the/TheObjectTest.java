@@ -1,10 +1,10 @@
-package zeliba;
+package zeliba.the;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheObject.the;
+import static zeliba.the.TheObject.the;
 
 class TheObjectTest {
 
