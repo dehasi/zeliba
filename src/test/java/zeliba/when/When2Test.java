@@ -33,15 +33,17 @@ class When2Test {
         assertEquals("eq", string);
     }
 
-    @Test void is_twoPredicates_returnsCovariantResult() {
+    @Test void is_twoPredicates_returnsCorrectResult() {
         int x = 1;
         int y = 2;
 
         String string = when(x, y)
-            .is(2,2).then("2,2")
-            .is(o -> o == 1, o -> o == 2).then("1,2")
-            .orElse("nq");
+            .is(p -> p > 0, p -> p > 0).then("I Quadrant")
+            .is(p -> p < 0, p -> p > 0).then("II Quadrant")
+            .is(p -> p < 0, p -> p < 0).then("III Quadrant")
+            .is(p -> p > 0, p -> p < 0).then("IV Quadrant")
+            .orElse("zero");
 
-        assertEquals("1,2", string);
+        assertEquals("I Quadrant", string);
     }
 }
