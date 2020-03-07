@@ -30,6 +30,18 @@ class When2Test {
         assertEquals("1,1", string);
     }
 
+    @Test void is_notFirstMatch_returnsCovariantResult() {
+        int x = 1;
+        int y = 1;
+
+        String string = when(x, y)
+            .is(2, 1).then("1,2")
+            .is(1, 1).then("1,1")
+            .orElse("?");
+
+        assertEquals("1,1", string);
+    }
+
     @Test void is_fewMatches_returnsFirst() {
         int x = 1;
         int y = 1;
