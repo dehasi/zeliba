@@ -1,4 +1,4 @@
-package zeliba;
+package zeliba.the;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheChronoLocalDateTime.the;
+import static zeliba.the.TheChronoLocalDateTime.the;
 
 class TheChronoLocalDateTimeTest {
 

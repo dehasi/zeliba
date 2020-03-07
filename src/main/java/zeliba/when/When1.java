@@ -1,4 +1,4 @@
-package zeliba;
+package zeliba.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +10,16 @@ import java.util.function.Supplier;
 import static java.util.Objects.requireNonNull;
 import static java.util.function.Predicate.isEqual;
 
-public class When<VALUE> {
+public class When1<VALUE> {
 
     private final VALUE value;
 
-    private When(VALUE value) {
+    private When1(VALUE value) {
         this.value = requireNonNull(value);
     }
 
-    public static <VALUE> When<VALUE> when(VALUE value) {
-        return new When<>(value);
+    public static <VALUE> When1<VALUE> when(VALUE value) {
+        return new When1<>(value);
     }
 
     public RawIs is(VALUE value) {
@@ -47,7 +47,7 @@ public class When<VALUE> {
             return this;
         }
 
-        public RawIs or(VALUE predicate) {
+        public RawIs or(VALUE value) {
             return or(isEqual(value));
         }
 

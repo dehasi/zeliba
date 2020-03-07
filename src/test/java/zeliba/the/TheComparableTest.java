@@ -1,4 +1,4 @@
-package zeliba;
+package zeliba.the;
 
 import java.math.BigDecimal;
 import java.util.stream.Stream;
@@ -13,7 +13,7 @@ import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheComparable.the;
+import static zeliba.the.TheComparable.the;
 
 class TheComparableTest {
 

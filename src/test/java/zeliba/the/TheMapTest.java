@@ -1,4 +1,4 @@
-package zeliba;
+package zeliba.the;
 
 import java.util.Map;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheMap.entry;
-import static zeliba.TheMap.the;
+import static zeliba.the.TheMap.entry;
+import static zeliba.the.TheMap.the;
 
 class TheMapTest {
 

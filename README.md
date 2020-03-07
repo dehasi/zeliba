@@ -29,6 +29,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
     - [orElseThrow](#orElseThrow)
     - [asOptional](#asOptional)
     - [Complex example](#Complex-example)
+  - [When2](#When2)
 - [License](#License)
 - [Installation](#Installation)
   - [Maven](#Maven)
@@ -423,6 +424,26 @@ String result = when(value)
     .isNot(42).then("not 42")
     .orElseThrow("Custom exception message");
 ```
+
+### When2
+
+It's possible to make matching with two variables
+```java
+
+int x = 1;
+int y = -2;
+
+String string = when(x, y)
+    .is(0, 0).then("zero")
+    .is(p -> p > 0, p -> p > 0).then("I Quadrant")
+    .is(p -> p < 0, p -> p > 0).then("II Quadrant")
+    .is(p -> p < 0, p -> p < 0).then("III Quadrant")
+    .is(p -> p > 0, p -> p < 0).then("IV Quadrant")
+    .orElse("??");
+```
+
+
+
 ## License
 
 This project is licensed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0)

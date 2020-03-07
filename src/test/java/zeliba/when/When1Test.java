@@ -1,4 +1,4 @@
-package zeliba;
+package zeliba.when;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,9 +11,9 @@ import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static zeliba.When.when;
+import static zeliba.when.When.when;
 
-class WhenTest {
+class When1Test {
 
     private static final Predicate<Object> TRUE = p -> true;
     private static final Predicate<Object> FALSE = p -> false;
@@ -130,9 +130,9 @@ class WhenTest {
         String string = when(value)
             .is(1).or(2).then("< 3")
             .is(v -> v < 10).and(v -> v > 6)
-                .or(5).then("5 or (6;10)")
+            .or(5).then("5 or (6;10)")
             .is(v -> v > 0).and(v -> v < 5)
-                .or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
+            .or(v -> v > 5).and(v -> v < 10).then("(0;5) or (5;10)")
             .orElse("?");
 
         assertEquals("5 or (6;10)", string);

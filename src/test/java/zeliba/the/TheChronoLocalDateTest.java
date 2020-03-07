@@ -1,4 +1,4 @@
-package zeliba;
+package zeliba.the;
 
 import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static zeliba.TheChronoLocalDate.the;
+import static zeliba.the.TheChronoLocalDate.the;
 
 class TheChronoLocalDateTest {
 
