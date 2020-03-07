@@ -16,7 +16,7 @@ public class When2<V1, V2> {
     private final V1 value1;
     private final V2 value2;
 
-    public When2(V1 value1, V2 value2) {
+    private When2(V1 value1, V2 value2) {
         this.value1 = requireNonNull(value1);
         this.value2 = requireNonNull(value2);
     }
@@ -50,20 +50,6 @@ public class When2<V1, V2> {
         private RawIs(BiPredicate<? super V1, ? super V2> predicate) {
             this.predicate = predicate;
         }
-
-//        public RawIs and(BiPredicate<? super V1, ? super V2> predicate) {
-//            this.predicate = ((Predicate<V1>)this.predicate).and(predicate);
-//            return this;
-//        }
-//
-//        public RawIs or(V1 v1, V2 v2) {
-//            return or((a,b) -> Objects.equals(v1, v2) && Objects.equals(v1, v2));
-//        }
-//
-//        public RawIs or(BiPredicate<? super V1, ? super V2> predicate) {
-//            this.predicate = ((Predicate<V1>)this.predicate).and(predicate);
-//            return this;
-//        }
 
         public <RESULT> Then<RESULT> then(RESULT result) {
             return then(() -> result);
@@ -159,20 +145,6 @@ public class When2<V1, V2> {
             this.predicate = predicate;
             return this;
         }
-
-//        public Is<RESULT> and(Predicate<? super V1> predicate) {
-//            this.predicate = ((Predicate<V1>)this.predicate).and(predicate);
-//            return this;
-//        }
-//
-//        public Is<RESULT> or(V1 value) {
-//            return or(isEqual(value));
-//        }
-//
-//        public Is<RESULT> or(Predicate<? super V1> predicate) {
-//            this.predicate = ((Predicate<V1>)this.predicate).or(predicate);
-//            return this;
-//        }
 
         public Then<RESULT> then(RESULT result) {
             return then(() -> result);
