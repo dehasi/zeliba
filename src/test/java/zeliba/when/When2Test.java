@@ -35,8 +35,9 @@ class When2Test {
         int y = 1;
 
         String string = when(x, y)
-            .is((v1, v2) -> v1 + v2 > 0).then("x+y>0")
+            .is((v1, v2) -> v1 + v2 == 0).then("x+y=0")
             .is((v1, v2) -> v1 + v2 < 0).then("x+y<0")
+            .is((v1, v2) -> v1 + v2 > 0).then("x+y>0")
             .orElseThrow();
 
         assertEquals("x+y>0", string);
