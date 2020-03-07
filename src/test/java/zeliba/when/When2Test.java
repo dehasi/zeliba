@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static zeliba.the.TheComparable.the;
@@ -88,7 +89,7 @@ class When2Test {
 
     @Test void is_twoPredicates_returnsCorrectResult() {
         BigDecimal x = ONE;
-        int y = -2;
+        int y = 2;
 
         String string = when(x, y)
             .is(p -> the(p).isGreaterThan(ZERO), p -> p > 0).then("I Quadrant")
@@ -97,12 +98,12 @@ class When2Test {
             .is(p -> the(p).isGreaterThan(ZERO), p -> p < 0).then("IV Quadrant")
             .orElse("zero");
 
-        assertEquals("IV Quadrant", string);
+        assertEquals("I Quadrant", string);
     }
 
     @MethodSource("predicates")
     @ParameterizedTest void is_twoPredicates_returnsCorrectResult(Predicate<Object> p1, Predicate<Object> p2) {
-        String string = when(ONE, -2)
+        String string = when(ONE, TEN)
             .is(p1, p2).then("not match")
             .is(TRUE, TRUE).then("expected")
             .orElseThrow();
