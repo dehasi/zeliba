@@ -21,8 +21,10 @@ class When2Test {
 
         String string = when(x, y)
             .is(1, 2).then("1,2")
-            .is(1, 1).then("1,1")
             .is(2, 1).then("2,1")
+            .is(2, 2).then("2,2")
+            .is(1, 1).then("1,1")
+            .is(1, 1).then("too late")
             .orElse("?");
 
         assertEquals("1,1", string);
