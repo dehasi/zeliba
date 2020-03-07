@@ -92,8 +92,8 @@ class When2Test {
         int y = -2;
 
         String string = when(x, y)
+            .is(FALSE, FALSE).then("I Quadrant")
             .is(p -> the(p).isGreaterThan(ZERO), p -> p > 0).then("I Quadrant")
-            .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
             .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
             .is(p -> the(p).isLessThan(ZERO), p -> p < 0).then("III Quadrant")
             .is(p -> the(p).isGreaterThan(ZERO), p -> p < 0).then("IV Quadrant")
