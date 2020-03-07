@@ -89,16 +89,17 @@ class When2Test {
 
     @Test void is_twoPredicates_returnsCorrectResult() {
         BigDecimal x = ONE;
-        int y = 2;
+        int y = -2;
 
         String string = when(x, y)
             .is(p -> the(p).isGreaterThan(ZERO), p -> p > 0).then("I Quadrant")
+            .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
             .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
             .is(p -> the(p).isLessThan(ZERO), p -> p < 0).then("III Quadrant")
             .is(p -> the(p).isGreaterThan(ZERO), p -> p < 0).then("IV Quadrant")
             .orElse("zero");
 
-        assertEquals("I Quadrant", string);
+        assertEquals("IV Quadrant", string);
     }
 
     @MethodSource("predicates")
