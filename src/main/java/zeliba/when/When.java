@@ -1,6 +1,8 @@
 package zeliba.when;
 
-public class When {
+public final class When {
+
+    private When() { }
 
     public static <V> When1<V> when(V value) {
         return When1.when(value);
