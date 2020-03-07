@@ -35,11 +35,11 @@ class When2Test {
         int y = 1;
 
         String string = when(x, y)
-            .is(1, 1).then("1,2")
+            .is(1, 1).then("expected")
             .is(1, 1).then("too late")
             .orElse("?");
 
-        assertEquals("1,1", string);
+        assertEquals("expected", string);
     }
 
     @Test void is_biPredicate_returnsCovariantResult() {
