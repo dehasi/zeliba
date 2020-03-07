@@ -67,6 +67,18 @@ class When2Test {
         assertEquals("x+y>0", string);
     }
 
+    @Test void is_biPredicate_fewMatches_returnsFirs() {
+        int x = 1;
+        int y = 1;
+
+        String string = when(x, y)
+            .is((v1, v2) -> v1 + v2 > 0).then("expected")
+            .is((v1, v2) -> v1 + v2 > 0).then("too late")
+            .orElseThrow();
+
+        assertEquals("expected", string);
+    }
+
     @Test void is_twoPredicates_returnsCorrectResult() {
         BigDecimal x = ONE;
         int y = -2;
@@ -81,7 +93,7 @@ class When2Test {
         assertEquals("IV Quadrant", string);
     }
 
-    @Test void isNot_biPredicate_returnsCovariantResult() {
+    @Test void isNot_constants_returnsCorrectResult() {
         int x = 1;
         int y = 1;
 
@@ -89,6 +101,30 @@ class When2Test {
             .isNot(1, 1).then("x != 1 and y != 1")
             .isNot(1, 2).then("x != 1 and y != 2")
             .isNot(2, 1).then("x != 2 and y != 1")
+            .isNot(2, 2).then("x != 2 and y != 2")
+            .orElseThrow();
+
+        assertEquals("x != 2 and y != 2", string);
+    }
+
+    @Test void isNot_constantsFirstMatch_returnsOnlyTwoMatches() {
+        int x = 1;
+        int y = 1;
+
+        String string = when(x, y)
+            .isNot(1, 2).then("x != 1 and y != 1")
+            .isNot(2, 2).then("x != 2 and y != 2")
+            .orElseThrow();
+
+        assertEquals("x != 2 and y != 2", string);
+    }
+
+    @Test void isNot_constantsSecondMatch_returnsOnlyTwoMatches() {
+        int x = 1;
+        int y = 1;
+
+        String string = when(x, y)
+            .isNot(2, 1).then("x != 1 and y != 1")
             .isNot(2, 2).then("x != 2 and y != 2")
             .orElseThrow();
 
