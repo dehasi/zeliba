@@ -10,7 +10,7 @@ import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static zeliba.the.TheComparable.the;
-import static zeliba.when.When2.when;
+import static zeliba.when.When.when;
 
 class When2Test {
 

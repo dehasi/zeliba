@@ -11,7 +11,7 @@ import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static zeliba.when.When1.when;
+import static zeliba.when.When.when;
 
 class When1Test {
 
