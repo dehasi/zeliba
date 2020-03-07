@@ -27,10 +27,11 @@ class When2Test {
         int y = 1;
 
         String string = when(x, y)
-            .is((o1, o2) -> o1 == o2).then("eq")
-            .orElse("nq");
+            .is(1,1).then("1,1")
+            .is(1,2).then("1,2")
+            .orElseThrow();
 
-        assertEquals("eq", string);
+        assertEquals("1,1", string);
     }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
@@ -45,5 +46,18 @@ class When2Test {
             .orElse("zero");
 
         assertEquals("I Quadrant", string);
+    }
+
+    @Test void isNot_biPredicate_returnsCovariantResult() {
+        int x = 1;
+        int y = 1;
+
+        String string = when(x, y)
+            .isNot(1, 1).then("x != 1 and y != 1")
+            .isNot(1, 2).then("x != 1 and y != 2")
+            .isNot(2, 2).then("x != 2 and y != 2")
+            .orElseThrow();
+
+        assertEquals("x != 2 and y != 2", string);
     }
 }

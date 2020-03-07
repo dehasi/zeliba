@@ -31,8 +31,8 @@ public class When2<V1, V2> {
     }
 
     public RawIs isNot(V1 v1, V2 v2) {
-        BiPredicate<V1, V2> equals = (x1, x2) -> Objects.equals(x1, v1) && Objects.equals(x2, v2);
-        return is(equals.negate());
+        BiPredicate<V1, V2> notEquals = (x1, x2) -> !Objects.equals(x1, v1) && !Objects.equals(x2, v2);
+        return is(notEquals);
     }
 
     public RawIs is(Predicate<? super V1> p1, Predicate<? super V2> p2) {
@@ -98,8 +98,8 @@ public class When2<V1, V2> {
         }
 
         public Is<RESULT> isNot(V1 v1, V2 v2) {
-            BiPredicate<V1, V2> equals = (x1, x2) -> Objects.equals(x1, v1) && Objects.equals(x2, v2);
-            return is(equals.negate());
+            BiPredicate<V1, V2> notEquals = (x1, x2) -> !Objects.equals(x1, v1) && !Objects.equals(x2, v2);
+            return is(notEquals);
         }
 
         public Is<RESULT> is(Predicate<? super V1> p1, Predicate<? super V2> p2) {
