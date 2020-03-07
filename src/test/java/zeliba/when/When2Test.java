@@ -1,9 +1,12 @@
 package zeliba.when;
 
+import java.math.BigDecimal;
 import java.util.function.BiPredicate;
 import org.junit.jupiter.api.Test;
 
+import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static zeliba.the.TheComparable.the;
 import static zeliba.when.When2.when;
 
 class When2Test {
@@ -36,14 +39,14 @@ class When2Test {
     }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
-        int x = 1;
+        BigDecimal x = BigDecimal.ONE;
         int y = -2;
 
         String string = when(x, y)
-            .is(p -> p > 0, p -> p > 0).then("I Quadrant")
-            .is(p -> p < 0, p -> p > 0).then("II Quadrant")
-            .is(p -> p < 0, p -> p < 0).then("III Quadrant")
-            .is(p -> p > 0, p -> p < 0).then("IV Quadrant")
+            .is(p -> the(p).isGreaterThan(ZERO), p -> p > 0).then("I Quadrant")
+            .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
+            .is(p -> the(p).isLessThan(ZERO), p -> p < 0).then("III Quadrant")
+            .is(p -> the(p).isGreaterThan(ZERO), p -> p < 0).then("IV Quadrant")
             .orElse("zero");
 
         assertEquals("IV Quadrant", string);
