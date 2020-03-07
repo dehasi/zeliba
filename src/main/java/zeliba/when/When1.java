@@ -47,7 +47,7 @@ public class When1<VALUE> {
             return this;
         }
 
-        public RawIs or(VALUE predicate) {
+        public RawIs or(VALUE value) {
             return or(isEqual(value));
         }
 
