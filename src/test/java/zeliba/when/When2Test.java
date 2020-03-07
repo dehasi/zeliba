@@ -37,7 +37,7 @@ class When2Test {
 
     @Test void is_twoPredicates_returnsCorrectResult() {
         int x = 1;
-        int y = 2;
+        int y = -2;
 
         String string = when(x, y)
             .is(p -> p > 0, p -> p > 0).then("I Quadrant")
@@ -46,7 +46,7 @@ class When2Test {
             .is(p -> p > 0, p -> p < 0).then("IV Quadrant")
             .orElse("zero");
 
-        assertEquals("I Quadrant", string);
+        assertEquals("IV Quadrant", string);
     }
 
     @Test void isNot_biPredicate_returnsCovariantResult() {
