@@ -16,10 +16,11 @@ class When2Test {
         int y = 1;
 
         String string = when(x, y)
-            .is(1, 1).then("11")
+            .is(1, 1).then("1,1")
+            .is(1, 2).then("1,2")
             .orElse("?");
 
-        assertEquals("11", string);
+        assertEquals("1,1", string);
     }
 
     @Test void is_biPredicate_returnsCovariantResult() {
@@ -27,11 +28,11 @@ class When2Test {
         int y = 1;
 
         String string = when(x, y)
-            .is(1,1).then("1,1")
-            .is(1,2).then("1,2")
+            .is((v1, v2) -> v1 + v2 > 0).then("x+y>0")
+            .is((v1, v2) -> v1 + v2 < 0).then("x+y<0")
             .orElseThrow();
 
-        assertEquals("1,1", string);
+        assertEquals("x+y>0", string);
     }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
@@ -55,6 +56,7 @@ class When2Test {
         String string = when(x, y)
             .isNot(1, 1).then("x != 1 and y != 1")
             .isNot(1, 2).then("x != 1 and y != 2")
+            .isNot(2, 1).then("x != 2 and y != 1")
             .isNot(2, 2).then("x != 2 and y != 2")
             .orElseThrow();
 
