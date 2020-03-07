@@ -3,11 +3,7 @@ package zeliba.when;
 import java.math.BigDecimal;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
@@ -102,14 +98,14 @@ class When2Test {
         assertEquals("IV Quadrant", string);
     }
 
-    @MethodSource("predicates")
-    @ParameterizedTest void is_twoPredicates_returnsCorrectResult(Predicate<Object> p1, Predicate<Object> p2) {
-        String string = when(ONE, TEN)
-            .is(p1, p2).then("not match")
-            .is(TRUE, TRUE).then("expected")
-            .orElseThrow();
+    @Test void is_predicates_notMatches_returnsElse() {
 
-        assertEquals("expected", string);
+        assertEquals("match", when(ONE, TEN)
+            .is(TRUE, TRUE).then("match").is(TRUE, TRUE).then("to late")
+            .orElseThrow());
+        assertEquals("match", when(ONE, TEN).is(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(ONE, TEN).is(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(ONE, TEN).is(FALSE, FALSE).then("fail").orElse("match"));
     }
 
     @Test void isNot_constants_returnsCorrectResult() {
@@ -160,9 +156,5 @@ class When2Test {
             .orElseThrow();
 
         assertEquals("x != 2 and y != 2", string);
-    }
-
-    private static Stream<Arguments> predicates() {
-        return Stream.of(Arguments.of(FALSE, FALSE), Arguments.of(TRUE, FALSE), Arguments.of(FALSE, TRUE));
     }
 }
