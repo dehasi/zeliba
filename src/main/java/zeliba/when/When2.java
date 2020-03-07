@@ -12,12 +12,12 @@ import static java.util.Objects.requireNonNull;
 
 public class When2<V1, V2> {
 
-    private final V1 first;
-    private final V2 second;
+    private final V1 value1;
+    private final V2 value2;
 
-    public When2(V1 first, V2 second) {
-        this.first = requireNonNull(first);
-        this.second = requireNonNull(second);
+    public When2(V1 value1, V2 value2) {
+        this.value1 = requireNonNull(value1);
+        this.value2 = requireNonNull(value2);
     }
 
     public static <V1, V2> When2<V1, V2> when(V1 v1, V2 v2) {
@@ -113,11 +113,11 @@ public class When2<V1, V2> {
         public RESULT orElse(BiFunction<? super V1, ? super V2, ? extends RESULT> other) {
             requireNonNull(other);
 
-            return asOptional().orElse(other.apply(first, second));
+            return asOptional().orElse(other.apply(value1, value2));
         }
 
         public RESULT orElseThrow() {
-            return orElseThrow(String.format("No matches for values [%s] [%s]", first, second));
+            return orElseThrow(String.format("No matches for values [%s] [%s]", value1, value2));
         }
 
         public RESULT orElseThrow(String message) {
@@ -132,8 +132,8 @@ public class When2<V1, V2> {
 
         public Optional<RESULT> asOptional() {
             return pairs.stream()
-                .filter(pair1 -> pair1.predicate.test(first, second))
-                .<RESULT>map(pair1 -> pair1.result.apply(first, second))
+                .filter(pair1 -> pair1.predicate.test(value1, value2))
+                .<RESULT>map(pair1 -> pair1.result.apply(value1, value2))
                 .findFirst();
         }
     }
