@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.function.BiPredicate;
 import org.junit.jupiter.api.Test;
 
+import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static zeliba.the.TheComparable.the;
@@ -39,7 +40,7 @@ class When2Test {
     }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
-        BigDecimal x = BigDecimal.ONE;
+        BigDecimal x = ONE;
         int y = -2;
 
         String string = when(x, y)
