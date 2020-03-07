@@ -136,7 +136,7 @@ class When2Test {
         int y = 1;
 
         String string = when(x, y)
-            .isNot(2, 2).then("x != 1 and y != 1")
+            .isNot(2, 2).then("x != 2 and y != 2")
             .isNot(2, 2).then("too late")
             .orElseThrow();
 
