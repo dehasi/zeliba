@@ -39,16 +39,15 @@ class When2Test {
         assertEquals("1,1", string);
     }
 
-    @Test void is_notFirstMatch_returnsCovariantResult() {
+    @Test void is_notMatches_returnsElse() {
         int x = 1;
         int y = 1;
 
-        String string = when(x, y)
-            .is(1, 1).then("1,1")
-            .is(2, 1).then("1,2")
-            .orElse("?");
+        assertEquals("?", when(x, y).is(0, 0).then("fail").orElse("?"));
+        assertEquals("?", when(x, y).is(0, 1).then("fail").orElse("?"));
+        assertEquals("?", when(x, y).is(1, 0).then("fail").orElse("?"));
+        assertEquals("+", when(x, y).is(1, 1).then("+").orElse("?"));
 
-        assertEquals("1,1", string);
     }
 
     @Test void is_fewMatches_returnsFirst() {
