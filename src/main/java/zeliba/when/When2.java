@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
@@ -32,6 +33,10 @@ public class When2<V1, V2> {
     public RawIs isNot(V1 v1, V2 v2) {
         BiPredicate<V1, V2> equals = (x1, x2) -> Objects.equals(x1, v1) && Objects.equals(x2, v2);
         return is(equals.negate());
+    }
+
+    public RawIs is(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+        return new RawIs((x1, x2) -> p1.test(x1) && p2.test(x2));
     }
 
     public RawIs is(BiPredicate<? super V1, ? super V2> predicate) {
@@ -95,6 +100,10 @@ public class When2<V1, V2> {
         public Is<RESULT> isNot(V1 v1, V2 v2) {
             BiPredicate<V1, V2> equals = (x1, x2) -> Objects.equals(x1, v1) && Objects.equals(x2, v2);
             return is(equals.negate());
+        }
+
+        public Is<RESULT> is(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return is((x1, x2) -> p1.test(x1) && p2.test(x2));
         }
 
         public Is<RESULT> is(BiPredicate<? super V1, ? super V2> predicate) {
