@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.function.Predicate.isEqual;
 
 public class When2<V1, V2> {
 
@@ -49,6 +50,28 @@ public class When2<V1, V2> {
 
         private RawIs(BiPredicate<? super V1, ? super V2> predicate) {
             this.predicate = predicate;
+        }
+
+        public RawIs and(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return and((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
+        public RawIs and(BiPredicate<? super V1, ? super V2> predicate) {
+            this.predicate = ((BiPredicate<V1, V2>)this.predicate).and(predicate);
+            return this;
+        }
+
+        public RawIs or(V1 p1, V2 p2) {
+            return or(isEqual(p1), isEqual(p2));
+        }
+
+        public RawIs or(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return or((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
+        public RawIs or(BiPredicate<? super V1, ? super V2> predicate) {
+            this.predicate = ((BiPredicate<V1, V2>)this.predicate).or(predicate);
+            return this;
         }
 
         public <RESULT> Then<RESULT> then(RESULT result) {
@@ -143,6 +166,28 @@ public class When2<V1, V2> {
         private Is<RESULT> with(Then<RESULT> then, BiPredicate<? super V1, ? super V2> predicate) {
             this.then = then;
             this.predicate = predicate;
+            return this;
+        }
+
+        public Is<RESULT> and(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return and((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
+        public Is<RESULT> and(BiPredicate<? super V1, ? super V2> predicate) {
+            this.predicate = ((BiPredicate<V1, V2>)this.predicate).and(predicate);
+            return this;
+        }
+
+        public Is<RESULT> or(V1 p1, V2 p2) {
+            return or(isEqual(p1), isEqual(p2));
+        }
+
+        public Is<RESULT> or(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return or((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
+        public Is<RESULT> or(BiPredicate<? super V1, ? super V2> predicate) {
+            this.predicate = ((BiPredicate<V1, V2>)this.predicate).or(predicate);
             return this;
         }
 

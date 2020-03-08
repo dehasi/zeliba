@@ -16,15 +16,14 @@ class When2Test {
 
     private static final Predicate<Object> TRUE = p -> true;
     private static final Predicate<Object> FALSE = p -> false;
-    private static final BiPredicate<Object, Object> BI_TRUE = (p1, p2) -> true;
-    private static final BiPredicate<Object, Object> BI_FALSE = (p1, p2) -> false;
+    public static final BiPredicate<Integer, Integer> BI_TRUE = (a1, b1) -> true;
+    public static final BiPredicate<Integer, Integer> BI_FALSE = (a, b) -> false;
 
     @Test void is_constant_returnsCovariantResult() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
-        String string = when(x, y)
-            .is(0, 0).then("1,2")
+        String result = when(x, y)
+            .is(0, 0).then("0,0")
             .is(1, 2).then("2,1")
             .is(2, 1).then("2,1")
             .is(2, 2).then("2,2")
@@ -32,12 +31,11 @@ class When2Test {
             .is(1, 1).then("too late")
             .orElse("?");
 
-        assertEquals("1,1", string);
+        assertEquals("1,1", result);
     }
 
     @Test void is_notMatches_returnsElse() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         assertEquals("?", when(x, y).is(0, 0).then("fail").orElse("?"));
         assertEquals("?", when(x, y).is(0, 1).then("fail").orElse("?"));
@@ -46,48 +44,23 @@ class When2Test {
 
     }
 
-    @Test void is_fewMatches_returnsFirst() {
-        int x = 1;
-        int y = 1;
-
-        String string = when(x, y)
-            .is(1, 1).then("expected")
-            .is(1, 1).then("too late")
-            .orElse("?");
-
-        assertEquals("expected", string);
-    }
-
     @Test void is_biPredicate_returnsCovariantResult() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .is((v1, v2) -> v1 + v2 == 0).then("x+y=0")
             .is((v1, v2) -> v1 + v2 < 0).then("x+y<0")
             .is((v1, v2) -> v1 + v2 > 0).then("x+y>0")
             .orElseThrow();
 
-        assertEquals("x+y>0", string);
-    }
-
-    @Test void is_biPredicate_fewMatches_returnsFirs() {
-        int x = 1;
-        int y = 1;
-
-        String string = when(x, y)
-            .is((v1, v2) -> v1 + v2 > 0).then("expected")
-            .is((v1, v2) -> v1 + v2 > 0).then("too late")
-            .orElseThrow();
-
-        assertEquals("expected", string);
+        assertEquals("x+y>0", result);
     }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
         BigDecimal x = ONE;
         int y = -2;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .is(FALSE, FALSE).then("I Quadrant")
             .is(p -> the(p).isGreaterThan(ZERO), p -> p > 0).then("I Quadrant")
             .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
@@ -95,7 +68,7 @@ class When2Test {
             .is(p -> the(p).isGreaterThan(ZERO), p -> p < 0).then("IV Quadrant")
             .orElse("zero");
 
-        assertEquals("IV Quadrant", string);
+        assertEquals("IV Quadrant", result);
     }
 
     @Test void is_predicates_notMatches_returnsElse() {
@@ -109,52 +82,107 @@ class When2Test {
     }
 
     @Test void isNot_constants_returnsCorrectResult() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .isNot(1, 1).then("x != 1 and y != 1")
             .isNot(1, 2).then("x != 1 and y != 2")
             .isNot(2, 1).then("x != 2 and y != 1")
             .isNot(2, 2).then("x != 2 and y != 2")
             .orElseThrow();
 
-        assertEquals("x != 2 and y != 2", string);
+        assertEquals("x != 2 and y != 2", result);
     }
 
     @Test void isNot_constantsFirstMatch_returnsOnlyAllConstantMatches() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
-        String string = when(x, y)
-            .isNot(1, 2).then("x != 1 and y != 1")
-            .isNot(2, 2).then("x != 2 and y != 2")
-            .orElseThrow();
+        assertEquals("match", when(x, y).isNot(1, 1).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).isNot(1, 2).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).isNot(2, 1).then("fail").orElse("match"));
 
-        assertEquals("x != 2 and y != 2", string);
+        assertEquals("match", when(x, y).isNot(2, 2).then("match").orElse("fail"));
     }
 
-    @Test void isNot_constantsSecondMatch_returnsOnlyAllConstantMatches() {
-        int x = 1;
-        int y = 1;
+    @Test void and_biPredicate() {
+        int x = 1, y = 1;
 
-        String string = when(x, y)
-            .isNot(2, 1).then("x != 1 and y != 1")
-            .isNot(2, 2).then("x != 2 and y != 2")
-            .orElseThrow();
+        assertEquals("match", when(x, y).is(BI_TRUE).and(BI_TRUE).then("match").orElse("fail"));
 
-        assertEquals("x != 2 and y != 2", string);
+        assertEquals("match", when(x, y).is(BI_TRUE).and(BI_FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(BI_TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(BI_FALSE).then("fail").orElse("match"));
     }
 
-    @Test void isNot_fewMatches_returnsFirstMatch() {
-        int x = 1;
-        int y = 1;
+    @Test void and_twoPredicates() {
+        int x = 1, y = 1;
 
-        String string = when(x, y)
-            .isNot(2, 2).then("x != 2 and y != 2")
-            .isNot(2, 2).then("too late")
+        assertEquals("match", when(x, y).is(BI_TRUE).and(TRUE, TRUE).then("match").orElse("fail"));
+
+        assertEquals("match", when(x, y).is(BI_TRUE).and(BI_FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(FALSE, FALSE).then("fail").orElse("match"));
+
+        assertEquals("match", when(x, y).is(BI_FALSE).and(TRUE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(FALSE, FALSE).then("fail").orElse("match"));
+    }
+
+    @Test void and_twoPredicatesSecondMatch() {
+        int x = 1, y = 1;
+
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).and(TRUE, TRUE).then("match").orElse("fail"));
+
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).and(BI_FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).and(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).and(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).and(FALSE, FALSE).then("fail").orElse("match"));
+
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).and(TRUE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).and(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).and(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).and(FALSE, FALSE).then("fail").orElse("match"));
+    }
+
+    @Test void and_complexExample() {
+        int x = 1, y = 1;
+
+        String result = when(x, y)
+            .is((v1, v2) -> v1 + v2 < 0).and((v1, v2) -> v1 + v2 > -10).then("x+y=(-10..0)")
+            .is((v1, v2) -> v1 + v2 > -0).and((v1, v2) -> v1 + v2 < 10).then("x+y=(0..10)")
+            .is((v1, v2) -> v1 + v2 > 10).and((v1, v2) -> v1 + v2 < 20).then("x+y=(10..20)")
             .orElseThrow();
 
-        assertEquals("x != 2 and y != 2", string);
+        assertEquals("x+y=(0..10)", result);
+    }
+
+    @Test void or_constantsMatch() {
+        int x = 1, y = 1;
+
+        assertEquals("match", when(x, y).is(BI_TRUE).or(2, 2).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_FALSE).or(1, 1).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_FALSE).or(2, 1).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).or(1, 2).then("fail").orElse("match"));
+    }
+
+    @Test void or_constantsSecondMatch() {
+        int x = 1, y = 1;
+
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).or(2, 2).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(1, 1).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(2, 1).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(1, 2).then("fail").orElse("match"));
+    }
+
+    @Test void or_and_compexExample() {
+        int x = 1, y = 1;
+
+        String result = when(x, y)
+            .is(2, 2).or(3, 3).or(4, 4).then("2-3-4")
+            .isNot(1, 1).and(p -> p > 0, p -> p > 0).then("not 1, > 0")
+            .is(1, 2).or(2, 1).or(1, 1).then("1 or 2")
+            .orElseThrow();
     }
 }
