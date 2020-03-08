@@ -1,7 +1,6 @@
 package zeliba.when;
 
 import java.math.BigDecimal;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
@@ -16,15 +15,12 @@ class When2Test {
 
     private static final Predicate<Object> TRUE = p -> true;
     private static final Predicate<Object> FALSE = p -> false;
-    private static final BiPredicate<Object, Object> BI_TRUE = (p1, p2) -> true;
-    private static final BiPredicate<Object, Object> BI_FALSE = (p1, p2) -> false;
 
     @Test void is_constant_returnsCovariantResult() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         String string = when(x, y)
-            .is(0, 0).then("1,2")
+            .is(0, 0).then("0,0")
             .is(1, 2).then("2,1")
             .is(2, 1).then("2,1")
             .is(2, 2).then("2,2")
@@ -36,8 +32,7 @@ class When2Test {
     }
 
     @Test void is_notMatches_returnsElse() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         assertEquals("?", when(x, y).is(0, 0).then("fail").orElse("?"));
         assertEquals("?", when(x, y).is(0, 1).then("fail").orElse("?"));
@@ -47,8 +42,7 @@ class When2Test {
     }
 
     @Test void is_fewMatches_returnsFirst() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         String string = when(x, y)
             .is(1, 1).then("expected")
@@ -59,8 +53,7 @@ class When2Test {
     }
 
     @Test void is_biPredicate_returnsCovariantResult() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         String string = when(x, y)
             .is((v1, v2) -> v1 + v2 == 0).then("x+y=0")
@@ -72,8 +65,7 @@ class When2Test {
     }
 
     @Test void is_biPredicate_fewMatches_returnsFirs() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         String string = when(x, y)
             .is((v1, v2) -> v1 + v2 > 0).then("expected")
