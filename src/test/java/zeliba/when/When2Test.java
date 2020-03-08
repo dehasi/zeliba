@@ -19,7 +19,7 @@ class When2Test {
     @Test void is_constant_returnsCovariantResult() {
         int x = 1, y = 1;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .is(0, 0).then("0,0")
             .is(1, 2).then("2,1")
             .is(2, 1).then("2,1")
@@ -28,7 +28,7 @@ class When2Test {
             .is(1, 1).then("too late")
             .orElse("?");
 
-        assertEquals("1,1", string);
+        assertEquals("1,1", result);
     }
 
     @Test void is_notMatches_returnsElse() {
@@ -44,20 +44,20 @@ class When2Test {
     @Test void is_biPredicate_returnsCovariantResult() {
         int x = 1, y = 1;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .is((v1, v2) -> v1 + v2 == 0).then("x+y=0")
             .is((v1, v2) -> v1 + v2 < 0).then("x+y<0")
             .is((v1, v2) -> v1 + v2 > 0).then("x+y>0")
             .orElseThrow();
 
-        assertEquals("x+y>0", string);
+        assertEquals("x+y>0", result);
     }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
         BigDecimal x = ONE;
         int y = -2;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .is(FALSE, FALSE).then("I Quadrant")
             .is(p -> the(p).isGreaterThan(ZERO), p -> p > 0).then("I Quadrant")
             .is(p -> the(p).isLessThan(ZERO), p -> p > 0).then("II Quadrant")
@@ -65,7 +65,7 @@ class When2Test {
             .is(p -> the(p).isGreaterThan(ZERO), p -> p < 0).then("IV Quadrant")
             .orElse("zero");
 
-        assertEquals("IV Quadrant", string);
+        assertEquals("IV Quadrant", result);
     }
 
     @Test void is_predicates_notMatches_returnsElse() {
@@ -81,14 +81,14 @@ class When2Test {
     @Test void isNot_constants_returnsCorrectResult() {
         int x = 1, y = 1;
 
-        String string = when(x, y)
+        String result = when(x, y)
             .isNot(1, 1).then("x != 1 and y != 1")
             .isNot(1, 2).then("x != 1 and y != 2")
             .isNot(2, 1).then("x != 2 and y != 1")
             .isNot(2, 2).then("x != 2 and y != 2")
             .orElseThrow();
 
-        assertEquals("x != 2 and y != 2", string);
+        assertEquals("x != 2 and y != 2", result);
     }
 
     @Test void isNot_constantsFirstMatch_returnsOnlyAllConstantMatches() {
@@ -99,5 +99,16 @@ class When2Test {
         assertEquals("match", when(x, y).isNot(2, 1).then("fail").orElse("match"));
 
         assertEquals("match", when(x, y).isNot(2, 2).then("match").orElse("fail"));
+    }
+
+    @Test void and_() {
+        int x = 1, y = 1;
+        String result;
+
+        result = when(x, y).is(TRUE, TRUE).and((a, b) -> true).then("match").orElse("fail");
+        assertEquals("match", result);
+
+        result = when(x, y).is(TRUE, TRUE).and((a, b) -> false).then("fail").orElse("match");
+        assertEquals("match", result);
     }
 }
