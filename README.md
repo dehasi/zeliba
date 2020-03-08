@@ -294,7 +294,7 @@ To make a conjunction of few `is`-predicates, `and` can be used.
 ```java
 int value = 5;
 
-String string = when(value)
+String result = when(value)
     .is(v -> v > 0).and(v-> v < 3).then("(0..3)")
     .is(v -> v > 3).and(v-> v < 7).then("(3..7)")
     .orElse("?");
@@ -305,7 +305,7 @@ To make a disjunction of few `is`-predicates, `or` can be used.
 ```java
 int value = 5;
 
-String string = when(value)
+String result = when(value)
     .is(0).or(2).or(4).then("0 or 2 or 4")
     .is(1).or(3).or(5).then("1 or 3 or 5")
     .orElse("?");
@@ -316,7 +316,7 @@ String string = when(value)
 ```java
 int value = 5;
 
-String string = when(value)
+String result = when(value)
     .is(1).or(2).then("< 3")
     .is(v -> v > 6).and(v -> v < 10).or(5).then("(6;10) or 5")
     .is(v -> v > 0).and(v -> v < 5)
@@ -400,12 +400,12 @@ If the absence of the result is normal flow. `Optional<>` can be used as a retur
 ```java
 int value = 1;
 
-Optional<String> string = when(value)
+Optional<String> result = when(value)
     .is(0).then("0")
     .is(1).then("1")
     .asOptional(); // Optional.of("1")
 
-Optional<String> string = when(value)
+Optional<String> result = when(value)
     .is(0).then("0")
     .is(2).then("2")
     .asOptional(); // Optional.empty()
@@ -433,7 +433,7 @@ It's possible to make matching with two variables
 int x = 1;
 int y = -2;
 
-String string = when(x, y)
+String result = when(x, y)
     .is(0, 0).then("zero")
     .is(p -> p > 0, p -> p > 0).then("I Quadrant")
     .is(p -> p < 0, p -> p > 0).then("II Quadrant")
@@ -442,6 +442,16 @@ String string = when(x, y)
     .orElse("??");
 ```
 
+`and` is also supported
+
+```java
+int x = 1, y = 1;
+String result = when(x, y)
+    .is((v1, v2) -> v1 + v2 < 0).and((v1, v2) -> v1 + v2 > -10).then("x+y=(-10..0)")
+    .is((v1, v2) -> v1 + v2 > -0).and((v1, v2) -> v1 + v2 < 10).then("x+y=(0..10)")
+    .is((v1, v2) -> v1 + v2 > 10).and((v1, v2) -> v1 + v2 < 20).then("x+y=(10..20)")
+    .orElseThrow();
+```
 
 
 ## License

@@ -145,4 +145,16 @@ class When2Test {
         assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).and(TRUE, FALSE).then("fail").orElse("match"));
         assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).and(FALSE, FALSE).then("fail").orElse("match"));
     }
+
+    @Test void and_complexExample() {
+        int x = 1, y = 1;
+
+        String result = when(x, y)
+            .is((v1, v2) -> v1 + v2 < 0).and((v1, v2) -> v1 + v2 > -10).then("x+y=(-10..0)")
+            .is((v1, v2) -> v1 + v2 > -0).and((v1, v2) -> v1 + v2 < 10).then("x+y=(0..10)")
+            .is((v1, v2) -> v1 + v2 > 10).and((v1, v2) -> v1 + v2 < 20).then("x+y=(10..20)")
+            .orElseThrow();
+
+        assertEquals("x+y=(0..10)", result);
+    }
 }
