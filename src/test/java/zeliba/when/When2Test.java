@@ -41,16 +41,16 @@ class When2Test {
 
     }
 
-    @Test void is_fewMatches_returnsFirst() {
-        int x = 1, y = 1;
-
-        String string = when(x, y)
-            .is(1, 1).then("expected")
-            .is(1, 1).then("too late")
-            .orElse("?");
-
-        assertEquals("expected", string);
-    }
+//    @Test void is_fewMatches_returnsFirst() {
+//        int x = 1, y = 1;
+//
+//        String string = when(x, y)
+//            .is(1, 1).then("expected")
+//            .is(1, 1).then("too late")
+//            .orElse("?");
+//
+//        assertEquals("expected", string);
+//    }
 
     @Test void is_biPredicate_returnsCovariantResult() {
         int x = 1, y = 1;
