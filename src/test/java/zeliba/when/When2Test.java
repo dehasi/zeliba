@@ -53,16 +53,16 @@ class When2Test {
         assertEquals("x+y>0", string);
     }
 
-    @Test void is_biPredicate_fewMatches_returnsFirs() {
-        int x = 1, y = 1;
-
-        String string = when(x, y)
-            .is((v1, v2) -> v1 + v2 > 0).then("expected")
-            .is((v1, v2) -> v1 + v2 > 0).then("too late")
-            .orElseThrow();
-
-        assertEquals("expected", string);
-    }
+//    @Test void is_biPredicate_fewMatches_returnsFirs() {
+//        int x = 1, y = 1;
+//
+//        String string = when(x, y)
+//            .is((v1, v2) -> v1 + v2 > 0).then("expected")
+//            .is((v1, v2) -> v1 + v2 > 0).then("too late")
+//            .orElseThrow();
+//
+//        assertEquals("expected", string);
+//    }
 
     @Test void is_twoPredicates_returnsCorrectResult() {
         BigDecimal x = ONE;
