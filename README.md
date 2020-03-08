@@ -453,7 +453,16 @@ String result = when(x, y)
     .orElseThrow();
 ```
 
+`or` and `and` can be used together
 
+```java
+
+String result = when(x, y)
+    .is(2, 2).or(3, 3).or(4, 4).then("2-3-4")
+    .isNot(1, 1).and(p -> p > 0, p -> p > 0).then("not 1, > 0")
+    .is(1, 2).or(2, 1).or(1, 1).then("1 or 2")
+    .orElseThrow();
+```
 ## License
 
 This project is licensed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
