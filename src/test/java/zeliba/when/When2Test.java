@@ -109,8 +109,7 @@ class When2Test {
     }
 
     @Test void isNot_constants_returnsCorrectResult() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
         String string = when(x, y)
             .isNot(1, 1).then("x != 1 and y != 1")
@@ -123,38 +122,12 @@ class When2Test {
     }
 
     @Test void isNot_constantsFirstMatch_returnsOnlyAllConstantMatches() {
-        int x = 1;
-        int y = 1;
+        int x = 1, y = 1;
 
-        String string = when(x, y)
-            .isNot(1, 2).then("x != 1 and y != 1")
-            .isNot(2, 2).then("x != 2 and y != 2")
-            .orElseThrow();
+        assertEquals("match", when(x, y).isNot(1, 1).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).isNot(1, 2).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).isNot(2, 1).then("fail").orElse("match"));
 
-        assertEquals("x != 2 and y != 2", string);
-    }
-
-    @Test void isNot_constantsSecondMatch_returnsOnlyAllConstantMatches() {
-        int x = 1;
-        int y = 1;
-
-        String string = when(x, y)
-            .isNot(2, 1).then("x != 1 and y != 1")
-            .isNot(2, 2).then("x != 2 and y != 2")
-            .orElseThrow();
-
-        assertEquals("x != 2 and y != 2", string);
-    }
-
-    @Test void isNot_fewMatches_returnsFirstMatch() {
-        int x = 1;
-        int y = 1;
-
-        String string = when(x, y)
-            .isNot(2, 2).then("x != 2 and y != 2")
-            .isNot(2, 2).then("too late")
-            .orElseThrow();
-
-        assertEquals("x != 2 and y != 2", string);
+        assertEquals("match", when(x, y).isNot(2, 2).then("match").orElse("fail"));
     }
 }
