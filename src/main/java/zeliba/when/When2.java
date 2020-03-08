@@ -51,6 +51,10 @@ public class When2<V1, V2> {
             this.predicate = predicate;
         }
 
+        public RawIs and(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return and((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
         public RawIs and(BiPredicate<? super V1, ? super V2> predicate) {
             this.predicate = ((BiPredicate<V1, V2>)this.predicate).and(predicate);
             return this;

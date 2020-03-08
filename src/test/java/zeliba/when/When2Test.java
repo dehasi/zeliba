@@ -113,4 +113,20 @@ class When2Test {
         assertEquals("match", when(x, y).is(BI_FALSE).and(BI_TRUE).then("fail").orElse("match"));
         assertEquals("match", when(x, y).is(BI_FALSE).and(BI_FALSE).then("fail").orElse("match"));
     }
+
+    @Test void and_twoPredicates() {
+        int x = 1, y = 1;
+
+        assertEquals("match", when(x, y).is(BI_TRUE).and(TRUE, TRUE).then("match").orElse("fail"));
+
+        assertEquals("match", when(x, y).is(BI_TRUE).and(BI_FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(FALSE, FALSE).then("fail").orElse("match"));
+
+        assertEquals("match", when(x, y).is(BI_FALSE).and(TRUE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(FALSE, TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(TRUE, FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(FALSE, FALSE).then("fail").orElse("match"));
+    }
 }
