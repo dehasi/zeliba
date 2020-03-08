@@ -178,6 +178,19 @@ public class When2<V1, V2> {
             return this;
         }
 
+        public Is<RESULT> or(V1 p1, V2 p2) {
+            return or(isEqual(p1), isEqual(p2));
+        }
+
+        public Is<RESULT> or(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return or((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
+        public Is<RESULT> or(BiPredicate<? super V1, ? super V2> predicate) {
+            this.predicate = ((BiPredicate<V1, V2>)this.predicate).or(predicate);
+            return this;
+        }
+
         public Then<RESULT> then(RESULT result) {
             return then(() -> result);
         }

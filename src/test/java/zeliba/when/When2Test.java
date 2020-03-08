@@ -166,4 +166,13 @@ class When2Test {
         assertEquals("match", when(x, y).is(BI_FALSE).or(2, 1).then("fail").orElse("match"));
         assertEquals("match", when(x, y).is(BI_FALSE).or(1, 2).then("fail").orElse("match"));
     }
+
+    @Test void or_constantsSecondMatch() {
+        int x = 1, y = 1;
+
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).or(2, 2).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(1, 1).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(2, 1).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(1, 2).then("fail").orElse("match"));
+    }
 }
