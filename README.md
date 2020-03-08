@@ -463,6 +463,7 @@ String result = when(x, y)
     .is(1, 2).or(2, 1).or(1, 1).then("1 or 2")
     .orElseThrow();
 ```
+
 ## License
 
 This project is licensed under [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
