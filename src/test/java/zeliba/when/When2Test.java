@@ -1,6 +1,7 @@
 package zeliba.when;
 
 import java.math.BigDecimal;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,8 @@ class When2Test {
 
     private static final Predicate<Object> TRUE = p -> true;
     private static final Predicate<Object> FALSE = p -> false;
+    public static final BiPredicate<Integer, Integer> BI_TRUE = (a1, b1) -> true;
+    public static final BiPredicate<Integer, Integer> BI_FALSE = (a, b) -> false;
 
     @Test void is_constant_returnsCovariantResult() {
         int x = 1, y = 1;
@@ -104,8 +107,10 @@ class When2Test {
     @Test void and_biPredicate() {
         int x = 1, y = 1;
 
-        assertEquals("match", when(x, y).is(TRUE, TRUE).and((a1, b1) -> true).then("match").orElse("fail"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(BI_TRUE).then("match").orElse("fail"));
 
-        assertEquals("match", when(x, y).is(TRUE, TRUE).and((a, b) -> false).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_TRUE).and(BI_FALSE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(BI_TRUE).then("fail").orElse("match"));
+        assertEquals("match", when(x, y).is(BI_FALSE).and(BI_FALSE).then("fail").orElse("match"));
     }
 }
