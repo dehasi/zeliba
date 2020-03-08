@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.function.Predicate.isEqual;
 
 public class When2<V1, V2> {
 
@@ -57,6 +58,19 @@ public class When2<V1, V2> {
 
         public RawIs and(BiPredicate<? super V1, ? super V2> predicate) {
             this.predicate = ((BiPredicate<V1, V2>)this.predicate).and(predicate);
+            return this;
+        }
+
+        public RawIs or(V1 p1, V2 p2) {
+            return or(isEqual(p1), isEqual(p2));
+        }
+
+        public RawIs or(Predicate<? super V1> p1, Predicate<? super V2> p2) {
+            return or((x1, x2) -> p1.test(x1) && p2.test(x2));
+        }
+
+        public RawIs or(BiPredicate<? super V1, ? super V2> predicate) {
+            this.predicate = ((BiPredicate<V1, V2>)this.predicate).or(predicate);
             return this;
         }
 
