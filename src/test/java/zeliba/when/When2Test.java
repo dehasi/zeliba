@@ -130,7 +130,7 @@ class When2Test {
         assertEquals("match", when(x, y).is(BI_FALSE).and(FALSE, FALSE).then("fail").orElse("match"));
     }
 
-    @Test void and_twoPredicate2s() {
+    @Test void and_twoPredicatesSecondMatch() {
         int x = 1, y = 1;
 
         assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_TRUE).and(TRUE, TRUE).then("match").orElse("fail"));
