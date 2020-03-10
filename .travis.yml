@@ -13,8 +13,8 @@ before_script:
   - echo signing.password=${SIGNING_PASSWORD} >> gradle.properties
   - echo signing.secretKeyRingFile=secret.gpg >> gradle.properties
 
-  - echo ossrh.username=${ossrhUsername} >> gradle.properties
-  - echo ossrh.password=${ossrhPassword} >> gradle.properties
+  - echo ossrhUsername=${ossrhUsername} >> gradle.properties
+  - echo ossrhPassword=${ossrhPassword} >> gradle.properties
 
 script:
   gradle --info test
