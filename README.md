@@ -9,6 +9,8 @@ A handy DSL-ish helper to make the comparison more readable.
 
 Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and does other checks.
 
+Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/), [kotlin](https://kotlinlang.org/), [ZE FISH](https://vk.com/zefish)
+
 - [Motivation](#Motivation)
 - [Examples](#Examples)
   - [TheComparable](#TheComparable)
@@ -41,8 +43,6 @@ Zeliba main points are the following:
 * Provide a fluent API to write a comparison (for `Comparable<T>`)
 * Make `if`-checks better align with English grammar
 * Provide pattern matching for `Java 8`
-
-Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/)
 
 ### Fluent compatible  
 Java doesn't support operator overloading, you can’t write something like `a > b` for objects,
