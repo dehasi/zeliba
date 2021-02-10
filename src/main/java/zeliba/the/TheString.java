@@ -14,16 +14,16 @@ class TheString {
         return new TheString(string);
     }
 
-    public String substring(int fromIncluded, int toExluded) {
+    public String substring(int fromIncluded, int toExcluded) {
         if (fromIncluded < 0)
             fromIncluded = 0;
 
-        if (toExluded > string.length())
-            toExluded = string.length();
+        if (toExcluded > string.length())
+            toExcluded = string.length();
 
-        if (toExluded - fromIncluded < 0)
+        if (toExcluded - fromIncluded < 0)
             return "";
 
-        return string.substring(fromIncluded, toExluded);
+        return string.substring(fromIncluded, toExcluded);
     }
 }
