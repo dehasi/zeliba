@@ -23,9 +23,9 @@ class TheString {
     }
 
     public boolean isBlank() {
-        for (int i = 0; i < string.length(); i++) {
+        for (int i = 0; i < string.length(); i++)
             if (!isWhitespace(string.charAt(i))) return false;
-        }
+
         return true;
     }
 
