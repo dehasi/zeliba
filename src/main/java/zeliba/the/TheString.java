@@ -1,17 +1,36 @@
 package zeliba.the;
 
-import static java.util.Objects.requireNonNull;
+import static java.lang.Character.isWhitespace;
 
 class TheString {
 
     private final String string;
 
     private TheString(String string) {
-        this.string = requireNonNull(string);
+        this.string = string != null ? string : "";
     }
 
     public static TheString the(String string) {
         return new TheString(string);
+    }
+
+    public boolean isEmpty() {
+        return string.isEmpty();
+    }
+
+    public boolean isNotEmpty() {
+        return !isEmpty();
+    }
+
+    public boolean isBlank() {
+        for (int i = 0; i < string.length(); i++) {
+            if (!isWhitespace(string.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    public boolean isNotBlank() {
+        return !isBlank();
     }
 
     public String substring(int fromIncluded, int toExcluded) {
