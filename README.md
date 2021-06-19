@@ -16,7 +16,7 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
   -  [TheChonoDateTime](#TheChonoDateTime)
   - [TheObject](#TheObject)
   - [TheString](#TheString)
-    - [isEmpty](#isEmpty)/[isBlank](#isBlank)
+    - [isEmpty](#isEmpty) / [isBlank](#isBlank)
     - [substring](#substring)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
