@@ -13,10 +13,11 @@ Zeliba provides a fluent API to write a comparison (for `Comparable<T>`) and doe
 - [Examples](#Examples)
   - [TheComparable](#TheComparable)
   - [TheChronoLocalDate](#TheChronoLocalDate)
-  -  [TheChonoDateTime](#TheChonoDateTime)
+  - [TheChronoLocalDateTime](#TheChronoLocalDateTime)
   - [TheObject](#TheObject)
   - [TheString](#TheString)
-    - [isEmpty](#isEmpty) / [isBlank](#isBlank)
+    - [isEmpty](#isEmpty)
+    - [isBlank](#isBlank)
     - [substring](#substring)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
@@ -202,7 +203,10 @@ if (the(someObject).isNull()) {
 
 Fluent checks for empty/blank + avoiding `NPE`
 
-#### isEmpty
+
+####isEmpty
+
+
 ```Java
 String str1 = null;
 String str2 = "abcd";
@@ -211,8 +215,8 @@ if (the(str1).isEmpty()) { ... } // returns false
 if (the(str2).isNotEmpty()) { ... } // returns true
 ```
 
-#### isBlank
 
+#### isBlank
 ```Java
 String str1 = null;
 String str2 = "abcd";
