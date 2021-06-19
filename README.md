@@ -15,8 +15,11 @@ Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/), [kotlin](htt
 - [Examples](#Examples)
   - [TheComparable](#TheComparable)
   - [TheChronoLocalDate](#TheChronoLocalDate)
-  -  [TheChonoDateTime](#TheChonoDateTime)
+  - [TheChronoLocalDateTime](#TheChronoLocalDateTime)
   - [TheObject](#TheObject)
+  - [TheString](#TheString)
+    - [isEmpty](#isEmpty)/[isBlank](#isBlank)
+    - [substring](#substring)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
     - [contains](#contains)
@@ -195,6 +198,37 @@ if (the(someObject).isNull()) {
 }
 ```
 
+### TheString
+
+Fluent checks for empty/blank + avoiding `NPE`
+
+#### isEmpty
+```Java
+String str1 = null;
+String str2 = "abcd";
+
+if (the(str1).isEmpty()) { ... } // returns false
+if (the(str2).isNotEmpty()) { ... } // returns true
+```
+
+#### isBlank
+```Java
+String str1 = null;
+String str2 = "abcd";
+
+if (the(str1).isBlank()) { ... } // returns true
+if (the(str2).isNotBlank()) { ... } // returns false
+```
+
+#### substring
+Max possible substring
+
+```java
+String str = "abcd"
+
+String s = the(str).substring(2, 50); // returns "cd"
+String s = the(str).substring(-2, 2); // returns "ab"
+```
 
 ### TheCollection
 
