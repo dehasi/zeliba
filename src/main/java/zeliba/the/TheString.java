@@ -34,14 +34,11 @@ class TheString {
     }
 
     public String substring(int fromIncluded, int toExcluded) {
-        if (fromIncluded < 0)
-            fromIncluded = 0;
+        if (fromIncluded < 0) fromIncluded = 0;
 
-        if (toExcluded > string.length())
-            toExcluded = string.length();
+        if (toExcluded > string.length()) toExcluded = string.length();
 
-        if (toExcluded - fromIncluded < 0)
-            return "";
+        if (toExcluded - fromIncluded < 0) return "";
 
         return string.substring(fromIncluded, toExcluded);
     }
