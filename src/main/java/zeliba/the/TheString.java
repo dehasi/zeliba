@@ -24,7 +24,8 @@ class TheString {
 
     public boolean isBlank() {
         for (int i = 0; i < string.length(); i++)
-            if (!isWhitespace(string.charAt(i))) return false;
+            if (!isWhitespace(string.charAt(i)))
+                return false;
 
         return true;
     }
@@ -38,7 +39,8 @@ class TheString {
 
         if (toExcluded > string.length()) toExcluded = string.length();
 
-        if (toExcluded - fromIncluded < 0) return "";
+        if (toExcluded - fromIncluded < 0)
+            return "";
 
         return string.substring(fromIncluded, toExcluded);
     }
