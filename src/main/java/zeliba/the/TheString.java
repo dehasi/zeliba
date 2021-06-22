@@ -2,7 +2,7 @@ package zeliba.the;
 
 import static java.lang.Character.isWhitespace;
 
-class TheString {
+public class TheString {
 
     private final String string;
 
