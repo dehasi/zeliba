@@ -46,6 +46,6 @@ class TheStringTest {
     }
 
     @Test void replaceAt_indexOutOfString_returnsUnchangedString(){
-        assertEquals(the("acc").replaceAt(3, 'b'), "acc");
+        assertEquals(the("abc").replaceAt(3, 'z'), "abc");
     }
 }

@@ -45,10 +45,11 @@ public class TheString {
         return string.substring(fromIncluded, toExcluded);
     }
 
-    public String replaceAt(int i, char ch) {
-        if (string.length() < i) return string;
+    public String replaceAt(int index, char newChar) {
+        if (string.length() <= index) return string;
+
         char[] chars = string.toCharArray();
-        chars[i] = ch;
+        chars[index] = newChar;
         return String.valueOf(chars);
     }
 }
