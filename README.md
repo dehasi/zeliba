@@ -239,7 +239,7 @@ Replaces a char at given index
 String str = "abcd"
 
 String s = the(str).replaceAt(0, 'x'); // returns "xbcd"
-String s = the(str).replaceAt(0, 'x'); // returns "abcd"
+String s = the(str).replaceAt(6, 'x'); // returns "abcd"
 ```
 
 ### TheCollection
