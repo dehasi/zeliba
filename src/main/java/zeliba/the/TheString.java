@@ -46,7 +46,7 @@ public class TheString {
     }
 
     public String replaceAt(int index, char newChar) {
-        if (string.length() <= index) return string;
+        if (index < 0 || string.length() <= index) return string;
 
         char[] chars = string.toCharArray();
         chars[index] = newChar;
