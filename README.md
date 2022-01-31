@@ -20,6 +20,7 @@ Inspired by [AssertJ](https://joel-costigliola.github.io/assertj/), [kotlin](htt
   - [TheString](#TheString)
     - [isEmpty](#isEmpty)/[isBlank](#isBlank)
     - [substring](#substring)
+    - [replaceAt](#replaceAt)
   - [TheCollection](#TheCollection)
   - [TheMap](#TheMap)
     - [contains](#contains)
@@ -228,6 +229,17 @@ String str = "abcd"
 
 String s = the(str).substring(2, 50); // returns "cd"
 String s = the(str).substring(-2, 2); // returns "ab"
+```
+
+
+#### replaceAt
+Replaces a char at given index
+
+```java
+String str = "abcd"
+
+String s = the(str).replaceAt(0, 'x'); // returns "xbcd"
+String s = the(str).replaceAt(6, 'x'); // returns "abcd"
 ```
 
 ### TheCollection

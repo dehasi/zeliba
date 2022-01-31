@@ -44,4 +44,12 @@ public class TheString {
 
         return string.substring(fromIncluded, toExcluded);
     }
+
+    public String replaceAt(int index, char newChar) {
+        if (index < 0 || string.length() <= index) return string;
+
+        char[] chars = string.toCharArray();
+        chars[index] = newChar;
+        return String.valueOf(chars);
+    }
 }

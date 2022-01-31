@@ -38,4 +38,15 @@ class TheStringTest {
         assertEquals(the("abcdefgh").substring(10, 15), "");
         assertEquals(the("abcdefgh").substring(-1, 0), "");
     }
+
+    @Test void replaceAt_replacesCharAtIndex(){
+        assertEquals(the("abc").replaceAt(0, 'x'), "xbc");
+        assertEquals(the("abc").replaceAt(1, 'y'), "ayc");
+        assertEquals(the("abc").replaceAt(2, 'z'), "abz");
+    }
+
+    @Test void replaceAt_indexOutOfString_returnsUnchangedString(){
+        assertEquals(the("abc").replaceAt(3, 'z'), "abc");
+        assertEquals(the("abc").replaceAt(-1, 'z'), "abc");
+    }
 }
