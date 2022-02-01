@@ -1,1 +1,2 @@
-gradle --info uploadArchives
+gradle --info publish
+#gradle --info uploadArchives
