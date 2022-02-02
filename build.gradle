@@ -45,6 +45,10 @@ signing {
     sign configurations.archives
 }
 
+signing {
+    sign publishing.publications.mavenJava
+}
+
 jacocoTestReport {
     reports {
         xml.enabled true
@@ -52,51 +56,6 @@ jacocoTestReport {
     }
 }
 check.dependsOn jacocoTestReport
-
-//uploadArchives {
-//    repositories {
-//        mavenDeployer {
-//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-//
-//            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-//                authentication(userName: ossrhUsername, password: ossrhPassword)
-//            }
-//
-//            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-//                authentication(userName: ossrhUsername, password: ossrhPassword)
-//            }
-//
-//            pom.project {
-//                name 'ZeLiba'
-//                packaging 'jar'
-//                // optionally artifactId can be defined here
-//                description 'DSL-ish helper to make the java comparison more readable'
-//                url 'https://github.com/dehasi/zeliba'
-//
-//                scm {
-//                    connection 'scm:git:git://github.com/dehasi/zeliba.git'
-//                    developerConnection 'scm:git:ssh://github.com:dehasi/zeliba.git'
-//                    url 'http://github.com/dehasi/zeliba/tree/master'
-//                }
-//
-//                licenses {
-//                    license {
-//                        name 'The Apache License, Version 2.0'
-//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    }
-//                }
-//
-//                developers {
-//                    developer {
-//                        id 'dehasi'
-//                        name 'Ravil'
-//                        email 'dehasi@dehasi.me'
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
 
 publishing {
     publications{
@@ -118,8 +77,8 @@ publishing {
 
                 licenses {
                     license {
-                        name = 'MIT License'
-                        url = 'http://www.opensource.org/licenses/mit-license.php'
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
                 developers {
@@ -150,6 +109,3 @@ publishing {
     }
 }
 
-signing {
-    sign publishing.publications.mavenJava
-}
