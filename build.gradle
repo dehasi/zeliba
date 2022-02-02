@@ -9,7 +9,7 @@ apply plugin: 'jacoco'
 
 group 'me.dehasi'
 archivesBaseName = 'zeliba'
-version '2022.01.30'
+version '2022.01.29'
 
 sourceCompatibility = 1.8
 
@@ -102,11 +102,13 @@ publishing {
     publications{
 
         mavenJava(MavenPublication){
+            from components.java
+            artifact tasks.sourcesJar
+            artifact tasks.javadocJar
 
             groupId = 'me.dehasi'
             artifactId = 'zeliba'
-            version = '2022.02.01'
-            from components.java
+            version = '2022.01.29'
 
             pom {
                 name = 'ZeLiba'
