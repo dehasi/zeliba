@@ -9,7 +9,7 @@ apply plugin: 'jacoco'
 
 group 'me.dehasi'
 archivesBaseName = 'zeliba'
-version '2022.01.29'
+version '2022.02.02'
 
 sourceCompatibility = 1.8
 
@@ -108,7 +108,7 @@ publishing {
 
             groupId = 'me.dehasi'
             artifactId = 'zeliba'
-            version = '2022.01.29'
+            version = version
 
             pom {
                 name = 'ZeLiba'
