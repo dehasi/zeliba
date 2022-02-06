@@ -1,1 +1,2 @@
-gradle --info uploadArchives
+gradle --info publish
+# login https://oss.sonatype.org/
