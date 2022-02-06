@@ -89,9 +89,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection= 'scm:git:git://github.com/dehasi/zeliba.git'
-                    developerConnection='scm:git:ssh://github.com:dehasi/zeliba.git'
-                    url='https://github.com/dehasi/zeliba'
+                    connection = 'scm:git:git://github.com/dehasi/zeliba.git'
+                    developerConnection = 'scm:git:ssh://github.com:dehasi/zeliba.git'
+                    url = 'https://github.com/dehasi/zeliba'
                 }
             }
         }
