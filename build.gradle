@@ -46,10 +46,6 @@ signing {
     sign configurations.archives
 }
 
-signing {
-    sign publishing.publications.mavenJava
-}
-
 jacocoTestReport {
     reports {
         xml.enabled true
@@ -60,18 +56,18 @@ check.dependsOn jacocoTestReport
 
 publishing {
     publications {
-        repositories {
-            maven {
-                name = "OSSRH"
-                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                credentials {
-                    username = project.ossrhUsername
-                    password = project.ossrhPassword
+        mavenJava(MavenPublication) {
+            repositories {
+                maven {
+                    name = "OSSRH"
+                    url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    credentials {
+                        username = project.ossrhUsername
+                        password = project.ossrhPassword
+                    }
                 }
             }
-        }
 
-        mavenJava(MavenPublication) {
             from components.java
             artifact tasks.sourcesJar
             artifact tasks.javadocJar
@@ -111,3 +107,6 @@ publishing {
     }
 }
 
+signing {
+    sign publishing.publications.mavenJava
+}
