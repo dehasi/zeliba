@@ -75,23 +75,25 @@ publishing {
                 url =  'https://github.com/dehasi/zeliba'
                 inceptionYear = '2020'
 
+                scm {
+                    connection = 'scm:git:git://github.com/dehasi/zeliba.git'
+                    developerConnection = 'scm:git:ssh://github.com:dehasi/zeliba.git'
+                    url = 'https://github.com/dehasi/zeliba'
+                }
+
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
                         url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
+
                 developers {
                     developer {
                         id = 'dehasi'
                         name = 'Ravil'
                         email = 'dehasi@protonmail.com'
                     }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/dehasi/zeliba.git'
-                    developerConnection = 'scm:git:ssh://github.com:dehasi/zeliba.git'
-                    url = 'https://github.com/dehasi/zeliba'
                 }
             }
         }
