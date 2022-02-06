@@ -9,7 +9,7 @@ apply plugin: 'jacoco'
 
 group 'me.dehasi'
 archivesBaseName = 'zeliba'
-version '2022.02.02'
+version 'LATEST-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
