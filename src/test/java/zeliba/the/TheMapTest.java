@@ -16,25 +16,18 @@ class TheMapTest {
 
     private final Map<String, String> map = singletonMap("1", "2");
 
-    @Test void isNull() {
-        assertFalse(the(emptyMap()).isNull());
-        assertTrue(the(null).isNull());
-    }
+    @Test void isEmpty() {
+        assertTrue(the(emptyMap()).isEmpty());
+        assertTrue(the(null).isEmpty());
 
-    @Test void isNullOrEmpty() {
-        assertTrue(the(emptyMap()).isNullOrEmpty());
-        assertTrue(the(null).isNullOrEmpty());
-        assertFalse(the(map).isNullOrEmpty());
-    }
-
-    @Test void isNotNull() {
-        assertTrue(the(emptyMap()).isNotNull());
-        assertFalse(the(null).isNotNull());
+        assertFalse(the(map).isEmpty());
     }
 
     @Test void isNotEmpty() {
         assertTrue(the(map).isNotEmpty());
+
         assertFalse(the(emptyMap()).isNotEmpty());
+        assertFalse(the(null).isNotEmpty());
     }
 
     @Test void contains() {

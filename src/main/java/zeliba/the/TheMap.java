@@ -6,28 +6,22 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
+import static java.util.Collections.emptyMap;
+
 public class TheMap<KEY, VALUE> {
 
     private final Map<KEY, VALUE> map;
 
     private TheMap(Map<KEY, VALUE> map) {
-        this.map = map;
+        this.map = map != null ? map : emptyMap();
     }
 
     public static <KEY, VALUE> TheMap<KEY, VALUE> the(Map<KEY, VALUE> map) {
         return new TheMap<>(map);
     }
 
-    public boolean isNull() {
-        return map == null;
-    }
-
-    public boolean isNullOrEmpty() {
-        return isNull() || map.isEmpty();
-    }
-
-    public boolean isNotNull() {
-        return !isNull();
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 
     public boolean isNotEmpty() {
