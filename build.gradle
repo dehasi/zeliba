@@ -58,9 +58,19 @@ jacocoTestReport {
 check.dependsOn jacocoTestReport
 
 publishing {
-    publications{
+    publications {
+        repositories {
+            maven {
+                name = "OSSRH"
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username = project.ossrhUsername
+                    password = project.ossrhPassword
+                }
+            }
+        }
 
-        mavenJava(MavenPublication){
+        mavenJava(MavenPublication) {
             from components.java
             artifact tasks.sourcesJar
             artifact tasks.javadocJar
@@ -95,17 +105,6 @@ publishing {
                         email = 'dehasi@protonmail.com'
                     }
                 }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "OSSRH"
-            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                username = project.ossrhUsername
-                password = project.ossrhPassword
             }
         }
     }
