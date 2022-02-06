@@ -43,6 +43,7 @@ artifacts {
 }
 
 signing {
+    required { gradle.taskGraph.hasTask("publish") }
     sign configurations.archives
 }
 
@@ -108,5 +109,6 @@ publishing {
 }
 
 signing {
+    required { gradle.taskGraph.hasTask("publish") }
     sign publishing.publications.mavenJava
 }
