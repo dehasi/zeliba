@@ -1,6 +1,7 @@
 package zeliba.the;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -79,8 +80,8 @@ class TheComparableTest {
 
     private static BigDecimal random(int range) {
         BigDecimal max = new BigDecimal(range);
-        BigDecimal randFromDouble = new BigDecimal(abs(Math.random()));
+        BigDecimal randFromDouble = BigDecimal.valueOf(abs(Math.random()));
         BigDecimal actualRandomDec = randFromDouble.multiply(max);
-        return actualRandomDec.setScale(2, BigDecimal.ROUND_DOWN);
+        return actualRandomDec.setScale(2, RoundingMode.DOWN);
     }
 }
