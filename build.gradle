@@ -42,11 +42,6 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-signing {
-    required { gradle.taskGraph.hasTask("publish") }
-    sign configurations.archives
-}
-
 jacocoTestReport {
     reports {
         xml.enabled true
