@@ -9,7 +9,12 @@ apply plugin: 'jacoco'
 
 group 'me.dehasi'
 archivesBaseName = 'zeliba'
-version 'LATEST-SNAPSHOT'
+
+if (project.hasProperty('releaseVersion')) {
+    project.version = project.releaseVersion
+}else {
+    project.version 'LATEST-SNAPSHOT'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
