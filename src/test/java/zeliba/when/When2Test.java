@@ -176,7 +176,7 @@ class When2Test {
         assertEquals("match", when(x, y).is(BI_FALSE).then("fail").is(BI_FALSE).or(1, 2).then("fail").orElse("match"));
     }
 
-    @Test void or_and_compexExample() {
+    @Test void or_and_complexExample() {
         int x = 1, y = 1;
 
         String result = when(x, y)
@@ -184,5 +184,7 @@ class When2Test {
             .isNot(1, 1).and(p -> p > 0, p -> p > 0).then("not 1, > 0")
             .is(1, 2).or(2, 1).or(1, 1).then("1 or 2")
             .orElseThrow();
+
+        assertEquals("1 or 2", result);
     }
 }

@@ -248,15 +248,11 @@ Grammatically correct fluent checks if a collection is null or is not empty
 
 ```java
 List<?> list = ...
-Set<?>  otherSet = ...
 
-if (the(list).isNotEmpty()) {
-    ...
-}
+if (the(list).isNotEmpty()) { ... }
 
-if (the(otherSet).isNullOrEmpty()) {
-    ...
-}
+Set<?> otherSet = null;
+if (the(otherSet).isEmpty()) { ... } // returns true
 ```
 
 ### TheMap

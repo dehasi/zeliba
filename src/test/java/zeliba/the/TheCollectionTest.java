@@ -10,24 +10,17 @@ import static zeliba.the.TheCollection.the;
 
 class TheCollectionTest {
 
-    @Test void isNull() {
-        assertFalse(the(emptyList()).isNull());
-        assertTrue(the(null).isNull());
-    }
+    @Test void isEmpty() {
+        assertTrue(the(emptyList()).isEmpty());
+        assertTrue(the(null).isEmpty());
 
-    @Test void isNullOrEmpty() {
-        assertTrue(the(emptyList()).isNullOrEmpty());
-        assertTrue(the(null).isNullOrEmpty());
-        assertFalse(the(singletonList(1)).isNullOrEmpty());
-    }
-
-    @Test void isNotNull() {
-        assertTrue(the(emptyList()).isNotNull());
-        assertFalse(the(null).isNotNull());
+        assertFalse(the(singletonList(1)).isEmpty());
     }
 
     @Test void isNotEmpty() {
-        assertFalse(the(emptyList()).isNotEmpty());
         assertTrue(the(singletonList(1)).isNotEmpty());
+
+        assertFalse(the(null).isNotEmpty());
+        assertFalse(the(emptyList()).isNotEmpty());
     }
 }
