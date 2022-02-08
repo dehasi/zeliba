@@ -12,7 +12,7 @@ archivesBaseName = 'zeliba'
 
 if (project.hasProperty('releaseVersion')) {
     project.version = project.releaseVersion
-}else {
+} else {
     project.version 'LATEST-SNAPSHOT'
 }
 
